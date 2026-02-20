@@ -1,0 +1,24 @@
+{
+  "vector_id": "core_0007_invalid_envelope_decode",
+  "group": "Core vectors",
+  "category": "core",
+  "description": "body bytes cannot decode as envelope",
+  "expected": {
+    "assertions": {
+      "envelope": {
+        "min_msg_id_bytes": 8,
+        "msg_type": 1,
+        "profile_id": 1,
+        "version": 1
+      }
+    },
+    "code": "INVALID_FRAME",
+    "evidence_type": "runtime",
+    "fixture": {
+      "bin_file": "core_0007_invalid_envelope_decode.bin"
+    },
+    "outcome": "reject",
+    "rejection_reason": "malformed envelope encoding",
+    "expected_error_code": "ERR_INVALID_FRAME"
+  }
+}

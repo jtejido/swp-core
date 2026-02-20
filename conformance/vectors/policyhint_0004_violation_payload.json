@@ -1,0 +1,20 @@
+{
+  "vector_id": "policyhint_0004_violation_payload",
+  "group": "SWP-POLICYHINT vectors",
+  "category": "policyhint",
+  "description": "violation payload includes key and scope references",
+  "expected": {
+    "assertions": {
+      "msg_type": 3,
+      "profile": "POLICYHINT",
+      "profile_id": 16,
+      "semantic_case": "positive-or-deterministic"
+    },
+    "code": "OK",
+    "evidence_type": "runtime",
+    "fixture": {
+      "bin_file": "policyhint_0004_violation_payload.bin"
+    },
+    "outcome": "accept"
+  }
+}

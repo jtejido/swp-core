@@ -1,0 +1,22 @@
+{
+  "vector_id": "state_0003_parent_missing",
+  "group": "SWP-STATE vectors",
+  "category": "state",
+  "description": "missing declared parent reference is rejected",
+  "expected": {
+    "assertions": {
+      "msg_type": 1,
+      "profile": "STATE",
+      "profile_id": 17,
+      "semantic_case": "deterministic-rejection"
+    },
+    "code": "INVALID_PROFILE_PAYLOAD",
+    "evidence_type": "runtime",
+    "fixture": {
+      "bin_file": "state_0003_parent_missing.bin"
+    },
+    "outcome": "reject",
+    "rejection_reason": "profile invariant violation",
+    "expected_error_code": "ERR_INVALID_PROFILE_PAYLOAD"
+  }
+}

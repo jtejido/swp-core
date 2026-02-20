@@ -1,0 +1,19 @@
+{
+  "vector_id": "mcp_0005_error_mapping_unknown_profile",
+  "group": "MCP mapping vectors",
+  "category": "mcp",
+  "description": "`UNKNOWN_PROFILE` mapped deterministically",
+  "expected": {
+    "assertions": {
+      "mapping": "UNKNOWN_PROFILE -\u003e -32601",
+      "msg_type": 2,
+      "profile": "MCPMAP"
+    },
+    "code": "OK",
+    "evidence_type": "runtime",
+    "fixture": {
+      "bin_file": "mcp_0005_error_mapping_unknown_profile.bin"
+    },
+    "outcome": "accept"
+  }
+}

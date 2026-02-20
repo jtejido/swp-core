@@ -1,0 +1,20 @@
+{
+  "vector_id": "mcp_0007_request_missing_id_invalid",
+  "group": "MCP mapping vectors",
+  "category": "mcp",
+  "description": "generated request without JSON-RPC `id` is rejected",
+  "expected": {
+    "assertions": {
+      "msg_type": 1,
+      "profile": "MCPMAP"
+    },
+    "code": "INVALID_MCP_PAYLOAD",
+    "evidence_type": "runtime",
+    "fixture": {
+      "bin_file": "mcp_0007_request_missing_id_invalid.bin"
+    },
+    "outcome": "reject",
+    "rejection_reason": "generated request missing JSON-RPC id",
+    "expected_error_code": "ERR_INVALID_MCP_PAYLOAD"
+  }
+}

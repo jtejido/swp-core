@@ -1,0 +1,22 @@
+{
+  "vector_id": "core_0031_optional_fields_no_semantic_override",
+  "group": "Core vectors",
+  "category": "core",
+  "description": "optional/extension fields do not change required-field semantics",
+  "expected": {
+    "assertions": {
+      "envelope": {
+        "min_msg_id_bytes": 8,
+        "msg_type": 1,
+        "profile_id": 1,
+        "version": 1
+      }
+    },
+    "code": "OK",
+    "evidence_type": "runtime",
+    "fixture": {
+      "bin_file": "core_0031_optional_fields_no_semantic_override.bin"
+    },
+    "outcome": "accept"
+  }
+}

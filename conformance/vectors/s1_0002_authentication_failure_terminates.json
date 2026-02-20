@@ -1,0 +1,19 @@
+{
+  "vector_id": "s1_0002_authentication_failure_terminates",
+  "group": "S1 binding vectors",
+  "category": "s1",
+  "description": "failed peer authentication terminates channel deterministically",
+  "expected": {
+    "assertions": {
+      "binding": "S1"
+    },
+    "code": "SECURITY_POLICY",
+    "evidence_type": "runtime",
+    "fixture": {
+      "bin_file": "s1_0002_authentication_failure_terminates.bin"
+    },
+    "outcome": "reject",
+    "rejection_reason": "authentication failure terminates channel",
+    "expected_error_code": "ERR_SECURITY_POLICY"
+  }
+}

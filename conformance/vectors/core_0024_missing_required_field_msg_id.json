@@ -1,0 +1,24 @@
+{
+  "vector_id": "core_0024_missing_required_field_msg_id",
+  "group": "Core vectors",
+  "category": "core",
+  "description": "envelope missing/invalid `msg_id` field is rejected",
+  "expected": {
+    "assertions": {
+      "envelope": {
+        "min_msg_id_bytes": 8,
+        "msg_type": 1,
+        "profile_id": 1,
+        "version": 1
+      }
+    },
+    "code": "INVALID_ENVELOPE",
+    "evidence_type": "runtime",
+    "fixture": {
+      "bin_file": "core_0024_missing_required_field_msg_id.bin"
+    },
+    "outcome": "reject",
+    "rejection_reason": "missing or empty msg_id",
+    "expected_error_code": "ERR_INVALID_ENVELOPE"
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "vector_id": "a2a_0005_duplicate_terminal_result",
+  "group": "A2A vectors",
+  "category": "a2a",
+  "description": "duplicate terminal result handled idempotently",
+  "expected": {
+    "assertions": {
+      "msg_type": 4,
+      "profile": "A2A",
+      "profile_id": 2,
+      "semantic_case": "positive-or-deterministic"
+    },
+    "code": "OK",
+    "evidence_type": "runtime",
+    "fixture": {
+      "bin_file": "a2a_0005_duplicate_terminal_result.bin"
+    },
+    "outcome": "accept"
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "vector_id": "e1_0002_varint_too_long_invalid",
+  "group": "Encoding binding E1 vectors",
+  "category": "e1",
+  "description": "varint longer than 10 bytes is rejected",
+  "expected": {
+    "assertions": {
+      "encoding": "E1"
+    },
+    "code": "INVALID_FRAME",
+    "evidence_type": "runtime",
+    "fixture": {
+      "bin_file": "e1_0002_varint_too_long_invalid.bin"
+    },
+    "outcome": "reject",
+    "rejection_reason": "varint longer than 10 bytes",
+    "expected_error_code": "ERR_INVALID_FRAME"
+  }
+}

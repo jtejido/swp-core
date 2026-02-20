@@ -1,0 +1,18 @@
+{
+  "vector_id": "mcp_0009_notification_with_response_violation",
+  "group": "MCP mapping vectors",
+  "category": "mcp",
+  "description": "notification path does not require or emit response",
+  "expected": {
+    "assertions": {
+      "msg_type": 3,
+      "profile": "MCPMAP"
+    },
+    "code": "OK",
+    "evidence_type": "runtime",
+    "fixture": {
+      "bin_file": "mcp_0009_notification_with_response_violation.bin"
+    },
+    "outcome": "accept"
+  }
+}

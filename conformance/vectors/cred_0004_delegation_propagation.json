@@ -1,0 +1,20 @@
+{
+  "vector_id": "cred_0004_delegation_propagation",
+  "group": "SWP-CRED vectors",
+  "category": "cred",
+  "description": "valid delegation chain propagation is deterministic",
+  "expected": {
+    "assertions": {
+      "msg_type": 1,
+      "profile": "CRED",
+      "profile_id": 15,
+      "semantic_case": "positive-or-deterministic"
+    },
+    "code": "OK",
+    "evidence_type": "runtime",
+    "fixture": {
+      "bin_file": "cred_0004_delegation_propagation.bin"
+    },
+    "outcome": "accept"
+  }
+}

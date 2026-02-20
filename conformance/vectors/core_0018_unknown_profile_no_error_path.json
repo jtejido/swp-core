@@ -1,0 +1,24 @@
+{
+  "vector_id": "core_0018_unknown_profile_no_error_path",
+  "group": "Core vectors",
+  "category": "core",
+  "description": "receiver closes stream on unknown profile",
+  "expected": {
+    "assertions": {
+      "envelope": {
+        "min_msg_id_bytes": 8,
+        "msg_type": 1,
+        "profile_id": 1,
+        "version": 1
+      }
+    },
+    "code": "UNKNOWN_PROFILE",
+    "evidence_type": "runtime",
+    "fixture": {
+      "bin_file": "core_0018_unknown_profile_no_error_path.bin"
+    },
+    "outcome": "reject",
+    "rejection_reason": "receiver closes stream for unknown profile without response",
+    "expected_error_code": "ERR_UNKNOWN_PROFILE"
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "vector_id": "core_0025_missing_required_field_ts_unix_ms",
+  "group": "Core vectors",
+  "category": "core",
+  "description": "envelope missing/invalid timestamp is rejected when required by policy",
+  "expected": {
+    "assertions": {
+      "envelope": {
+        "min_msg_id_bytes": 8,
+        "msg_type": 1,
+        "profile_id": 1,
+        "version": 1
+      },
+      "policy": {
+        "timestamp_required": true
+      }
+    },
+    "code": "INVALID_ENVELOPE",
+    "evidence_type": "runtime",
+    "fixture": {
+      "bin_file": "core_0025_missing_required_field_ts_unix_ms.bin"
+    },
+    "outcome": "reject",
+    "rejection_reason": "missing/invalid timestamp when policy requires it",
+    "expected_error_code": "ERR_INVALID_ENVELOPE"
+  }
+}

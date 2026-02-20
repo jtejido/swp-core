@@ -1,0 +1,20 @@
+{
+  "vector_id": "a2a_0008_duplicate_task_same_payload_idempotent",
+  "group": "A2A vectors",
+  "category": "a2a",
+  "description": "duplicate task with semantically equivalent payload is handled idempotently",
+  "expected": {
+    "assertions": {
+      "msg_type": 2,
+      "profile": "A2A",
+      "profile_id": 2,
+      "semantic_case": "positive-or-deterministic"
+    },
+    "code": "OK",
+    "evidence_type": "runtime",
+    "fixture": {
+      "bin_file": "a2a_0008_duplicate_task_same_payload_idempotent.bin"
+    },
+    "outcome": "accept"
+  }
+}

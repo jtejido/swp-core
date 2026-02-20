@@ -1,0 +1,24 @@
+{
+  "vector_id": "core_0004_invalid_truncated_prefix",
+  "group": "Core vectors",
+  "category": "core",
+  "description": "fewer than 4 bytes available for prefix",
+  "expected": {
+    "assertions": {
+      "envelope": {
+        "min_msg_id_bytes": 8,
+        "msg_type": 1,
+        "profile_id": 1,
+        "version": 1
+      }
+    },
+    "code": "INVALID_FRAME",
+    "evidence_type": "runtime",
+    "fixture": {
+      "bin_file": "core_0004_invalid_truncated_prefix.bin"
+    },
+    "outcome": "reject",
+    "rejection_reason": "truncated length prefix",
+    "expected_error_code": "ERR_INVALID_FRAME"
+  }
+}

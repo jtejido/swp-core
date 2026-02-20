@@ -1,0 +1,20 @@
+{
+  "vector_id": "tooldisc_0002_get_success",
+  "group": "SWP-TOOLDISC vectors",
+  "category": "tooldisc",
+  "description": "get request returns deterministic descriptor payload",
+  "expected": {
+    "assertions": {
+      "msg_type": 3,
+      "profile": "TOOLDISC",
+      "profile_id": 11,
+      "semantic_case": "positive-or-deterministic"
+    },
+    "code": "OK",
+    "evidence_type": "runtime",
+    "fixture": {
+      "bin_file": "tooldisc_0002_get_success.bin"
+    },
+    "outcome": "accept"
+  }
+}

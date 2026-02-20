@@ -1,0 +1,18 @@
+{
+  "vector_id": "core_0033_extensibility_backward_compatibility",
+  "group": "Core vectors",
+  "category": "core",
+  "description": "publication/process check validates compatibility policy for versioned changes",
+  "expected": {
+    "assertions": {
+      "artifact": "docs/versioning-compatibility.md",
+      "policy": "backward-compatibility-review"
+    },
+    "code": "COMPATIBILITY_POLICY",
+    "evidence_type": "process",
+    "fixture": {
+      "evidence_file": "core_0033_extensibility_backward_compatibility.evidence.md"
+    },
+    "outcome": "process_check"
+  }
+}

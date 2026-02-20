@@ -1,0 +1,24 @@
+{
+  "vector_id": "core_0028_error_mapping_invalid_frame",
+  "group": "Core vectors",
+  "category": "core",
+  "description": "when error response path exists, framing failure maps to `INVALID_FRAME`",
+  "expected": {
+    "assertions": {
+      "envelope": {
+        "min_msg_id_bytes": 8,
+        "msg_type": 1,
+        "profile_id": 1,
+        "version": 1
+      }
+    },
+    "code": "INVALID_FRAME",
+    "evidence_type": "runtime",
+    "fixture": {
+      "bin_file": "core_0028_error_mapping_invalid_frame.bin"
+    },
+    "outcome": "reject",
+    "rejection_reason": "framing failure mapped to INVALID_FRAME",
+    "expected_error_code": "ERR_INVALID_FRAME"
+  }
+}

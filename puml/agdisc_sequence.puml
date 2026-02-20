@@ -1,0 +1,7 @@
+@startuml
+title AGDISC: discover agent card
+participant "Client" as C
+participant "Agent Host" as H
+C -> H : AGDISC_GET
+H --> C : AGDISC_DOC
+@enduml

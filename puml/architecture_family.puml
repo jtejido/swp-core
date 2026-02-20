@@ -1,0 +1,11 @@
+@startuml
+skinparam shadowing false
+title SWP Family: Core + Profiles + Bindings
+
+rectangle "SWP Core\n(frames + envelope + registry + limits)" as Core
+rectangle "Bindings\n(S1 authenticated confidential channel,\ntransport bindings)" as Bind
+rectangle "Profiles\n(AGDISC, TOOLDISC, RPC, EVENTS, ARTIFACT,\nCRED, POLICYHINT, STATE, OBS, RELAY)" as Prof
+
+Bind --> Core
+Prof --> Core
+@enduml

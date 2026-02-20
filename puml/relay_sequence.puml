@@ -1,0 +1,9 @@
+@startuml
+title RELAY: store-and-forward
+participant "Publisher" as P
+participant "Relay" as R
+participant "Consumer" as C
+P -> R : RELAY_PUBLISH
+R -> C : deliver
+C --> R : RELAY_ACK
+@enduml

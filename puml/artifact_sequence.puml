@@ -1,0 +1,10 @@
+@startuml
+title ARTIFACT: offer and chunk transfer
+participant "Sender" as S
+participant "Receiver" as R
+S -> R : ART_OFFER
+R -> S : ART_GET
+S --> R : ART_CHUNK
+S --> R : ART_CHUNK
+R --> S : ART_ACK (optional)
+@enduml

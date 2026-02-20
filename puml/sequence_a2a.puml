@@ -1,0 +1,15 @@
+
+@startuml
+title Sequence: A2A task lifecycle via SWP A2A Profile
+
+participant "Supervisor Agent" as Sup
+participant "SWP Core" as SW
+participant "Worker Agent" as W
+
+Sup -> SW : Task(task_id)
+SW -> W : dispatch profile_id=2
+W -> SW : Event(progress)
+SW -> Sup : Event(progress)
+W -> SW : Result(ok/fail)
+SW -> Sup : Result
+@enduml

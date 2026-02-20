@@ -1,0 +1,49 @@
+syntax = "proto3";
+package swp.p1.swp.artifact.v1;
+
+// Normative P1 schema annex for SWP-ARTIFACT payloads.
+
+message ArtOffer {
+  string artifact_id = 1;
+  uint64 total_size = 2;
+  string hash_alg = 3;
+  bytes hash = 4;
+  bytes metadata = 5;
+}
+
+message ArtGet {
+  string artifact_id = 1;
+  uint64 start = 2;
+  uint64 end = 3;
+  string resume_token = 4;
+}
+
+message ArtChunk {
+  string artifact_id = 1;
+  uint64 chunk_index = 2;
+  uint64 offset = 3;
+  bytes data = 4;
+  bool is_terminal = 5;
+  string resume_token = 6;
+}
+
+message ArtAck {
+  string artifact_id = 1;
+  uint64 chunk_index = 2;
+}
+
+message ArtErr {
+  string code = 1;
+  string message = 2;
+  bool retryable = 3;
+}
+
+message Payload {
+  oneof body {
+    ArtOffer offer = 1;
+    ArtGet get = 2;
+    ArtChunk chunk = 3;
+    ArtAck ack = 4;
+    ArtErr err = 5;
+  }
+}

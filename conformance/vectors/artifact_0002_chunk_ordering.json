@@ -1,0 +1,20 @@
+{
+  "vector_id": "artifact_0002_chunk_ordering",
+  "group": "SWP-ARTIFACT vectors",
+  "category": "artifact",
+  "description": "out-of-order chunk behavior is deterministic",
+  "expected": {
+    "assertions": {
+      "msg_type": 3,
+      "profile": "ARTIFACT",
+      "profile_id": 14,
+      "semantic_case": "positive-or-deterministic"
+    },
+    "code": "OK",
+    "evidence_type": "runtime",
+    "fixture": {
+      "bin_file": "artifact_0002_chunk_ordering.bin"
+    },
+    "outcome": "accept"
+  }
+}

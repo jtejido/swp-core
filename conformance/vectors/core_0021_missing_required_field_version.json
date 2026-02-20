@@ -1,0 +1,24 @@
+{
+  "vector_id": "core_0021_missing_required_field_version",
+  "group": "Core vectors",
+  "category": "core",
+  "description": "envelope missing/invalid `version` field is rejected",
+  "expected": {
+    "assertions": {
+      "envelope": {
+        "min_msg_id_bytes": 8,
+        "msg_type": 1,
+        "profile_id": 1,
+        "version": 1
+      }
+    },
+    "code": "UNSUPPORTED_VERSION",
+    "evidence_type": "runtime",
+    "fixture": {
+      "bin_file": "core_0021_missing_required_field_version.bin"
+    },
+    "outcome": "reject",
+    "rejection_reason": "missing or invalid version",
+    "expected_error_code": "ERR_UNSUPPORTED_VERSION"
+  }
+}

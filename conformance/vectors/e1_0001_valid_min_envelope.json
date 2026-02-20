@@ -1,0 +1,17 @@
+{
+  "vector_id": "e1_0001_valid_min_envelope",
+  "group": "Encoding binding E1 vectors",
+  "category": "e1",
+  "description": "valid E1-encoded envelope decodes successfully",
+  "expected": {
+    "assertions": {
+      "encoding": "E1"
+    },
+    "code": "OK",
+    "evidence_type": "runtime",
+    "fixture": {
+      "bin_file": "e1_0001_valid_min_envelope.bin"
+    },
+    "outcome": "accept"
+  }
+}

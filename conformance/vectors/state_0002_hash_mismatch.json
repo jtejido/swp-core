@@ -1,0 +1,22 @@
+{
+  "vector_id": "state_0002_hash_mismatch",
+  "group": "SWP-STATE vectors",
+  "category": "state",
+  "description": "hash/state_id mismatch is rejected",
+  "expected": {
+    "assertions": {
+      "msg_type": 1,
+      "profile": "STATE",
+      "profile_id": 17,
+      "semantic_case": "deterministic-rejection"
+    },
+    "code": "INVALID_PROFILE_PAYLOAD",
+    "evidence_type": "runtime",
+    "fixture": {
+      "bin_file": "state_0002_hash_mismatch.bin"
+    },
+    "outcome": "reject",
+    "rejection_reason": "profile invariant violation",
+    "expected_error_code": "ERR_INVALID_PROFILE_PAYLOAD"
+  }
+}

@@ -1,0 +1,38 @@
+syntax = "proto3";
+package swp.p1.swp.obs.v1;
+
+// Normative P1 schema annex for SWP-OBS payloads.
+
+message ObsSet {
+  string traceparent = 1;
+  string tracestate = 2;
+  bytes msg_id = 3;
+  bytes task_id = 4;
+  bytes rpc_id = 5;
+}
+
+message ObsGet {
+  bool include_current = 1;
+}
+
+message ObsDoc {
+  string traceparent = 1;
+  string tracestate = 2;
+  bytes msg_id = 3;
+  bytes task_id = 4;
+  bytes rpc_id = 5;
+}
+
+message ObsErr {
+  string code = 1;
+  string message = 2;
+}
+
+message Payload {
+  oneof body {
+    ObsSet set = 1;
+    ObsGet get = 2;
+    ObsDoc doc = 3;
+    ObsErr err = 4;
+  }
+}

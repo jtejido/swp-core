@@ -1,0 +1,22 @@
+{
+  "vector_id": "agdisc_0006_unsupported_msg_type",
+  "group": "SWP-AGDISC vectors",
+  "category": "agdisc",
+  "description": "unsupported AGDISC `msg_type` is rejected",
+  "expected": {
+    "assertions": {
+      "msg_type": 99,
+      "profile": "AGDISC",
+      "profile_id": 10,
+      "semantic_case": "deterministic-rejection"
+    },
+    "code": "UNSUPPORTED_MSG_TYPE",
+    "evidence_type": "runtime",
+    "fixture": {
+      "bin_file": "agdisc_0006_unsupported_msg_type.bin"
+    },
+    "outcome": "reject",
+    "rejection_reason": "unsupported profile msg_type",
+    "expected_error_code": "ERR_UNSUPPORTED_MSG_TYPE"
+  }
+}

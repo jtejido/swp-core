@@ -1,0 +1,20 @@
+{
+  "vector_id": "events_0003_correlation_propagation",
+  "group": "SWP-EVENTS vectors",
+  "category": "events",
+  "description": "correlation keys are preserved end-to-end",
+  "expected": {
+    "assertions": {
+      "msg_type": 1,
+      "profile": "EVENTS",
+      "profile_id": 13,
+      "semantic_case": "positive-or-deterministic"
+    },
+    "code": "OK",
+    "evidence_type": "runtime",
+    "fixture": {
+      "bin_file": "events_0003_correlation_propagation.bin"
+    },
+    "outcome": "accept"
+  }
+}

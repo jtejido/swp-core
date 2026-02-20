@@ -1,0 +1,20 @@
+{
+  "vector_id": "artifact_0001_offer_get_success",
+  "group": "SWP-ARTIFACT vectors",
+  "category": "artifact",
+  "description": "artifact offer and get lifecycle succeeds",
+  "expected": {
+    "assertions": {
+      "msg_type": 1,
+      "profile": "ARTIFACT",
+      "profile_id": 14,
+      "semantic_case": "positive-or-deterministic"
+    },
+    "code": "OK",
+    "evidence_type": "runtime",
+    "fixture": {
+      "bin_file": "artifact_0001_offer_get_success.bin"
+    },
+    "outcome": "accept"
+  }
+}

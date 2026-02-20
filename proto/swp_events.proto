@@ -1,0 +1,46 @@
+syntax = "proto3";
+package swp.p1.swp.events.v1;
+
+// Normative P1 schema annex for SWP-EVENTS payloads.
+
+message EventRecord {
+  string event_id = 1;
+  string event_type = 2;
+  string severity = 3;
+  uint64 ts_unix_ms = 4;
+  bytes msg_id = 5;
+  bytes task_id = 6;
+  bytes rpc_id = 7;
+  bytes body = 8;
+}
+
+message EvtPublish {
+  EventRecord event = 1;
+}
+
+message EvtSubscribe {
+  string filter = 1;
+}
+
+message EvtUnsubscribe {
+  string subscription_id = 1;
+}
+
+message EvtBatch {
+  repeated EventRecord events = 1;
+}
+
+message EvtErr {
+  string code = 1;
+  string message = 2;
+}
+
+message Payload {
+  oneof body {
+    EvtPublish publish = 1;
+    EvtSubscribe subscribe = 2;
+    EvtUnsubscribe unsubscribe = 3;
+    EvtBatch batch = 4;
+    EvtErr err = 5;
+  }
+}

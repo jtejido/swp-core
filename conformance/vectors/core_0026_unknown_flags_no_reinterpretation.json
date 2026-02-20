@@ -1,0 +1,22 @@
+{
+  "vector_id": "core_0026_unknown_flags_no_reinterpretation",
+  "group": "Core vectors",
+  "category": "core",
+  "description": "unknown flags do not alter interpretation of known fields",
+  "expected": {
+    "assertions": {
+      "envelope": {
+        "min_msg_id_bytes": 8,
+        "msg_type": 1,
+        "profile_id": 1,
+        "version": 1
+      }
+    },
+    "code": "OK",
+    "evidence_type": "runtime",
+    "fixture": {
+      "bin_file": "core_0026_unknown_flags_no_reinterpretation.bin"
+    },
+    "outcome": "accept"
+  }
+}

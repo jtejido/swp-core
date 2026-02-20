@@ -1,0 +1,20 @@
+{
+  "vector_id": "rpc_0005_idempotency_replay",
+  "group": "SWP-RPC vectors",
+  "category": "rpc",
+  "description": "idempotency-key replay behavior is deterministic",
+  "expected": {
+    "assertions": {
+      "msg_type": 1,
+      "profile": "RPC",
+      "profile_id": 12,
+      "semantic_case": "positive-or-deterministic"
+    },
+    "code": "OK",
+    "evidence_type": "runtime",
+    "fixture": {
+      "bin_file": "rpc_0005_idempotency_replay.bin"
+    },
+    "outcome": "accept"
+  }
+}

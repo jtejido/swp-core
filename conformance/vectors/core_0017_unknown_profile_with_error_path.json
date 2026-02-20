@@ -1,0 +1,24 @@
+{
+  "vector_id": "core_0017_unknown_profile_with_error_path",
+  "group": "Core vectors",
+  "category": "core",
+  "description": "receiver returns `UNKNOWN_PROFILE`",
+  "expected": {
+    "assertions": {
+      "envelope": {
+        "min_msg_id_bytes": 8,
+        "msg_type": 1,
+        "profile_id": 1,
+        "version": 1
+      }
+    },
+    "code": "UNKNOWN_PROFILE",
+    "evidence_type": "runtime",
+    "fixture": {
+      "bin_file": "core_0017_unknown_profile_with_error_path.bin"
+    },
+    "outcome": "reject",
+    "rejection_reason": "receiver returns unknown profile error",
+    "expected_error_code": "ERR_UNKNOWN_PROFILE"
+  }
+}

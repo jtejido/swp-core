@@ -1,0 +1,24 @@
+{
+  "vector_id": "core_0015_future_timestamp",
+  "group": "Core vectors",
+  "category": "core",
+  "description": "timestamp too far in the future",
+  "expected": {
+    "assertions": {
+      "envelope": {
+        "min_msg_id_bytes": 8,
+        "msg_type": 1,
+        "profile_id": 1,
+        "version": 1
+      }
+    },
+    "code": "INVALID_ENVELOPE",
+    "evidence_type": "runtime",
+    "fixture": {
+      "bin_file": "core_0015_future_timestamp.bin"
+    },
+    "outcome": "reject",
+    "rejection_reason": "timestamp too far in the future",
+    "expected_error_code": "ERR_INVALID_ENVELOPE"
+  }
+}

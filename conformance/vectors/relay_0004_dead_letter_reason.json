@@ -1,0 +1,20 @@
+{
+  "vector_id": "relay_0004_dead_letter_reason",
+  "group": "SWP-RELAY vectors",
+  "category": "relay",
+  "description": "dead-letter behavior includes deterministic reason code",
+  "expected": {
+    "assertions": {
+      "msg_type": 4,
+      "profile": "RELAY",
+      "profile_id": 19,
+      "semantic_case": "positive-or-deterministic"
+    },
+    "code": "OK",
+    "evidence_type": "runtime",
+    "fixture": {
+      "bin_file": "relay_0004_dead_letter_reason.bin"
+    },
+    "outcome": "accept"
+  }
+}

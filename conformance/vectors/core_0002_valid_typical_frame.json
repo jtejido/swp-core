@@ -1,0 +1,22 @@
+{
+  "vector_id": "core_0002_valid_typical_frame",
+  "group": "Core vectors",
+  "category": "core",
+  "description": "valid frame with common payload and 16-byte `msg_id`",
+  "expected": {
+    "assertions": {
+      "envelope": {
+        "min_msg_id_bytes": 8,
+        "msg_type": 1,
+        "profile_id": 1,
+        "version": 1
+      }
+    },
+    "code": "OK",
+    "evidence_type": "runtime",
+    "fixture": {
+      "bin_file": "core_0002_valid_typical_frame.bin"
+    },
+    "outcome": "accept"
+  }
+}

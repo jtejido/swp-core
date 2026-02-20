@@ -1,0 +1,18 @@
+{
+  "vector_id": "s1_0006_timestamp_freshness_disabled_documented",
+  "group": "S1 binding vectors",
+  "category": "s1",
+  "description": "behavior matches explicit policy when freshness checks are disabled",
+  "expected": {
+    "assertions": {
+      "binding": "S1",
+      "policy": "timestamp freshness disabled and documented"
+    },
+    "code": "OK",
+    "evidence_type": "runtime",
+    "fixture": {
+      "bin_file": "s1_0006_timestamp_freshness_disabled_documented.bin"
+    },
+    "outcome": "accept"
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "name": "poc_0002_valid_swprpc_request",
+  "bin": "poc_0002_valid_swprpc_request.bin",
+  "expect": {
+    "ok": true,
+    "code": "OK",
+    "version": 1,
+    "profile_id": 12,
+    "msg_type": 1,
+    "min_payload_len": 10
+  }
+}

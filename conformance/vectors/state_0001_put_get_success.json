@@ -1,0 +1,20 @@
+{
+  "vector_id": "state_0001_put_get_success",
+  "group": "SWP-STATE vectors",
+  "category": "state",
+  "description": "state put/get lifecycle succeeds",
+  "expected": {
+    "assertions": {
+      "msg_type": 2,
+      "profile": "STATE",
+      "profile_id": 17,
+      "semantic_case": "positive-or-deterministic"
+    },
+    "code": "OK",
+    "evidence_type": "runtime",
+    "fixture": {
+      "bin_file": "state_0001_put_get_success.bin"
+    },
+    "outcome": "accept"
+  }
+}

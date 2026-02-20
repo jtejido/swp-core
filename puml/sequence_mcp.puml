@@ -1,0 +1,19 @@
+
+@startuml
+title Sequence: MCP tool call via SWP MCP Mapping Profile
+
+actor User
+participant "MCP Client (JSON-RPC)" as MCP
+participant "Bridge/Adapter" as B
+participant "SWP Core" as SW
+participant "MCP Tool Service" as Tool
+
+User -> MCP : prompt
+MCP -> B : JSON-RPC Request
+B -> SW : Frame(Envelope(profile_id=1, payload=opaque JSON))
+SW -> Tool : Dispatch to MCPMAP handler
+Tool -> SW : Frame(Envelope(profile_id=1, payload=opaque JSON response))
+SW -> B : response frame
+B -> MCP : JSON-RPC Response
+MCP -> User : answer
+@enduml

@@ -1,0 +1,17 @@
+{
+  "vector_id": "e1_0006_unknown_extension_ignored",
+  "group": "Encoding binding E1 vectors",
+  "category": "e1",
+  "description": "unknown extension TLV type is ignored without changing known field semantics",
+  "expected": {
+    "assertions": {
+      "encoding": "E1"
+    },
+    "code": "OK",
+    "evidence_type": "runtime",
+    "fixture": {
+      "bin_file": "e1_0006_unknown_extension_ignored.bin"
+    },
+    "outcome": "accept"
+  }
+}

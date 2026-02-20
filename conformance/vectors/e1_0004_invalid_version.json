@@ -1,0 +1,19 @@
+{
+  "vector_id": "e1_0004_invalid_version",
+  "group": "Encoding binding E1 vectors",
+  "category": "e1",
+  "description": "E1 envelope version not equal to 1 is rejected",
+  "expected": {
+    "assertions": {
+      "encoding": "E1"
+    },
+    "code": "UNSUPPORTED_VERSION",
+    "evidence_type": "runtime",
+    "fixture": {
+      "bin_file": "e1_0004_invalid_version.bin"
+    },
+    "outcome": "reject",
+    "rejection_reason": "E1 version must equal 1",
+    "expected_error_code": "ERR_UNSUPPORTED_VERSION"
+  }
+}

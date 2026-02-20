@@ -1,0 +1,7 @@
+@startuml
+title OBS: propagate trace context
+participant "Hop A" as A
+participant "Hop B" as B
+A -> B : request + trace context
+B --> A : response + context
+@enduml

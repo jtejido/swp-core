@@ -1,0 +1,18 @@
+{
+  "vector_id": "mcp_0001_request_roundtrip",
+  "group": "MCP mapping vectors",
+  "category": "mcp",
+  "description": "JSON-RPC request bytes preserved exactly end-to-end",
+  "expected": {
+    "assertions": {
+      "msg_type": 1,
+      "profile": "MCPMAP"
+    },
+    "code": "OK",
+    "evidence_type": "runtime",
+    "fixture": {
+      "bin_file": "mcp_0001_request_roundtrip.bin"
+    },
+    "outcome": "accept"
+  }
+}

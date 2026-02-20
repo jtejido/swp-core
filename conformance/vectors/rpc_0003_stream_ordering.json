@@ -1,0 +1,20 @@
+{
+  "vector_id": "rpc_0003_stream_ordering",
+  "group": "SWP-RPC vectors",
+  "category": "rpc",
+  "description": "stream items preserve sequence order per rpc_id",
+  "expected": {
+    "assertions": {
+      "msg_type": 4,
+      "profile": "RPC",
+      "profile_id": 12,
+      "semantic_case": "positive-or-deterministic"
+    },
+    "code": "OK",
+    "evidence_type": "runtime",
+    "fixture": {
+      "bin_file": "rpc_0003_stream_ordering.bin"
+    },
+    "outcome": "accept"
+  }
+}

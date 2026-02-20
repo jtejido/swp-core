@@ -1,0 +1,9 @@
+@startuml
+title STATE: put/get
+participant "Client" as C
+participant "State Store" as S
+C -> S : STATE_PUT
+S --> C : ACK
+C -> S : STATE_GET
+S --> C : bytes
+@enduml

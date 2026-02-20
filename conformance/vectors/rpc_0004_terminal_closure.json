@@ -1,0 +1,20 @@
+{
+  "vector_id": "rpc_0004_terminal_closure",
+  "group": "SWP-RPC vectors",
+  "category": "rpc",
+  "description": "no stream item accepted after terminal response/error",
+  "expected": {
+    "assertions": {
+      "msg_type": 4,
+      "profile": "RPC",
+      "profile_id": 12,
+      "semantic_case": "positive-or-deterministic"
+    },
+    "code": "OK",
+    "evidence_type": "runtime",
+    "fixture": {
+      "bin_file": "rpc_0004_terminal_closure.bin"
+    },
+    "outcome": "accept"
+  }
+}

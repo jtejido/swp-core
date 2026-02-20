@@ -1,0 +1,20 @@
+{
+  "vector_id": "events_0002_ordering",
+  "group": "SWP-EVENTS vectors",
+  "category": "events",
+  "description": "per-stream event ordering is preserved",
+  "expected": {
+    "assertions": {
+      "msg_type": 1,
+      "profile": "EVENTS",
+      "profile_id": 13,
+      "semantic_case": "positive-or-deterministic"
+    },
+    "code": "OK",
+    "evidence_type": "runtime",
+    "fixture": {
+      "bin_file": "events_0002_ordering.bin"
+    },
+    "outcome": "accept"
+  }
+}

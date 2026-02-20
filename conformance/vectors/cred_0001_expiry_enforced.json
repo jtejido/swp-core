@@ -1,0 +1,22 @@
+{
+  "vector_id": "cred_0001_expiry_enforced",
+  "group": "SWP-CRED vectors",
+  "category": "cred",
+  "description": "expired credential/delegation is rejected",
+  "expected": {
+    "assertions": {
+      "msg_type": 1,
+      "profile": "CRED",
+      "profile_id": 15,
+      "semantic_case": "deterministic-rejection"
+    },
+    "code": "INVALID_PROFILE_PAYLOAD",
+    "evidence_type": "runtime",
+    "fixture": {
+      "bin_file": "cred_0001_expiry_enforced.bin"
+    },
+    "outcome": "reject",
+    "rejection_reason": "profile invariant violation",
+    "expected_error_code": "ERR_INVALID_PROFILE_PAYLOAD"
+  }
+}

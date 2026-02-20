@@ -1,0 +1,35 @@
+syntax = "proto3";
+package swp.p1.swp.cred.v1;
+
+// Normative P1 schema annex for SWP-CRED payloads.
+
+message CredPresent {
+  string cred_type = 1;
+  bytes credential = 2;
+  bytes chain_id = 3;
+}
+
+message CredDelegate {
+  bytes chain_id = 1;
+  bytes delegation = 2;
+  uint64 expires_at_unix_ms = 3;
+}
+
+message CredRevoke {
+  bytes chain_id = 1;
+  string reason = 2;
+}
+
+message CredErr {
+  string code = 1;
+  string message = 2;
+}
+
+message Payload {
+  oneof body {
+    CredPresent present = 1;
+    CredDelegate delegate = 2;
+    CredRevoke revoke = 3;
+    CredErr err = 4;
+  }
+}

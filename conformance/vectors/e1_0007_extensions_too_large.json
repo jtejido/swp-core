@@ -1,0 +1,19 @@
+{
+  "vector_id": "e1_0007_extensions_too_large",
+  "group": "Encoding binding E1 vectors",
+  "category": "e1",
+  "description": "extension block exceeding MAX_EXT_BYTES is rejected",
+  "expected": {
+    "assertions": {
+      "encoding": "E1"
+    },
+    "code": "INVALID_ENVELOPE",
+    "evidence_type": "runtime",
+    "fixture": {
+      "bin_file": "e1_0007_extensions_too_large.bin"
+    },
+    "outcome": "reject",
+    "rejection_reason": "extensions exceed MAX_EXT_BYTES",
+    "expected_error_code": "ERR_INVALID_ENVELOPE"
+  }
+}

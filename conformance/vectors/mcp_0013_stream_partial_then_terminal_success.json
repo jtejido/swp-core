@@ -1,0 +1,19 @@
+{
+  "vector_id": "mcp_0013_stream_partial_then_terminal_success",
+  "group": "MCP mapping vectors",
+  "category": "mcp",
+  "description": "partial notifications followed by terminal response",
+  "expected": {
+    "assertions": {
+      "msg_type": 3,
+      "profile": "MCPMAP",
+      "scenario": "partial notifications followed by terminal success response"
+    },
+    "code": "OK",
+    "evidence_type": "runtime",
+    "fixture": {
+      "bin_file": "mcp_0013_stream_partial_then_terminal_success.bin"
+    },
+    "outcome": "accept"
+  }
+}

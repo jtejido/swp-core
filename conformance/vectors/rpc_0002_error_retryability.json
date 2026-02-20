@@ -1,0 +1,20 @@
+{
+  "vector_id": "rpc_0002_error_retryability",
+  "group": "SWP-RPC vectors",
+  "category": "rpc",
+  "description": "terminal error includes deterministic retryability signal",
+  "expected": {
+    "assertions": {
+      "msg_type": 3,
+      "profile": "RPC",
+      "profile_id": 12,
+      "semantic_case": "positive-or-deterministic"
+    },
+    "code": "OK",
+    "evidence_type": "runtime",
+    "fixture": {
+      "bin_file": "rpc_0002_error_retryability.bin"
+    },
+    "outcome": "accept"
+  }
+}

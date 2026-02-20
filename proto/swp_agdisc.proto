@@ -1,0 +1,36 @@
+syntax = "proto3";
+package swp.p1.swp.agdisc.v1;
+
+// Normative P1 schema annex for SWP-AGDISC payloads.
+
+message AgdiscGet {
+  string agent_id = 1;
+  string if_none_match = 2;
+}
+
+message AgdiscDoc {
+  string agent_id = 1;
+  string schema_revision = 2;
+  bytes card_payload = 3;
+  string etag = 4;
+  uint64 max_age_ms = 5;
+}
+
+message AgdiscNotModified {
+  string agent_id = 1;
+  string etag = 2;
+}
+
+message AgdiscErr {
+  string code = 1;
+  string message = 2;
+}
+
+message Payload {
+  oneof body {
+    AgdiscGet get = 1;
+    AgdiscDoc doc = 2;
+    AgdiscNotModified not_modified = 3;
+    AgdiscErr err = 4;
+  }
+}

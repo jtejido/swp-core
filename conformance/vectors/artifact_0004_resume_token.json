@@ -1,0 +1,20 @@
+{
+  "vector_id": "artifact_0004_resume_token",
+  "group": "SWP-ARTIFACT vectors",
+  "category": "artifact",
+  "description": "resume token behavior is deterministic",
+  "expected": {
+    "assertions": {
+      "msg_type": 2,
+      "profile": "ARTIFACT",
+      "profile_id": 14,
+      "semantic_case": "positive-or-deterministic"
+    },
+    "code": "OK",
+    "evidence_type": "runtime",
+    "fixture": {
+      "bin_file": "artifact_0004_resume_token.bin"
+    },
+    "outcome": "accept"
+  }
+}

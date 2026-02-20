@@ -1,0 +1,7 @@
+@startuml
+title EVENTS: publish events
+participant "Producer" as P
+participant "Consumer" as C
+P -> C : EVT_PUBLISH
+P -> C : EVT_PUBLISH
+@enduml

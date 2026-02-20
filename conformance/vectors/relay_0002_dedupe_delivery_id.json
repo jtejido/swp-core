@@ -1,0 +1,20 @@
+{
+  "vector_id": "relay_0002_dedupe_delivery_id",
+  "group": "SWP-RELAY vectors",
+  "category": "relay",
+  "description": "duplicate deliveries are deduped deterministically by delivery_id",
+  "expected": {
+    "assertions": {
+      "msg_type": 1,
+      "profile": "RELAY",
+      "profile_id": 19,
+      "semantic_case": "positive-or-deterministic"
+    },
+    "code": "OK",
+    "evidence_type": "runtime",
+    "fixture": {
+      "bin_file": "relay_0002_dedupe_delivery_id.bin"
+    },
+    "outcome": "accept"
+  }
+}

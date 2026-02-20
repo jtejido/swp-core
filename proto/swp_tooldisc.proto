@@ -1,0 +1,47 @@
+syntax = "proto3";
+package swp.p1.swp.tooldisc.v1;
+
+// Normative P1 schema annex for SWP-TOOLDISC payloads.
+
+message ToolDescriptor {
+  string tool_id = 1;
+  string name = 2;
+  string version = 3;
+  string schema_ref = 4;
+  bytes descriptor_payload = 5;
+}
+
+message TooldiscListReq {
+  uint32 page_size = 1;
+  string page_token = 2;
+  string filter = 3;
+}
+
+message TooldiscListResp {
+  repeated ToolDescriptor tools = 1;
+  string next_page_token = 2;
+}
+
+message TooldiscGetReq {
+  string tool_id = 1;
+  string version = 2;
+}
+
+message TooldiscGetResp {
+  ToolDescriptor tool = 1;
+}
+
+message TooldiscErr {
+  string code = 1;
+  string message = 2;
+}
+
+message Payload {
+  oneof body {
+    TooldiscListReq list_req = 1;
+    TooldiscListResp list_resp = 2;
+    TooldiscGetReq get_req = 3;
+    TooldiscGetResp get_resp = 4;
+    TooldiscErr err = 5;
+  }
+}

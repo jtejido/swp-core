@@ -1,0 +1,18 @@
+{
+  "vector_id": "mcp_0003_notification_no_response",
+  "group": "MCP mapping vectors",
+  "category": "mcp",
+  "description": "notification accepted without response requirement",
+  "expected": {
+    "assertions": {
+      "msg_type": 3,
+      "profile": "MCPMAP"
+    },
+    "code": "OK",
+    "evidence_type": "runtime",
+    "fixture": {
+      "bin_file": "mcp_0003_notification_no_response.bin"
+    },
+    "outcome": "accept"
+  }
+}

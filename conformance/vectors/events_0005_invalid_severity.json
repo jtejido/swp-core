@@ -1,0 +1,22 @@
+{
+  "vector_id": "events_0005_invalid_severity",
+  "group": "SWP-EVENTS vectors",
+  "category": "events",
+  "description": "invalid severity value is rejected",
+  "expected": {
+    "assertions": {
+      "msg_type": 1,
+      "profile": "EVENTS",
+      "profile_id": 13,
+      "semantic_case": "deterministic-rejection"
+    },
+    "code": "INVALID_PROFILE_PAYLOAD",
+    "evidence_type": "runtime",
+    "fixture": {
+      "bin_file": "events_0005_invalid_severity.bin"
+    },
+    "outcome": "reject",
+    "rejection_reason": "profile invariant violation",
+    "expected_error_code": "ERR_INVALID_PROFILE_PAYLOAD"
+  }
+}

@@ -1,0 +1,8 @@
+@startuml
+title CRED: present and delegate
+participant "Caller" as C
+participant "Service" as S
+C -> S : CRED_PRESENT
+C -> S : CRED_DELEGATE
+S --> C : ACK/ERR
+@enduml

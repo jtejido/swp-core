@@ -1,0 +1,22 @@
+{
+  "vector_id": "tooldisc_0005_descriptor_missing_required",
+  "group": "SWP-TOOLDISC vectors",
+  "category": "tooldisc",
+  "description": "descriptor missing required fields is rejected",
+  "expected": {
+    "assertions": {
+      "msg_type": 4,
+      "profile": "TOOLDISC",
+      "profile_id": 11,
+      "semantic_case": "deterministic-rejection"
+    },
+    "code": "INVALID_PROFILE_PAYLOAD",
+    "evidence_type": "runtime",
+    "fixture": {
+      "bin_file": "tooldisc_0005_descriptor_missing_required.bin"
+    },
+    "outcome": "reject",
+    "rejection_reason": "profile invariant violation",
+    "expected_error_code": "ERR_INVALID_PROFILE_PAYLOAD"
+  }
+}

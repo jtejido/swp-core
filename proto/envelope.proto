@@ -1,0 +1,19 @@
+
+syntax = "proto3";
+package swp.v1;
+
+// Non-normative example schema for Envelope.
+// The normative definition is in docs/core-spec.md.
+message Envelope {
+  uint32 version = 1;
+  uint32 profile_id = 2;
+  uint32 msg_type = 3;
+  bytes  msg_id = 4;
+  uint32 flags = 5;
+  uint64 ts_unix_ms = 6;
+  bytes  payload = 7;
+}
+
+message Frame {
+  Envelope env = 1;
+}

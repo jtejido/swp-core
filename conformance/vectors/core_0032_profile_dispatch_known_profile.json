@@ -1,0 +1,22 @@
+{
+  "vector_id": "core_0032_profile_dispatch_known_profile",
+  "group": "Core vectors",
+  "category": "core",
+  "description": "frame dispatch follows `profile_id` for known profiles",
+  "expected": {
+    "assertions": {
+      "envelope": {
+        "min_msg_id_bytes": 8,
+        "msg_type": 1,
+        "profile_id": 1,
+        "version": 1
+      }
+    },
+    "code": "OK",
+    "evidence_type": "runtime",
+    "fixture": {
+      "bin_file": "core_0032_profile_dispatch_known_profile.bin"
+    },
+    "outcome": "accept"
+  }
+}

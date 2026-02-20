@@ -1,0 +1,20 @@
+{
+  "vector_id": "relay_0003_ack_timeout_retry",
+  "group": "SWP-RELAY vectors",
+  "category": "relay",
+  "description": "ack timeout triggers deterministic retry behavior",
+  "expected": {
+    "assertions": {
+      "msg_type": 2,
+      "profile": "RELAY",
+      "profile_id": 19,
+      "semantic_case": "positive-or-deterministic"
+    },
+    "code": "OK",
+    "evidence_type": "runtime",
+    "fixture": {
+      "bin_file": "relay_0003_ack_timeout_retry.bin"
+    },
+    "outcome": "accept"
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "vector_id": "relay_0001_at_least_once",
+  "group": "SWP-RELAY vectors",
+  "category": "relay",
+  "description": "at-least-once delivery behavior is satisfied",
+  "expected": {
+    "assertions": {
+      "msg_type": 1,
+      "profile": "RELAY",
+      "profile_id": 19,
+      "semantic_case": "positive-or-deterministic"
+    },
+    "code": "OK",
+    "evidence_type": "runtime",
+    "fixture": {
+      "bin_file": "relay_0001_at_least_once.bin"
+    },
+    "outcome": "accept"
+  }
+}

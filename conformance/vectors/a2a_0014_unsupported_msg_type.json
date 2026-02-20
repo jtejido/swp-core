@@ -1,0 +1,22 @@
+{
+  "vector_id": "a2a_0014_unsupported_msg_type",
+  "group": "A2A vectors",
+  "category": "a2a",
+  "description": "unsupported `msg_type` value for A2A profile is rejected",
+  "expected": {
+    "assertions": {
+      "msg_type": 99,
+      "profile": "A2A",
+      "profile_id": 2,
+      "semantic_case": "deterministic-rejection"
+    },
+    "code": "UNSUPPORTED_MSG_TYPE",
+    "evidence_type": "runtime",
+    "fixture": {
+      "bin_file": "a2a_0014_unsupported_msg_type.bin"
+    },
+    "outcome": "reject",
+    "rejection_reason": "unsupported profile msg_type",
+    "expected_error_code": "ERR_UNSUPPORTED_MSG_TYPE"
+  }
+}

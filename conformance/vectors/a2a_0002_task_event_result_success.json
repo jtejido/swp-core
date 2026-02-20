@@ -1,0 +1,20 @@
+{
+  "vector_id": "a2a_0002_task_event_result_success",
+  "group": "A2A vectors",
+  "category": "a2a",
+  "description": "valid task lifecycle completes with terminal success result",
+  "expected": {
+    "assertions": {
+      "msg_type": 3,
+      "profile": "A2A",
+      "profile_id": 2,
+      "semantic_case": "positive-or-deterministic"
+    },
+    "code": "OK",
+    "evidence_type": "runtime",
+    "fixture": {
+      "bin_file": "a2a_0002_task_event_result_success.bin"
+    },
+    "outcome": "accept"
+  }
+}

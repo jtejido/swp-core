@@ -1,0 +1,22 @@
+{
+  "vector_id": "agdisc_0003_invalid_doc_rejected",
+  "group": "SWP-AGDISC vectors",
+  "category": "agdisc",
+  "description": "malformed/invalid agent card is rejected",
+  "expected": {
+    "assertions": {
+      "msg_type": 2,
+      "profile": "AGDISC",
+      "profile_id": 10,
+      "semantic_case": "deterministic-rejection"
+    },
+    "code": "INVALID_PROFILE_PAYLOAD",
+    "evidence_type": "runtime",
+    "fixture": {
+      "bin_file": "agdisc_0003_invalid_doc_rejected.bin"
+    },
+    "outcome": "reject",
+    "rejection_reason": "profile invariant violation",
+    "expected_error_code": "ERR_INVALID_PROFILE_PAYLOAD"
+  }
+}

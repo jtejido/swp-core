@@ -1,0 +1,20 @@
+{
+  "vector_id": "obs_0003_tracestate_preservation",
+  "group": "SWP-OBS vectors",
+  "category": "obs",
+  "description": "unknown tracestate entries are not mutated",
+  "expected": {
+    "assertions": {
+      "msg_type": 1,
+      "profile": "OBS",
+      "profile_id": 18,
+      "semantic_case": "positive-or-deterministic"
+    },
+    "code": "OK",
+    "evidence_type": "runtime",
+    "fixture": {
+      "bin_file": "obs_0003_tracestate_preservation.bin"
+    },
+    "outcome": "accept"
+  }
+}

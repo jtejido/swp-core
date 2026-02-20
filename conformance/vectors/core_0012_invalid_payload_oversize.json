@@ -1,0 +1,27 @@
+{
+  "vector_id": "core_0012_invalid_payload_oversize",
+  "group": "Core vectors",
+  "category": "core",
+  "description": "payload exceeds `MAX_PAYLOAD_BYTES`",
+  "expected": {
+    "assertions": {
+      "envelope": {
+        "min_msg_id_bytes": 8,
+        "msg_type": 1,
+        "profile_id": 1,
+        "version": 1
+      },
+      "limits": {
+        "max_payload_bytes": 1024
+      }
+    },
+    "code": "INVALID_ENVELOPE",
+    "evidence_type": "runtime",
+    "fixture": {
+      "bin_file": "core_0012_invalid_payload_oversize.bin"
+    },
+    "outcome": "reject",
+    "rejection_reason": "payload exceeds configured MAX_PAYLOAD_BYTES",
+    "expected_error_code": "ERR_INVALID_ENVELOPE"
+  }
+}

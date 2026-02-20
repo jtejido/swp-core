@@ -1,0 +1,8 @@
+{
+  "name": "poc_0005_invalid_truncated_frame",
+  "bin": "poc_0005_invalid_truncated_frame.bin",
+  "expect": {
+    "ok": false,
+    "code": "INVALID_FRAME"
+  }
+}

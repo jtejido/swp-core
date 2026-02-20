@@ -1,0 +1,20 @@
+{
+  "vector_id": "obs_0004_correlation_linkage",
+  "group": "SWP-OBS vectors",
+  "category": "obs",
+  "description": "trace context linkage to msg/task/rpc correlation is deterministic",
+  "expected": {
+    "assertions": {
+      "msg_type": 1,
+      "profile": "OBS",
+      "profile_id": 18,
+      "semantic_case": "positive-or-deterministic"
+    },
+    "code": "OK",
+    "evidence_type": "runtime",
+    "fixture": {
+      "bin_file": "obs_0004_correlation_linkage.bin"
+    },
+    "outcome": "accept"
+  }
+}

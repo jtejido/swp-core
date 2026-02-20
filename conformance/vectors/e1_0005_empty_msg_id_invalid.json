@@ -1,0 +1,19 @@
+{
+  "vector_id": "e1_0005_empty_msg_id_invalid",
+  "group": "Encoding binding E1 vectors",
+  "category": "e1",
+  "description": "E1 envelope with empty msg_id is rejected",
+  "expected": {
+    "assertions": {
+      "encoding": "E1"
+    },
+    "code": "INVALID_ENVELOPE",
+    "evidence_type": "runtime",
+    "fixture": {
+      "bin_file": "e1_0005_empty_msg_id_invalid.bin"
+    },
+    "outcome": "reject",
+    "rejection_reason": "msg_id is empty",
+    "expected_error_code": "ERR_INVALID_ENVELOPE"
+  }
+}

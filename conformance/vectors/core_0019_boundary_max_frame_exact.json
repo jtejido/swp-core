@@ -1,0 +1,25 @@
+{
+  "vector_id": "core_0019_boundary_max_frame_exact",
+  "group": "Core vectors",
+  "category": "core",
+  "description": "frame exactly equals `MAX_FRAME_BYTES`",
+  "expected": {
+    "assertions": {
+      "envelope": {
+        "min_msg_id_bytes": 8,
+        "msg_type": 1,
+        "profile_id": 1,
+        "version": 1
+      },
+      "limits": {
+        "max_frame_bytes": 2078
+      }
+    },
+    "code": "OK",
+    "evidence_type": "runtime",
+    "fixture": {
+      "bin_file": "core_0019_boundary_max_frame_exact.bin"
+    },
+    "outcome": "accept"
+  }
+}

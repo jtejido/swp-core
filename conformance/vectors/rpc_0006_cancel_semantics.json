@@ -1,0 +1,20 @@
+{
+  "vector_id": "rpc_0006_cancel_semantics",
+  "group": "SWP-RPC vectors",
+  "category": "rpc",
+  "description": "cancellation yields deterministic terminal cancellation outcome",
+  "expected": {
+    "assertions": {
+      "msg_type": 5,
+      "profile": "RPC",
+      "profile_id": 12,
+      "semantic_case": "positive-or-deterministic"
+    },
+    "code": "OK",
+    "evidence_type": "runtime",
+    "fixture": {
+      "bin_file": "rpc_0006_cancel_semantics.bin"
+    },
+    "outcome": "accept"
+  }
+}

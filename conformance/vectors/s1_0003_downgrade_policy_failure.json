@@ -1,0 +1,19 @@
+{
+  "vector_id": "s1_0003_downgrade_policy_failure",
+  "group": "S1 binding vectors",
+  "category": "s1",
+  "description": "endpoint fails closed when required security parameters are not met",
+  "expected": {
+    "assertions": {
+      "binding": "S1"
+    },
+    "code": "SECURITY_POLICY",
+    "evidence_type": "runtime",
+    "fixture": {
+      "bin_file": "s1_0003_downgrade_policy_failure.bin"
+    },
+    "outcome": "reject",
+    "rejection_reason": "downgrade policy violation terminates channel",
+    "expected_error_code": "ERR_SECURITY_POLICY"
+  }
+}

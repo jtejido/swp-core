@@ -1,0 +1,48 @@
+
+syntax = "proto3";
+package swp.a2a.v1;
+
+// Non-normative example schema for A2A profile payloads.
+// Normative requirements are in docs/a2a-profile.md.
+
+enum A2aMsgType {
+  A2A_MSG_TYPE_UNSPECIFIED = 0;
+  A2A_MSG_TYPE_HANDSHAKE = 1;
+  A2A_MSG_TYPE_TASK = 2;
+  A2A_MSG_TYPE_EVENT = 3;
+  A2A_MSG_TYPE_RESULT = 4;
+}
+
+message Handshake {
+  string agent_id = 1;
+  repeated string capabilities = 2;
+}
+
+message Task {
+  bytes task_id = 1;
+  string kind = 2;
+  bytes input = 3;
+}
+
+message Event {
+  bytes task_id = 1;
+  string message = 2;
+  uint32 progress_pct = 3;
+}
+
+message Result {
+  bytes task_id = 1;
+  bool ok = 2;
+  bytes output = 3;
+  string error_message = 4;
+}
+
+message A2aEnvelope {
+  A2aMsgType msg_type = 1;
+  oneof body {
+    Handshake handshake = 2;
+    Task task = 3;
+    Event event = 4;
+    Result result = 5;
+  }
+}

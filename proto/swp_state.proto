@@ -1,0 +1,35 @@
+syntax = "proto3";
+package swp.p1.swp.state.v1;
+
+// Normative P1 schema annex for SWP-STATE payloads.
+
+message StatePut {
+  bytes state_id = 1;
+  bytes blob = 2;
+  repeated bytes parent_ids = 3;
+  bytes metadata = 4;
+}
+
+message StateGet {
+  bytes state_id = 1;
+}
+
+message StateDelta {
+  bytes state_id = 1;
+  bytes delta = 2;
+  repeated bytes parent_ids = 3;
+}
+
+message StateErr {
+  string code = 1;
+  string message = 2;
+}
+
+message Payload {
+  oneof body {
+    StatePut put = 1;
+    StateGet get = 2;
+    StateDelta delta = 3;
+    StateErr err = 4;
+  }
+}

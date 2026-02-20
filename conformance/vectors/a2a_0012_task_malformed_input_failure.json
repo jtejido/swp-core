@@ -1,0 +1,20 @@
+{
+  "vector_id": "a2a_0012_task_malformed_input_failure",
+  "group": "A2A vectors",
+  "category": "a2a",
+  "description": "malformed task input yields terminal failure result",
+  "expected": {
+    "assertions": {
+      "msg_type": 2,
+      "profile": "A2A",
+      "profile_id": 2,
+      "semantic_case": "positive-or-deterministic"
+    },
+    "code": "OK",
+    "evidence_type": "runtime",
+    "fixture": {
+      "bin_file": "a2a_0012_task_malformed_input_failure.bin"
+    },
+    "outcome": "accept"
+  }
+}

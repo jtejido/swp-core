@@ -1,0 +1,19 @@
+{
+  "vector_id": "mcp_0004_error_mapping_internal",
+  "group": "MCP mapping vectors",
+  "category": "mcp",
+  "description": "core `INTERNAL_ERROR` mapped to JSON-RPC internal error",
+  "expected": {
+    "assertions": {
+      "mapping": "INTERNAL_ERROR -\u003e -32603",
+      "msg_type": 2,
+      "profile": "MCPMAP"
+    },
+    "code": "OK",
+    "evidence_type": "runtime",
+    "fixture": {
+      "bin_file": "mcp_0004_error_mapping_internal.bin"
+    },
+    "outcome": "accept"
+  }
+}

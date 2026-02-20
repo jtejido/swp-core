@@ -1,0 +1,20 @@
+{
+  "vector_id": "a2a_0013_unsupported_capability_failure",
+  "group": "A2A vectors",
+  "category": "a2a",
+  "description": "task requiring unsupported capability yields deterministic failure",
+  "expected": {
+    "assertions": {
+      "msg_type": 2,
+      "profile": "A2A",
+      "profile_id": 2,
+      "semantic_case": "positive-or-deterministic"
+    },
+    "code": "OK",
+    "evidence_type": "runtime",
+    "fixture": {
+      "bin_file": "a2a_0013_unsupported_capability_failure.bin"
+    },
+    "outcome": "accept"
+  }
+}

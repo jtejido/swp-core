@@ -1,0 +1,20 @@
+{
+  "vector_id": "policyhint_0005_mode_semantics",
+  "group": "SWP-POLICYHINT vectors",
+  "category": "policyhint",
+  "description": "MUST/SHOULD/MAY mode behavior is preserved",
+  "expected": {
+    "assertions": {
+      "msg_type": 1,
+      "profile": "POLICYHINT",
+      "profile_id": 16,
+      "semantic_case": "positive-or-deterministic"
+    },
+    "code": "OK",
+    "evidence_type": "runtime",
+    "fixture": {
+      "bin_file": "policyhint_0005_mode_semantics.bin"
+    },
+    "outcome": "accept"
+  }
+}

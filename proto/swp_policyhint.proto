@@ -1,0 +1,39 @@
+syntax = "proto3";
+package swp.p1.swp.policyhint.v1;
+
+// Normative P1 schema annex for SWP-POLICYHINT payloads.
+
+message Constraint {
+  string key = 1;
+  string value = 2;
+  string mode = 3;
+  string scope_ref = 4;
+}
+
+message PolicyHintSet {
+  repeated Constraint constraints = 1;
+}
+
+message PolicyHintAck {
+  string ack_id = 1;
+}
+
+message PolicyViolation {
+  string key = 1;
+  string scope_ref = 2;
+  string reason_code = 3;
+}
+
+message PolicyErr {
+  string code = 1;
+  string message = 2;
+}
+
+message Payload {
+  oneof body {
+    PolicyHintSet hint_set = 1;
+    PolicyHintAck hint_ack = 2;
+    PolicyViolation violation = 3;
+    PolicyErr err = 4;
+  }
+}

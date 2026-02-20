@@ -1,0 +1,20 @@
+{
+  "vector_id": "policyhint_0001_propagation",
+  "group": "SWP-POLICYHINT vectors",
+  "category": "policyhint",
+  "description": "policy hints propagate with deterministic scoping",
+  "expected": {
+    "assertions": {
+      "msg_type": 1,
+      "profile": "POLICYHINT",
+      "profile_id": 16,
+      "semantic_case": "positive-or-deterministic"
+    },
+    "code": "OK",
+    "evidence_type": "runtime",
+    "fixture": {
+      "bin_file": "policyhint_0001_propagation.bin"
+    },
+    "outcome": "accept"
+  }
+}

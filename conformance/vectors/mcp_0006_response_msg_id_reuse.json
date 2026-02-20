@@ -1,0 +1,18 @@
+{
+  "vector_id": "mcp_0006_response_msg_id_reuse",
+  "group": "MCP mapping vectors",
+  "category": "mcp",
+  "description": "response reuses originating request `msg_id`",
+  "expected": {
+    "assertions": {
+      "msg_type": 2,
+      "profile": "MCPMAP"
+    },
+    "code": "OK",
+    "evidence_type": "runtime",
+    "fixture": {
+      "bin_file": "mcp_0006_response_msg_id_reuse.bin"
+    },
+    "outcome": "accept"
+  }
+}

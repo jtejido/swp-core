@@ -1,0 +1,20 @@
+{
+  "vector_id": "cred_0002_chain_length_enforced",
+  "group": "SWP-CRED vectors",
+  "category": "cred",
+  "description": "delegation chain length limits are enforced",
+  "expected": {
+    "assertions": {
+      "msg_type": 2,
+      "profile": "CRED",
+      "profile_id": 15,
+      "semantic_case": "positive-or-deterministic"
+    },
+    "code": "OK",
+    "evidence_type": "runtime",
+    "fixture": {
+      "bin_file": "cred_0002_chain_length_enforced.bin"
+    },
+    "outcome": "accept"
+  }
+}

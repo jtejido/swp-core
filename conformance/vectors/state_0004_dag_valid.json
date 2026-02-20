@@ -1,0 +1,20 @@
+{
+  "vector_id": "state_0004_dag_valid",
+  "group": "SWP-STATE vectors",
+  "category": "state",
+  "description": "valid parent DAG passes validation",
+  "expected": {
+    "assertions": {
+      "msg_type": 1,
+      "profile": "STATE",
+      "profile_id": 17,
+      "semantic_case": "positive-or-deterministic"
+    },
+    "code": "OK",
+    "evidence_type": "runtime",
+    "fixture": {
+      "bin_file": "state_0004_dag_valid.bin"
+    },
+    "outcome": "accept"
+  }
+}

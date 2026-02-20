@@ -1,0 +1,22 @@
+{
+  "vector_id": "a2a_0006_event_before_task_invalid",
+  "group": "A2A vectors",
+  "category": "a2a",
+  "description": "event referencing task before task creation is rejected",
+  "expected": {
+    "assertions": {
+      "msg_type": 3,
+      "profile": "A2A",
+      "profile_id": 2,
+      "semantic_case": "deterministic-rejection"
+    },
+    "code": "INVALID_PROFILE_PAYLOAD",
+    "evidence_type": "runtime",
+    "fixture": {
+      "bin_file": "a2a_0006_event_before_task_invalid.bin"
+    },
+    "outcome": "reject",
+    "rejection_reason": "profile invariant violation",
+    "expected_error_code": "ERR_INVALID_PROFILE_PAYLOAD"
+  }
+}

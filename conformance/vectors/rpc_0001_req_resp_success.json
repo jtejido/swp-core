@@ -1,0 +1,20 @@
+{
+  "vector_id": "rpc_0001_req_resp_success",
+  "group": "SWP-RPC vectors",
+  "category": "rpc",
+  "description": "valid request receives valid terminal response",
+  "expected": {
+    "assertions": {
+      "msg_type": 1,
+      "profile": "RPC",
+      "profile_id": 12,
+      "semantic_case": "positive-or-deterministic"
+    },
+    "code": "OK",
+    "evidence_type": "runtime",
+    "fixture": {
+      "bin_file": "rpc_0001_req_resp_success.bin"
+    },
+    "outcome": "accept"
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "vector_id": "agdisc_0001_get_doc_success",
+  "group": "SWP-AGDISC vectors",
+  "category": "agdisc",
+  "description": "valid agent-card retrieval succeeds",
+  "expected": {
+    "assertions": {
+      "msg_type": 2,
+      "profile": "AGDISC",
+      "profile_id": 10,
+      "semantic_case": "positive-or-deterministic"
+    },
+    "code": "OK",
+    "evidence_type": "runtime",
+    "fixture": {
+      "bin_file": "agdisc_0001_get_doc_success.bin"
+    },
+    "outcome": "accept"
+  }
+}

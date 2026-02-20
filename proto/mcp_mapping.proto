@@ -1,0 +1,22 @@
+
+syntax = "proto3";
+package swp.mcpmap.v1;
+
+// Non-normative example schema for MCP mapping profile payloads.
+// Normative requirements are in docs/mcp-mapping-profile.md.
+
+enum McpMapMsgType {
+  MCP_MAP_MSG_TYPE_UNSPECIFIED = 0;
+  MCP_MAP_MSG_TYPE_REQUEST = 1;
+  MCP_MAP_MSG_TYPE_RESPONSE = 2;
+  MCP_MAP_MSG_TYPE_NOTIFICATION = 3;
+}
+
+message JsonRpcPayload {
+  bytes json = 1; // UTF-8 JSON-RPC bytes
+}
+
+message McpMapEnvelope {
+  McpMapMsgType msg_type = 1;
+  JsonRpcPayload payload = 2;
+}

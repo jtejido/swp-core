@@ -1,0 +1,8 @@
+@startuml
+title POLICYHINT: constraints and violations
+participant "Client" as C
+participant "Service" as S
+C -> S : POLICY_HINT_SET
+S --> C : POLICY_HINT_ACK
+S --> C : POLICY_VIOLATION (if violated)
+@enduml

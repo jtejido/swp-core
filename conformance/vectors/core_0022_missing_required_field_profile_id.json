@@ -1,0 +1,24 @@
+{
+  "vector_id": "core_0022_missing_required_field_profile_id",
+  "group": "Core vectors",
+  "category": "core",
+  "description": "envelope missing/invalid `profile_id` field is rejected",
+  "expected": {
+    "assertions": {
+      "envelope": {
+        "min_msg_id_bytes": 8,
+        "msg_type": 1,
+        "profile_id": 1,
+        "version": 1
+      }
+    },
+    "code": "UNKNOWN_PROFILE",
+    "evidence_type": "runtime",
+    "fixture": {
+      "bin_file": "core_0022_missing_required_field_profile_id.bin"
+    },
+    "outcome": "reject",
+    "rejection_reason": "missing or invalid profile_id",
+    "expected_error_code": "ERR_UNKNOWN_PROFILE"
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "name": "poc_0006_invalid_varint_overflow",
+  "bin": "poc_0006_invalid_varint_overflow.bin",
+  "expect": {
+    "ok": false,
+    "code": "INVALID_FRAME"
+  }
+}

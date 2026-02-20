@@ -1,0 +1,24 @@
+{
+  "vector_id": "core_0027_duplicate_inflight_msg_id",
+  "group": "Core vectors",
+  "category": "core",
+  "description": "sender/adapter conformance check detects duplicate in-flight `msg_id`",
+  "expected": {
+    "assertions": {
+      "envelope": {
+        "min_msg_id_bytes": 8,
+        "msg_type": 1,
+        "profile_id": 1,
+        "version": 1
+      }
+    },
+    "code": "DUPLICATE_MSG_ID",
+    "evidence_type": "runtime",
+    "fixture": {
+      "bin_file": "core_0027_duplicate_inflight_msg_id.bin"
+    },
+    "outcome": "reject",
+    "rejection_reason": "duplicate in-flight msg_id detected",
+    "expected_error_code": "ERR_DUPLICATE_MSG_ID"
+  }
+}

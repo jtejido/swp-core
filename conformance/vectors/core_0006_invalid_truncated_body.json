@@ -1,0 +1,24 @@
+{
+  "vector_id": "core_0006_invalid_truncated_body",
+  "group": "Core vectors",
+  "category": "core",
+  "description": "prefix declares N, stream contains fewer than N bytes",
+  "expected": {
+    "assertions": {
+      "envelope": {
+        "min_msg_id_bytes": 8,
+        "msg_type": 1,
+        "profile_id": 1,
+        "version": 1
+      }
+    },
+    "code": "INVALID_FRAME",
+    "evidence_type": "runtime",
+    "fixture": {
+      "bin_file": "core_0006_invalid_truncated_body.bin"
+    },
+    "outcome": "reject",
+    "rejection_reason": "frame body truncated",
+    "expected_error_code": "ERR_INVALID_FRAME"
+  }
+}

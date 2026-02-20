@@ -1,0 +1,22 @@
+{
+  "vector_id": "obs_0005_unsupported_msg_type",
+  "group": "SWP-OBS vectors",
+  "category": "obs",
+  "description": "unsupported OBS `msg_type` is rejected",
+  "expected": {
+    "assertions": {
+      "msg_type": 99,
+      "profile": "OBS",
+      "profile_id": 18,
+      "semantic_case": "deterministic-rejection"
+    },
+    "code": "UNSUPPORTED_MSG_TYPE",
+    "evidence_type": "runtime",
+    "fixture": {
+      "bin_file": "obs_0005_unsupported_msg_type.bin"
+    },
+    "outcome": "reject",
+    "rejection_reason": "unsupported profile msg_type",
+    "expected_error_code": "ERR_UNSUPPORTED_MSG_TYPE"
+  }
+}

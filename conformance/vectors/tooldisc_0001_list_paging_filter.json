@@ -1,0 +1,20 @@
+{
+  "vector_id": "tooldisc_0001_list_paging_filter",
+  "group": "SWP-TOOLDISC vectors",
+  "category": "tooldisc",
+  "description": "list request supports deterministic paging/filter semantics",
+  "expected": {
+    "assertions": {
+      "msg_type": 1,
+      "profile": "TOOLDISC",
+      "profile_id": 11,
+      "semantic_case": "positive-or-deterministic"
+    },
+    "code": "OK",
+    "evidence_type": "runtime",
+    "fixture": {
+      "bin_file": "tooldisc_0001_list_paging_filter.bin"
+    },
+    "outcome": "accept"
+  }
+}

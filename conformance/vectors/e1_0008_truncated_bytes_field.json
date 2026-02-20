@@ -1,0 +1,19 @@
+{
+  "vector_id": "e1_0008_truncated_bytes_field",
+  "group": "Encoding binding E1 vectors",
+  "category": "e1",
+  "description": "truncated bytes field encoding is rejected",
+  "expected": {
+    "assertions": {
+      "encoding": "E1"
+    },
+    "code": "INVALID_FRAME",
+    "evidence_type": "runtime",
+    "fixture": {
+      "bin_file": "e1_0008_truncated_bytes_field.bin"
+    },
+    "outcome": "reject",
+    "rejection_reason": "truncated bytes field",
+    "expected_error_code": "ERR_INVALID_FRAME"
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "vector_id": "mcp_0011_invalid_json_payload",
+  "group": "MCP mapping vectors",
+  "category": "mcp",
+  "description": "non-JSON payload rejected by validating endpoint/gateway",
+  "expected": {
+    "assertions": {
+      "msg_type": 1,
+      "profile": "MCPMAP"
+    },
+    "code": "INVALID_MCP_PAYLOAD",
+    "evidence_type": "runtime",
+    "fixture": {
+      "bin_file": "mcp_0011_invalid_json_payload.bin"
+    },
+    "outcome": "reject",
+    "rejection_reason": "payload is not valid JSON",
+    "expected_error_code": "ERR_INVALID_MCP_PAYLOAD"
+  }
+}

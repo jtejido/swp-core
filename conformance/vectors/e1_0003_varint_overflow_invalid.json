@@ -1,0 +1,19 @@
+{
+  "vector_id": "e1_0003_varint_overflow_invalid",
+  "group": "Encoding binding E1 vectors",
+  "category": "e1",
+  "description": "varint overflowing uint64 is rejected",
+  "expected": {
+    "assertions": {
+      "encoding": "E1"
+    },
+    "code": "INVALID_FRAME",
+    "evidence_type": "runtime",
+    "fixture": {
+      "bin_file": "e1_0003_varint_overflow_invalid.bin"
+    },
+    "outcome": "reject",
+    "rejection_reason": "uvarint overflow",
+    "expected_error_code": "ERR_INVALID_FRAME"
+  }
+}

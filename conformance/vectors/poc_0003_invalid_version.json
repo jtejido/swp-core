@@ -1,0 +1,8 @@
+{
+  "name": "poc_0003_invalid_version",
+  "bin": "poc_0003_invalid_version.bin",
+  "expect": {
+    "ok": false,
+    "code": "UNSUPPORTED_VERSION"
+  }
+}

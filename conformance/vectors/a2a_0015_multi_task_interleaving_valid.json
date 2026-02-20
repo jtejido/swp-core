@@ -1,0 +1,20 @@
+{
+  "vector_id": "a2a_0015_multi_task_interleaving_valid",
+  "group": "A2A vectors",
+  "category": "a2a",
+  "description": "interleaved events across different task_id values remain valid per-task ordering",
+  "expected": {
+    "assertions": {
+      "msg_type": 2,
+      "profile": "A2A",
+      "profile_id": 2,
+      "semantic_case": "positive-or-deterministic"
+    },
+    "code": "OK",
+    "evidence_type": "runtime",
+    "fixture": {
+      "bin_file": "a2a_0015_multi_task_interleaving_valid.bin"
+    },
+    "outcome": "accept"
+  }
+}

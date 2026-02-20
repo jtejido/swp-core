@@ -1,0 +1,24 @@
+{
+  "vector_id": "core_0030_error_mapping_invalid_envelope",
+  "group": "Core vectors",
+  "category": "core",
+  "description": "when error response path exists, envelope invariant failure maps to `INVALID_ENVELOPE`",
+  "expected": {
+    "assertions": {
+      "envelope": {
+        "min_msg_id_bytes": 8,
+        "msg_type": 1,
+        "profile_id": 1,
+        "version": 1
+      }
+    },
+    "code": "INVALID_ENVELOPE",
+    "evidence_type": "runtime",
+    "fixture": {
+      "bin_file": "core_0030_error_mapping_invalid_envelope.bin"
+    },
+    "outcome": "reject",
+    "rejection_reason": "envelope invariant failure mapped deterministically",
+    "expected_error_code": "ERR_INVALID_ENVELOPE"
+  }
+}

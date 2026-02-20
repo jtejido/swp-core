@@ -1,0 +1,39 @@
+@startuml
+skinparam componentStyle rectangle
+skinparam shadowing false
+
+title SWP (Core) with MCP Mapping + A2A Profile (Federated)
+
+package "Clients" {
+  [MCP Client\n(JSON-RPC)] as MCPClient
+  [A2A Agent] as AgentClient
+  [Bridge/Adapter\n(optional)] as Bridge
+}
+
+package "SWP Core" {
+  [Framing\n(length-delimited)] as Framing
+  [Envelope\n(v, profile_id, msg_type, msg_id,\nflags, ts, payload)] as Env
+  [Profile Router] as Router
+}
+
+package "Bindings (Deployment)" {
+  [S1 Authenticated Confidential Channel] as S1
+  [Stream Transport\n(HTTP/2, QUIC, etc.)] as Transport
+}
+
+package "Servers" {
+  [MCP Tool Service] as ToolSvc
+  [A2A Agent Service] as AgentSvc
+}
+
+MCPClient --> Bridge : JSON-RPC
+Bridge --> Transport : SWP frames\n(profile=MCPMAP)
+AgentClient --> Transport : SWP frames\n(profile=A2A)
+
+Transport --> S1
+S1 --> Framing
+Framing --> Env
+Env --> Router
+Router --> ToolSvc : profile_id=1
+Router --> AgentSvc : profile_id=2
+@enduml

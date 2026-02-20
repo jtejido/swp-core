@@ -1,0 +1,8 @@
+@startuml
+title RPC: request/stream/response
+participant "Client" as C
+participant "Service" as S
+C -> S : RPC_REQ
+S --> C : RPC_STREAM_ITEM (optional)
+S --> C : RPC_RESP
+@enduml

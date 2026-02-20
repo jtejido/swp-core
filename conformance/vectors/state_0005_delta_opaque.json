@@ -1,0 +1,20 @@
+{
+  "vector_id": "state_0005_delta_opaque",
+  "group": "SWP-STATE vectors",
+  "category": "state",
+  "description": "delta payload is treated as opaque and preserved",
+  "expected": {
+    "assertions": {
+      "msg_type": 3,
+      "profile": "STATE",
+      "profile_id": 17,
+      "semantic_case": "positive-or-deterministic"
+    },
+    "code": "OK",
+    "evidence_type": "runtime",
+    "fixture": {
+      "bin_file": "state_0005_delta_opaque.bin"
+    },
+    "outcome": "accept"
+  }
+}

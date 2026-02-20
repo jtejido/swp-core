@@ -1,0 +1,22 @@
+{
+  "vector_id": "a2a_0004_event_after_terminal_result",
+  "group": "A2A vectors",
+  "category": "a2a",
+  "description": "post-terminal event is rejected or ignored per profile rule",
+  "expected": {
+    "assertions": {
+      "msg_type": 3,
+      "profile": "A2A",
+      "profile_id": 2,
+      "semantic_case": "deterministic-rejection"
+    },
+    "code": "INVALID_PROFILE_PAYLOAD",
+    "evidence_type": "runtime",
+    "fixture": {
+      "bin_file": "a2a_0004_event_after_terminal_result.bin"
+    },
+    "outcome": "reject",
+    "rejection_reason": "profile invariant violation",
+    "expected_error_code": "ERR_INVALID_PROFILE_PAYLOAD"
+  }
+}

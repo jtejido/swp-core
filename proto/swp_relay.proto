@@ -1,0 +1,42 @@
+syntax = "proto3";
+package swp.p1.swp.relay.v1;
+
+// Normative P1 schema annex for SWP-RELAY payloads.
+
+message RelayPublish {
+  bytes delivery_id = 1;
+  string topic = 2;
+  bytes payload = 3;
+  uint64 ttl_ms = 4;
+}
+
+message RelayAck {
+  bytes delivery_id = 1;
+}
+
+message RelayNack {
+  bytes delivery_id = 1;
+  bool retryable = 2;
+  string reason_code = 3;
+}
+
+message RelayStatus {
+  bytes delivery_id = 1;
+  string state = 2;
+  uint32 attempt_count = 3;
+}
+
+message RelayErr {
+  string code = 1;
+  string message = 2;
+}
+
+message Payload {
+  oneof body {
+    RelayPublish publish = 1;
+    RelayAck ack = 2;
+    RelayNack nack = 3;
+    RelayStatus status = 4;
+    RelayErr err = 5;
+  }
+}

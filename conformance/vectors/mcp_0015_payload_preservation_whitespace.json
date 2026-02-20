@@ -1,0 +1,18 @@
+{
+  "vector_id": "mcp_0015_payload_preservation_whitespace",
+  "group": "MCP mapping vectors",
+  "category": "mcp",
+  "description": "relay preserves JSON payload bytes including whitespace and key order",
+  "expected": {
+    "assertions": {
+      "msg_type": 1,
+      "profile": "MCPMAP"
+    },
+    "code": "OK",
+    "evidence_type": "runtime",
+    "fixture": {
+      "bin_file": "mcp_0015_payload_preservation_whitespace.bin"
+    },
+    "outcome": "accept"
+  }
+}

@@ -1,0 +1,19 @@
+@startuml
+title End-to-end federated flow using multiple SWP profiles
+
+participant "Agent A" as A
+participant "Agent B" as B
+participant "Tool Registry" as T
+participant "Artifact Store" as S
+
+A -> B : AGDISC_GET
+B --> A : AGDISC_DOC
+
+A -> T : TOOLDISC_LIST_REQ
+T --> A : TOOLDISC_LIST_RESP
+
+A -> B : RPC_REQ (delegate)
+B --> A : EVT_PUBLISH (progress)
+B -> S : ART_OFFER / ART_CHUNK
+B --> A : RPC_RESP (artifact ref)
+@enduml

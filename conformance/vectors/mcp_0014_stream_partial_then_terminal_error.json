@@ -1,0 +1,19 @@
+{
+  "vector_id": "mcp_0014_stream_partial_then_terminal_error",
+  "group": "MCP mapping vectors",
+  "category": "mcp",
+  "description": "partial notifications followed by terminal error response",
+  "expected": {
+    "assertions": {
+      "msg_type": 3,
+      "profile": "MCPMAP",
+      "scenario": "partial notifications followed by terminal error response"
+    },
+    "code": "OK",
+    "evidence_type": "runtime",
+    "fixture": {
+      "bin_file": "mcp_0014_stream_partial_then_terminal_error.bin"
+    },
+    "outcome": "accept"
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "vector_id": "core_0020_boundary_max_payload_exact",
+  "group": "Core vectors",
+  "category": "core",
+  "description": "payload exactly equals `MAX_PAYLOAD_BYTES`",
+  "expected": {
+    "assertions": {
+      "envelope": {
+        "min_msg_id_bytes": 8,
+        "msg_type": 1,
+        "profile_id": 1,
+        "version": 1
+      },
+      "limits": {
+        "max_payload_bytes": 2048
+      }
+    },
+    "code": "OK",
+    "evidence_type": "runtime",
+    "fixture": {
+      "bin_file": "core_0020_boundary_max_payload_exact.bin"
+    },
+    "outcome": "accept"
+  }
+}

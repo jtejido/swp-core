@@ -1,0 +1,22 @@
+{
+  "vector_id": "a2a_0009_duplicate_task_conflicting_payload_rejected",
+  "group": "A2A vectors",
+  "category": "a2a",
+  "description": "conflicting duplicate task is rejected",
+  "expected": {
+    "assertions": {
+      "msg_type": 2,
+      "profile": "A2A",
+      "profile_id": 2,
+      "semantic_case": "deterministic-rejection"
+    },
+    "code": "INVALID_PROFILE_PAYLOAD",
+    "evidence_type": "runtime",
+    "fixture": {
+      "bin_file": "a2a_0009_duplicate_task_conflicting_payload_rejected.bin"
+    },
+    "outcome": "reject",
+    "rejection_reason": "profile invariant violation",
+    "expected_error_code": "ERR_INVALID_PROFILE_PAYLOAD"
+  }
+}

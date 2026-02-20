@@ -1,0 +1,913 @@
+<?xml version='1.0' encoding='utf-8'?>
+<rfc xmlns:xi="http://www.w3.org/2001/XInclude" version="3" xml:lang="en-GB" ipr="trust200902" submissionType="IETF" consensus="false" category="info" docName="draft-ietf-swp-core-00" tocInclude="true" symRefs="true" sortRefs="true" prepTime="2026-02-20T13:35:22" indexInclude="true" scripts="Common,Latin" tocDepth="3">
+  <front>
+    <title abbrev="SWP Core">SlimWire Protocol (SWP) Core: Binary Framing and Envelope Substrate</title>
+    <author fullname="Jericko Tejido" initials="J." surname="Tejido">
+      <address>
+        <email>jtbibliomania@gmail.com</email>
+      </address>
+    </author>
+    <date month="02" year="2026" day="20"/>
+    <abstract pn="section-abstract">
+      <t indent="0" pn="section-abstract-1">
+        This document specifies the SlimWire Protocol (SWP) Core: a slim binary framing (record) layer and
+        envelope format for interoperable agent/tool messaging with profile-based extensibility and a
+        machine-verifiable conformance model. SWP Core provides a transport-independent message boundary
+        definition (u32_be length prefix), a mandatory-to-implement envelope encoding (E1) based on unsigned
+        LEB128 uvarints and length-delimited byte strings with a TLV extension block, and profile dispatch by
+        numeric profile identifiers. Profiles define application semantics (e.g., tool invocation mapping and
+        agent task lifecycle) and are carried opaquely by Core. This document also specifies conformance
+        classes and golden vector artefacts executed by a spec-vector runner, and defines a security binding
+        (S1) requiring an authenticated confidential channel (e.g., TLS 1.3).
+      </t>
+    </abstract>
+    <boilerplate>
+      <section anchor="status-of-memo" numbered="false" removeInRFC="false" toc="exclude" pn="section-boilerplate.1">
+        <name slugifiedName="name-status-of-this-memo">Status of This Memo</name>
+        <t indent="0" pn="section-boilerplate.1-1">
+        This Internet-Draft is submitted in full conformance with the
+        provisions of BCP 78 and BCP 79.
+        </t>
+        <t indent="0" pn="section-boilerplate.1-2">
+        Internet-Drafts are working documents of the Internet Engineering Task
+        Force (IETF). Note that other groups may also distribute working
+        documents as Internet-Drafts. The list of current Internet-Drafts is
+        at <eref target="https://datatracker.ietf.org/drafts/current/" brackets="none"/>.
+        </t>
+        <t indent="0" pn="section-boilerplate.1-3">
+        Internet-Drafts are draft documents valid for a maximum of six months
+        and may be updated, replaced, or obsoleted by other documents at any
+        time. It is inappropriate to use Internet-Drafts as reference
+        material or to cite them other than as "work in progress."
+        </t>
+        <t indent="0" pn="section-boilerplate.1-4">
+        This Internet-Draft will expire on 24 August 2026.
+        </t>
+      </section>
+      <section anchor="copyright" numbered="false" removeInRFC="false" toc="exclude" pn="section-boilerplate.2">
+        <name slugifiedName="name-copyright-notice">Copyright Notice</name>
+        <t indent="0" pn="section-boilerplate.2-1">
+            Copyright (c) 2026 IETF Trust and the persons identified as the
+            document authors. All rights reserved.
+        </t>
+        <t indent="0" pn="section-boilerplate.2-2">
+            This document is subject to BCP 78 and the IETF Trust's Legal
+            Provisions Relating to IETF Documents
+            (<eref target="https://trustee.ietf.org/license-info" brackets="none"/>) in effect on the date of
+            publication of this document. Please review these documents
+            carefully, as they describe your rights and restrictions with
+            respect to this document. Code Components extracted from this
+            document must include Revised BSD License text as described in
+            Section 4.e of the Trust Legal Provisions and are provided without
+            warranty as described in the Revised BSD License.
+        </t>
+      </section>
+    </boilerplate>
+    <toc>
+      <section anchor="toc" numbered="false" removeInRFC="false" toc="exclude" pn="section-toc.1">
+        <name slugifiedName="name-table-of-contents">Table of Contents</name>
+        <ul bare="true" empty="true" indent="2" spacing="compact" pn="section-toc.1-1">
+          <li pn="section-toc.1-1.1">
+            <t indent="0" keepWithNext="true" pn="section-toc.1-1.1.1"><xref derivedContent="1" format="counter" sectionFormat="of" target="section-1"/>.  <xref derivedContent="" format="title" sectionFormat="of" target="name-introduction">Introduction</xref></t>
+          </li>
+          <li pn="section-toc.1-1.2">
+            <t indent="0" keepWithNext="true" pn="section-toc.1-1.2.1"><xref derivedContent="2" format="counter" sectionFormat="of" target="section-2"/>.  <xref derivedContent="" format="title" sectionFormat="of" target="name-conventions-and-terminology">Conventions and Terminology</xref></t>
+          </li>
+          <li pn="section-toc.1-1.3">
+            <t indent="0" pn="section-toc.1-1.3.1"><xref derivedContent="3" format="counter" sectionFormat="of" target="section-3"/>.  <xref derivedContent="" format="title" sectionFormat="of" target="name-swp-core-overview">SWP Core Overview</xref></t>
+            <ul bare="true" empty="true" indent="2" spacing="compact" pn="section-toc.1-1.3.2">
+              <li pn="section-toc.1-1.3.2.1">
+                <t indent="0" keepWithNext="true" pn="section-toc.1-1.3.2.1.1"><xref derivedContent="3.1" format="counter" sectionFormat="of" target="section-3.1"/>.  <xref derivedContent="" format="title" sectionFormat="of" target="name-core-framing">Core Framing</xref></t>
+              </li>
+              <li pn="section-toc.1-1.3.2.2">
+                <t indent="0" pn="section-toc.1-1.3.2.2.1"><xref derivedContent="3.2" format="counter" sectionFormat="of" target="section-3.2"/>.  <xref derivedContent="" format="title" sectionFormat="of" target="name-core-envelope-fields">Core Envelope Fields</xref></t>
+              </li>
+            </ul>
+          </li>
+          <li pn="section-toc.1-1.4">
+            <t indent="0" pn="section-toc.1-1.4.1"><xref derivedContent="4" format="counter" sectionFormat="of" target="section-4"/>.  <xref derivedContent="" format="title" sectionFormat="of" target="name-e1-envelope-encoding">E1 Envelope Encoding</xref></t>
+            <ul bare="true" empty="true" indent="2" spacing="compact" pn="section-toc.1-1.4.2">
+              <li pn="section-toc.1-1.4.2.1">
+                <t indent="0" pn="section-toc.1-1.4.2.1.1"><xref derivedContent="4.1" format="counter" sectionFormat="of" target="section-4.1"/>.  <xref derivedContent="" format="title" sectionFormat="of" target="name-encoding-primitives">Encoding Primitives</xref></t>
+              </li>
+              <li pn="section-toc.1-1.4.2.2">
+                <t indent="0" pn="section-toc.1-1.4.2.2.1"><xref derivedContent="4.2" format="counter" sectionFormat="of" target="section-4.2"/>.  <xref derivedContent="" format="title" sectionFormat="of" target="name-field-order-and-layout">Field Order and Layout</xref></t>
+              </li>
+              <li pn="section-toc.1-1.4.2.3">
+                <t indent="0" pn="section-toc.1-1.4.2.3.1"><xref derivedContent="4.3" format="counter" sectionFormat="of" target="section-4.3"/>.  <xref derivedContent="" format="title" sectionFormat="of" target="name-tlv-extension-block">TLV Extension Block</xref></t>
+              </li>
+            </ul>
+          </li>
+          <li pn="section-toc.1-1.5">
+            <t indent="0" pn="section-toc.1-1.5.1"><xref derivedContent="5" format="counter" sectionFormat="of" target="section-5"/>.  <xref derivedContent="" format="title" sectionFormat="of" target="name-p1-payload-encoding-binding">P1 Payload Encoding Binding</xref></t>
+          </li>
+          <li pn="section-toc.1-1.6">
+            <t indent="0" pn="section-toc.1-1.6.1"><xref derivedContent="6" format="counter" sectionFormat="of" target="section-6"/>.  <xref derivedContent="" format="title" sectionFormat="of" target="name-profile-registry-and-profil">Profile Registry and profile_id Allocation</xref></t>
+          </li>
+          <li pn="section-toc.1-1.7">
+            <t indent="0" pn="section-toc.1-1.7.1"><xref derivedContent="7" format="counter" sectionFormat="of" target="section-7"/>.  <xref derivedContent="" format="title" sectionFormat="of" target="name-conformance-classes-and-gol">Conformance Classes and Golden Vectors</xref></t>
+            <ul bare="true" empty="true" indent="2" spacing="compact" pn="section-toc.1-1.7.2">
+              <li pn="section-toc.1-1.7.2.1">
+                <t indent="0" pn="section-toc.1-1.7.2.1.1"><xref derivedContent="7.1" format="counter" sectionFormat="of" target="section-7.1"/>.  <xref derivedContent="" format="title" sectionFormat="of" target="name-conformance-classes">Conformance Classes</xref></t>
+              </li>
+              <li pn="section-toc.1-1.7.2.2">
+                <t indent="0" pn="section-toc.1-1.7.2.2.1"><xref derivedContent="7.2" format="counter" sectionFormat="of" target="section-7.2"/>.  <xref derivedContent="" format="title" sectionFormat="of" target="name-golden-vector-format">Golden Vector Format</xref></t>
+              </li>
+            </ul>
+          </li>
+          <li pn="section-toc.1-1.8">
+            <t indent="0" pn="section-toc.1-1.8.1"><xref derivedContent="8" format="counter" sectionFormat="of" target="section-8"/>.  <xref derivedContent="" format="title" sectionFormat="of" target="name-security-considerations">Security Considerations</xref></t>
+            <ul bare="true" empty="true" indent="2" spacing="compact" pn="section-toc.1-1.8.2">
+              <li pn="section-toc.1-1.8.2.1">
+                <t indent="0" pn="section-toc.1-1.8.2.1.1"><xref derivedContent="8.1" format="counter" sectionFormat="of" target="section-8.1"/>.  <xref derivedContent="" format="title" sectionFormat="of" target="name-s1-security-binding">S1 Security Binding</xref></t>
+              </li>
+              <li pn="section-toc.1-1.8.2.2">
+                <t indent="0" pn="section-toc.1-1.8.2.2.1"><xref derivedContent="8.2" format="counter" sectionFormat="of" target="section-8.2"/>.  <xref derivedContent="" format="title" sectionFormat="of" target="name-credential-delegation-and-p">Credential/Delegation and Policy Hints</xref></t>
+              </li>
+              <li pn="section-toc.1-1.8.2.3">
+                <t indent="0" pn="section-toc.1-1.8.2.3.1"><xref derivedContent="8.3" format="counter" sectionFormat="of" target="section-8.3"/>.  <xref derivedContent="" format="title" sectionFormat="of" target="name-observability-context-propa">Observability Context Propagation</xref></t>
+              </li>
+            </ul>
+          </li>
+          <li pn="section-toc.1-1.9">
+            <t indent="0" pn="section-toc.1-1.9.1"><xref derivedContent="9" format="counter" sectionFormat="of" target="section-9"/>.  <xref derivedContent="" format="title" sectionFormat="of" target="name-implementation-status">Implementation Status</xref></t>
+          </li>
+          <li pn="section-toc.1-1.10">
+            <t indent="0" pn="section-toc.1-1.10.1"><xref derivedContent="10" format="counter" sectionFormat="of" target="section-10"/>. <xref derivedContent="" format="title" sectionFormat="of" target="name-evaluation-and-reproducibil">Evaluation and Reproducibility</xref></t>
+          </li>
+          <li pn="section-toc.1-1.11">
+            <t indent="0" pn="section-toc.1-1.11.1"><xref derivedContent="11" format="counter" sectionFormat="of" target="section-11"/>. <xref derivedContent="" format="title" sectionFormat="of" target="name-deployment-and-interoperabi">Deployment and Interoperability Scenarios</xref></t>
+          </li>
+          <li pn="section-toc.1-1.12">
+            <t indent="0" pn="section-toc.1-1.12.1"><xref derivedContent="12" format="counter" sectionFormat="of" target="section-12"/>. <xref derivedContent="" format="title" sectionFormat="of" target="name-limitations-and-non-goals">Limitations and Non-Goals</xref></t>
+          </li>
+          <li pn="section-toc.1-1.13">
+            <t indent="0" pn="section-toc.1-1.13.1"><xref derivedContent="13" format="counter" sectionFormat="of" target="section-13"/>. <xref derivedContent="" format="title" sectionFormat="of" target="name-conclusion">Conclusion</xref></t>
+          </li>
+          <li pn="section-toc.1-1.14">
+            <t indent="0" pn="section-toc.1-1.14.1"><xref derivedContent="14" format="counter" sectionFormat="of" target="section-14"/>. <xref derivedContent="" format="title" sectionFormat="of" target="name-iana-considerations">IANA Considerations</xref></t>
+          </li>
+          <li pn="section-toc.1-1.15">
+            <t indent="0" pn="section-toc.1-1.15.1"><xref derivedContent="15" format="counter" sectionFormat="of" target="section-15"/>. <xref derivedContent="" format="title" sectionFormat="of" target="name-references">References</xref></t>
+            <ul bare="true" empty="true" indent="2" spacing="compact" pn="section-toc.1-1.15.2">
+              <li pn="section-toc.1-1.15.2.1">
+                <t indent="0" pn="section-toc.1-1.15.2.1.1"><xref derivedContent="15.1" format="counter" sectionFormat="of" target="section-15.1"/>.  <xref derivedContent="" format="title" sectionFormat="of" target="name-normative-references">Normative References</xref></t>
+              </li>
+              <li pn="section-toc.1-1.15.2.2">
+                <t indent="0" pn="section-toc.1-1.15.2.2.1"><xref derivedContent="15.2" format="counter" sectionFormat="of" target="section-15.2"/>.  <xref derivedContent="" format="title" sectionFormat="of" target="name-informative-references">Informative References</xref></t>
+              </li>
+            </ul>
+          </li>
+          <li pn="section-toc.1-1.16">
+            <t indent="0" pn="section-toc.1-1.16.1"><xref derivedContent="" format="none" sectionFormat="of" target="section-appendix.a"/><xref derivedContent="" format="title" sectionFormat="of" target="name-appendix-implementation-and">Appendix: Implementation and Conformance Notes (Informative)</xref></t>
+          </li>
+          <li pn="section-toc.1-1.17">
+            <t indent="0" pn="section-toc.1-1.17.1"><xref derivedContent="" format="none" sectionFormat="of" target="section-appendix.b"/><xref derivedContent="" format="title" sectionFormat="of" target="name-authors-address">Author's Address</xref></t>
+          </li>
+        </ul>
+      </section>
+    </toc>
+  </front>
+  <middle>
+    <section anchor="sec-introduction" numbered="true" toc="include" removeInRFC="false" pn="section-1">
+      <name slugifiedName="name-introduction">Introduction</name>
+      <t indent="0" pn="section-1-1">
+        Contemporary LLM systems increasingly behave as distributed systems: they invoke external tools,
+        delegate long-running tasks to other agents, stream intermediate progress, exchange artefacts, and
+        operate across organisational trust boundaries. In practice, these behaviours are implemented via
+        heterogeneous application protocols over transports such as HTTP streaming and stdio.
+      </t>
+      <t indent="0" pn="section-1-2">
+        Two application-level protocol efforts have gained traction: the Model Context Protocol (MCP)
+        (<eref target="https://modelcontextprotocol.io/specification/" brackets="none">https://modelcontextprotocol.io/specification/</eref>)
+        and Agent2Agent (A2A)
+        (<eref target="https://a2a-protocol.org/" brackets="none">https://a2a-protocol.org/</eref>;
+        overview:
+        <eref target="https://developers.googleblog.com/en/a2a-a-new-era-of-agent-interoperability/" brackets="none">https://developers.googleblog.com/en/a2a-a-new-era-of-agent-interoperability/</eref>).
+        MCP standardises tool invocation and discovery (commonly JSON-RPC over defined transports), while
+        A2A standardises agent-to-agent delegation and discovery. Both operate at the application layer.
+      </t>
+      <t indent="0" pn="section-1-3">
+        As deployments move into federated, cross-boundary settings, integration friction often arises below
+        the application layer: message boundary detection, size limiting, replay policy, correlation, identity
+        surfacing for authorisation and audit, and failure semantics are repeatedly reimplemented at
+        gateways and adapters. SWP addresses this by defining a minimal substrate: a record layer and
+        envelope that carry multiple profiles under a stable dispatch model, with explicit security binding
+        requirements and a machine-verifiable conformance suite.
+      </t>
+      <t indent="0" pn="section-1-4">
+        This document specifies SWP Core (framing, envelope, E1 encoding, and profile dispatch), plus
+        the conformance and security binding requirements needed for interoperable deployments. SWP
+        profiles (including mappings for MCP and A2A and additional infrastructure primitives) are
+        referenced but are not fully specified herein unless required for Core interoperability.
+      </t>
+    </section>
+    <section anchor="sec-conventions" numbered="true" toc="include" removeInRFC="false" pn="section-2">
+      <name slugifiedName="name-conventions-and-terminology">Conventions and Terminology</name>
+      <t indent="0" pn="section-2-1">
+        The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT",
+        "RECOMMENDED", "NOT RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted
+        as described in BCP 14 when, and only when, they appear in all capitals, as shown here.
+      </t>
+      <t indent="0" pn="section-2-2">
+        BCP 14 is specified by RFC 2119
+        (<eref target="https://www.rfc-editor.org/rfc/rfc2119" brackets="none">https://www.rfc-editor.org/rfc/rfc2119</eref>)
+        and clarified by RFC 8174
+        (<eref target="https://www.rfc-editor.org/rfc/rfc8174" brackets="none">https://www.rfc-editor.org/rfc/rfc8174</eref>).
+      </t>
+      <t indent="0" pn="section-2-3">
+        This document uses the following terms:
+      </t>
+      <ul bare="false" empty="false" indent="3" spacing="normal" pn="section-2-4">
+        <li pn="section-2-4.1">
+          <t indent="0" pn="section-2-4.1.1"><em>Frame</em>: A length-delimited unit on a byte stream consisting of a 32-bit big-endian
+          length prefix and an encoded envelope.</t>
+        </li>
+        <li pn="section-2-4.2">
+          <t indent="0" pn="section-2-4.2.1"><em>Envelope</em>: The Core-level header containing versioning, profile dispatch identifiers,
+          correlation identifiers, and an opaque profile payload.</t>
+        </li>
+        <li pn="section-2-4.3">
+          <t indent="0" pn="section-2-4.3.1"><em>Profile</em>: A defined semantic layer above Core identified by a numeric <em>profile_id</em>
+          and a profile-defined <em>msg_type</em>. Profiles define payload schemas, processing rules, and
+          conformance vectors.</t>
+        </li>
+        <li pn="section-2-4.4">
+          <t indent="0" pn="section-2-4.4.1"><em>Binding</em>: A set of requirements that constrain how Core and profiles are carried over
+          a transport (e.g., security binding S1; payload encoding binding P1).</t>
+        </li>
+      </ul>
+    </section>
+    <section anchor="sec-core" numbered="true" toc="include" removeInRFC="false" pn="section-3">
+      <name slugifiedName="name-swp-core-overview">SWP Core Overview</name>
+      <t indent="0" pn="section-3-1">
+        SWP Core defines (1) message framing on a byte stream, (2) a minimal envelope surface for dispatch,
+        and (3) a mandatory envelope encoding (E1). Profiles define application semantics and payload
+        formats and are carried as opaque bytes in the Core envelope.
+      </t>
+      <section anchor="sec-core-framing" numbered="true" toc="include" removeInRFC="false" pn="section-3.1">
+        <name slugifiedName="name-core-framing">Core Framing</name>
+        <t indent="0" pn="section-3.1-1">
+          A SWP stream is a sequence of frames. Each frame MUST be encoded as:
+        </t>
+        <ul bare="false" empty="false" indent="3" spacing="normal" pn="section-3.1-2">
+          <li pn="section-3.1-2.1">
+            <t indent="0" pn="section-3.1-2.1.1"><em>N</em>: a 32-bit unsigned integer in network byte order (big-endian), followed by</t>
+          </li>
+          <li pn="section-3.1-2.2">
+            <t indent="0" pn="section-3.1-2.2.1">exactly <em>N</em> octets containing one encoded envelope.</t>
+          </li>
+        </ul>
+        <t indent="0" pn="section-3.1-3">
+          A receiver MUST reject a frame if any of the following conditions hold:
+        </t>
+        <ul bare="false" empty="false" indent="3" spacing="normal" pn="section-3.1-4">
+          <li pn="section-3.1-4.1">
+            <t indent="0" pn="section-3.1-4.1.1">the 4-octet length prefix is truncated;</t>
+          </li>
+          <li pn="section-3.1-4.2">
+            <t indent="0" pn="section-3.1-4.2.1"><em>N</em> equals zero;</t>
+          </li>
+          <li pn="section-3.1-4.3">
+            <t indent="0" pn="section-3.1-4.3.1"><em>N</em> exceeds a local maximum frame size limit (MAX_FRAME_BYTES);</t>
+          </li>
+          <li pn="section-3.1-4.4">
+            <t indent="0" pn="section-3.1-4.4.1">the envelope body is truncated (fewer than <em>N</em> octets remain);</t>
+          </li>
+          <li pn="section-3.1-4.5">
+            <t indent="0" pn="section-3.1-4.5.1">the envelope body cannot be decoded by the selected envelope encoding (E1 for Core v1).</t>
+          </li>
+        </ul>
+        <t indent="0" pn="section-3.1-5">
+          MAX_FRAME_BYTES is a local policy parameter and MUST be configurable. Implementations SHOULD
+          enforce MAX_FRAME_BYTES before allocating buffers sized by <em>N</em>.
+        </t>
+        <t indent="0" pn="section-3.1-6">
+          NOTE: SWP Core is transport-independent and can run over any reliable byte stream meeting the
+          security binding (S1). HTTP/2 provides a distinct binary framing layer for HTTP semantics (RFC 9113,
+          <eref target="https://datatracker.ietf.org/doc/html/rfc9113" brackets="none">https://datatracker.ietf.org/doc/html/rfc9113</eref>);
+          gRPC defines an additional message framing convention over HTTP/2
+          (<eref target="https://github.com/grpc/grpc/blob/master/doc/PROTOCOL-HTTP2.md" brackets="none">https://github.com/grpc/grpc/blob/master/doc/PROTOCOL-HTTP2.md</eref>).
+          SWP similarly defines explicit message boundaries but is not tied to HTTP/2.
+        </t>
+      </section>
+      <section anchor="sec-core-envelope" numbered="true" toc="include" removeInRFC="false" pn="section-3.2">
+        <name slugifiedName="name-core-envelope-fields">Core Envelope Fields</name>
+        <t indent="0" pn="section-3.2-1">
+          A decoded envelope consists of the following required fields:
+        </t>
+        <ul bare="false" empty="false" indent="3" spacing="normal" pn="section-3.2-2">
+          <li pn="section-3.2-2.1">
+            <t indent="0" pn="section-3.2-2.1.1"><em>version</em> (uvarint): Core protocol version (this document specifies version 1).</t>
+          </li>
+          <li pn="section-3.2-2.2">
+            <t indent="0" pn="section-3.2-2.2.1"><em>profile_id</em> (uvarint): profile dispatch identifier.</t>
+          </li>
+          <li pn="section-3.2-2.3">
+            <t indent="0" pn="section-3.2-2.3.1"><em>msg_type</em> (uvarint): profile-defined message type.</t>
+          </li>
+          <li pn="section-3.2-2.4">
+            <t indent="0" pn="section-3.2-2.4.1"><em>flags</em> (uvarint): Core behaviour flags. Unknown flag bits MUST NOT change interpretation.</t>
+          </li>
+          <li pn="section-3.2-2.5">
+            <t indent="0" pn="section-3.2-2.5.1"><em>ts_unix_ms</em> (uvarint): sender timestamp in Unix milliseconds (policy-controlled freshness).</t>
+          </li>
+          <li pn="section-3.2-2.6">
+            <t indent="0" pn="section-3.2-2.6.1"><em>msg_id</em> (bytes): message identifier for correlation and replay/duplication handling.</t>
+          </li>
+          <li pn="section-3.2-2.7">
+            <t indent="0" pn="section-3.2-2.7.1"><em>payload</em> (bytes): opaque profile payload bytes.</t>
+          </li>
+        </ul>
+        <t indent="0" pn="section-3.2-3">
+          The Core MUST NOT interpret profile payload bytes. Dispatch decisions MUST be based only on
+          (version, profile_id, msg_type, flags) and local policy/state.
+        </t>
+        <t indent="0" pn="section-3.2-4">
+          msg_id length MUST be bounded. Implementations MUST reject msg_id values shorter than
+          MIN_MSG_ID_BYTES or longer than MAX_MSG_ID_BYTES. MIN_MSG_ID_BYTES and MAX_MSG_ID_BYTES are
+          protocol parameters; this document RECOMMENDS MIN_MSG_ID_BYTES = 8 and MAX_MSG_ID_BYTES = 64.
+        </t>
+        <t indent="0" pn="section-3.2-5">
+          The Core MUST enforce a maximum payload size limit (MAX_PAYLOAD_BYTES) independent of
+          MAX_FRAME_BYTES. MAX_PAYLOAD_BYTES MUST be configurable and SHOULD be strictly less than
+          MAX_FRAME_BYTES to allow envelope overhead.
+        </t>
+      </section>
+    </section>
+    <section anchor="sec-e1" numbered="true" toc="include" removeInRFC="false" pn="section-4">
+      <name slugifiedName="name-e1-envelope-encoding">E1 Envelope Encoding</name>
+      <t indent="0" pn="section-4-1">
+        E1 is the mandatory-to-implement envelope encoding for Core version 1. E1 encodes envelope fields
+        in a fixed order using unsigned LEB128 uvarints and length-delimited byte strings. E1 includes a
+        TLV extension block that can be skipped by implementations that do not recognise extension types.
+      </t>
+      <section anchor="sec-e1-primitives" numbered="true" toc="include" removeInRFC="false" pn="section-4.1">
+        <name slugifiedName="name-encoding-primitives">Encoding Primitives</name>
+        <t indent="0" pn="section-4.1-1">
+          E1 defines two primitive encodings:
+        </t>
+        <ul bare="false" empty="false" indent="3" spacing="normal" pn="section-4.1-2">
+          <li pn="section-4.1-2.1">
+            <t indent="0" pn="section-4.1-2.1.1">
+              <em>uvarint</em>: an unsigned integer encoded using base-128 LEB128, where each octet carries
+              7 bits of value and the most significant bit indicates continuation. The least significant group
+              is encoded first.
+            </t>
+          </li>
+          <li pn="section-4.1-2.2">
+            <t indent="0" pn="section-4.1-2.2.1">
+              <em>bytes</em>: a length-delimited octet string encoded as <em>uvarint length</em> followed by
+              exactly <em>length</em> octets.
+            </t>
+          </li>
+        </ul>
+        <t indent="0" pn="section-4.1-3">
+          An E1 decoder MUST reject malformed varints and MUST enforce a varint length bound. This document
+          RECOMMENDS rejecting uvarints longer than 10 octets and rejecting values that overflow 64-bit
+          unsigned range.
+        </t>
+      </section>
+      <section anchor="sec-e1-field-order" numbered="true" toc="include" removeInRFC="false" pn="section-4.2">
+        <name slugifiedName="name-field-order-and-layout">Field Order and Layout</name>
+        <t indent="0" pn="section-4.2-1">
+          Within the frame body (the <em>N</em> octets after the length prefix), E1 encodes the envelope fields
+          in the following exact order:
+        </t>
+        <ol indent="adaptive" spacing="normal" start="1" type="1" pn="section-4.2-2">
+          <li pn="section-4.2-2.1" derivedCounter="1.">
+            <t indent="0" pn="section-4.2-2.1.1"><em>version</em> (uvarint)</t>
+          </li>
+          <li pn="section-4.2-2.2" derivedCounter="2.">
+            <t indent="0" pn="section-4.2-2.2.1"><em>profile_id</em> (uvarint)</t>
+          </li>
+          <li pn="section-4.2-2.3" derivedCounter="3.">
+            <t indent="0" pn="section-4.2-2.3.1"><em>msg_type</em> (uvarint)</t>
+          </li>
+          <li pn="section-4.2-2.4" derivedCounter="4.">
+            <t indent="0" pn="section-4.2-2.4.1"><em>flags</em> (uvarint)</t>
+          </li>
+          <li pn="section-4.2-2.5" derivedCounter="5.">
+            <t indent="0" pn="section-4.2-2.5.1"><em>ts_unix_ms</em> (uvarint)</t>
+          </li>
+          <li pn="section-4.2-2.6" derivedCounter="6.">
+            <t indent="0" pn="section-4.2-2.6.1"><em>msg_id</em> (bytes)</t>
+          </li>
+          <li pn="section-4.2-2.7" derivedCounter="7.">
+            <t indent="0" pn="section-4.2-2.7.1"><em>extensions</em> (bytes; TLV extension block; MAY be empty)</t>
+          </li>
+          <li pn="section-4.2-2.8" derivedCounter="8.">
+            <t indent="0" pn="section-4.2-2.8.1"><em>payload</em> (bytes)</t>
+          </li>
+        </ol>
+        <t indent="0" pn="section-4.2-3">
+          A decoder MUST treat absence of any required field as an invalid envelope. A decoder MUST NOT
+          reinterpret unknown flag bits or unknown extension types. Unknown extension types MUST be ignored.
+        </t>
+      </section>
+      <section anchor="sec-e1-extensions" numbered="true" toc="include" removeInRFC="false" pn="section-4.3">
+        <name slugifiedName="name-tlv-extension-block">TLV Extension Block</name>
+        <t indent="0" pn="section-4.3-1">
+          The <em>extensions</em> field is itself a length-delimited byte string. Its content is a sequence
+          of TLV entries. Each entry is encoded as:
+        </t>
+        <ul bare="false" empty="false" indent="3" spacing="normal" pn="section-4.3-2">
+          <li pn="section-4.3-2.1">
+            <t indent="0" pn="section-4.3-2.1.1"><em>ext_type</em> (uvarint)</t>
+          </li>
+          <li pn="section-4.3-2.2">
+            <t indent="0" pn="section-4.3-2.2.1"><em>ext_value</em> (bytes)</t>
+          </li>
+        </ul>
+        <t indent="0" pn="section-4.3-3">
+          This construction is TLV because <em>ext_value</em> is length-delimited. Unknown ext_type values
+          MUST be ignored and skipped by reading ext_value length and advancing that many octets.
+        </t>
+        <t indent="0" pn="section-4.3-4">
+          Implementations MUST enforce an upper bound on extension block size (MAX_EXT_BYTES) and MUST
+          reject messages whose extension block length exceeds that bound. MAX_EXT_BYTES is a local policy
+          parameter and SHOULD be configurable.
+        </t>
+        <t indent="0" pn="section-4.3-5">
+          Extension type allocation is governed by the profile registry policy. Low ranges are reserved for
+          Core/bindings and higher ranges for profile-defined extensions. This document does not define a
+          global extension registry beyond these allocation principles.
+        </t>
+      </section>
+    </section>
+    <section anchor="sec-payload-binding" numbered="true" toc="include" removeInRFC="false" pn="section-5">
+      <name slugifiedName="name-p1-payload-encoding-binding">P1 Payload Encoding Binding</name>
+      <t indent="0" pn="section-5-1">
+        SWP Core treats payload bytes opaquely. To enable independent implementability and deterministic
+        conformance testing for profile payloads, SWP defines a mandatory payload encoding binding P1 for
+        profiles that opt into structured payload encoding.
+      </t>
+      <t indent="0" pn="section-5-2">
+        P1 specifies Protocol Buffers (proto3) wire format as mandatory-to-implement for applicable profiles.
+        Protobuf proto3 guidance is documented at
+        <eref target="https://protobuf.dev/programming-guides/proto3/" brackets="none">https://protobuf.dev/programming-guides/proto3/</eref>.
+      </t>
+      <t indent="0" pn="section-5-3">
+        Rationale (informative): Protobuf supports compact binary payloads, established forward/backward
+        compatibility discipline (stable field numbers; unknown fields ignored), and byte-level golden vectors.
+      </t>
+      <t indent="0" pn="section-5-4">
+        Normative schema annexes: this specification set includes normative .proto files for P1 profile payloads
+        (e.g., SWP RPC, events, artifacts, and A2A-mapped messages). The .proto annexes are distributed with
+        the SWP spec kit and are referenced by profile specifications. Implementations claiming conformance to
+        a profile that uses P1 MUST decode payloads using the corresponding normative .proto schema.
+      </t>
+      <t indent="0" pn="section-5-5">
+        Exception: the MCP mapping profile carries MCP JSON-RPC payload bytes opaquely to preserve MCP
+        semantics and avoid semantic drift. MCP specification is available at
+        <eref target="https://modelcontextprotocol.io/specification/" brackets="none">https://modelcontextprotocol.io/specification/</eref>.
+      </t>
+    </section>
+    <section anchor="sec-profile-registry" numbered="true" toc="include" removeInRFC="false" pn="section-6">
+      <name slugifiedName="name-profile-registry-and-profil">Profile Registry and profile_id Allocation</name>
+      <t indent="0" pn="section-6-1">
+        Core dispatch depends on a stable registry of numeric profile identifiers (profile_id). profile_id values
+        MUST NOT be reused. A profile specification MUST define its profile_id, msg_type space, payload binding
+        (e.g., P1 protobuf or opaque), and conformance vectors.
+      </t>
+      <t indent="0" pn="section-6-2">
+        This document defines the following initial allocation guidance:
+      </t>
+      <ul bare="false" empty="false" indent="3" spacing="normal" pn="section-6-3">
+        <li pn="section-6-3.1">
+          <t indent="0" pn="section-6-3.1.1">profile_id 1: MCP mapping profile (opaque JSON-RPC bytes).</t>
+        </li>
+        <li pn="section-6-3.2">
+          <t indent="0" pn="section-6-3.2.1">profile_id 2: A2A profile (agent task lifecycle and related messages).</t>
+        </li>
+        <li pn="section-6-3.3">
+          <t indent="0" pn="section-6-3.3.1">profile_id 3-9: reserved for future foundational profiles/bindings.</t>
+        </li>
+        <li pn="section-6-3.4">
+          <t indent="0" pn="section-6-3.4.1">profile_id 10-19: reserved for extended infrastructure primitive profiles.</t>
+        </li>
+      </ul>
+      <t indent="0" pn="section-6-4">
+        Allocation policy (informative): new profile_id assignments SHOULD be accompanied by (1) a profile
+        specification, (2) conformance vectors for core behaviours and error paths, and (3) an explicit
+        compatibility statement. Experimental/private-use identifiers should be confined to a clearly
+        segregated range as defined by the profile registry document for the SWP spec kit.
+      </t>
+    </section>
+    <section anchor="sec-conformance" numbered="true" toc="include" removeInRFC="false" pn="section-7">
+      <name slugifiedName="name-conformance-classes-and-gol">Conformance Classes and Golden Vectors</name>
+      <t indent="0" pn="section-7-1">
+        SWP defines conformance classes (C0 through C5) to enable scoped implementation claims. Each class
+        corresponds to a set of required vector namespaces. Implementations MUST state which conformance class
+        claims are supported.
+      </t>
+      <section anchor="sec-conformance-classes" numbered="true" toc="include" removeInRFC="false" pn="section-7.1">
+        <name slugifiedName="name-conformance-classes">Conformance Classes</name>
+        <t indent="0" pn="section-7.1-1">
+          Conformance classes are cumulative. A higher class includes all requirements of lower classes.
+          The class taxonomy is:
+        </t>
+        <table anchor="tab-conformance-classes" align="left" pn="table-1">
+          <name slugifiedName="name-swp-conformance-classes">SWP Conformance Classes</name>
+          <thead>
+            <tr>
+              <th align="left" colspan="1" rowspan="1">Class</th>
+              <th align="left" colspan="1" rowspan="1">Intended claim</th>
+              <th align="left" colspan="1" rowspan="1">Required components (illustrative)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td align="left" colspan="1" rowspan="1">C0</td>
+              <td align="left" colspan="1" rowspan="1">Core baseline</td>
+              <td align="left" colspan="1" rowspan="1">Core framing + E1 encoding + S1 binding requirements</td>
+            </tr>
+            <tr>
+              <td align="left" colspan="1" rowspan="1">C1</td>
+              <td align="left" colspan="1" rowspan="1">MCP bridge</td>
+              <td align="left" colspan="1" rowspan="1">C0 + MCP mapping profile</td>
+            </tr>
+            <tr>
+              <td align="left" colspan="1" rowspan="1">C2</td>
+              <td align="left" colspan="1" rowspan="1">A2A baseline</td>
+              <td align="left" colspan="1" rowspan="1">C0 + A2A profile</td>
+            </tr>
+            <tr>
+              <td align="left" colspan="1" rowspan="1">C3</td>
+              <td align="left" colspan="1" rowspan="1">Runtime primitives</td>
+              <td align="left" colspan="1" rowspan="1">C0 + RPC + EVENTS + OBS profiles</td>
+            </tr>
+            <tr>
+              <td align="left" colspan="1" rowspan="1">C4</td>
+              <td align="left" colspan="1" rowspan="1">Data plane</td>
+              <td align="left" colspan="1" rowspan="1">C3 + ARTIFACT + STATE profiles</td>
+            </tr>
+            <tr>
+              <td align="left" colspan="1" rowspan="1">C5</td>
+              <td align="left" colspan="1" rowspan="1">Federation</td>
+              <td align="left" colspan="1" rowspan="1">C4 + discovery + tool discovery + credential + policy hint + relay profiles</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+      <section anchor="sec-conformance-vectors" numbered="true" toc="include" removeInRFC="false" pn="section-7.2">
+        <name slugifiedName="name-golden-vector-format">Golden Vector Format</name>
+        <t indent="0" pn="section-7.2-1">
+          The conformance suite consists of golden vectors. Each vector pairs:
+        </t>
+        <ul bare="false" empty="false" indent="3" spacing="normal" pn="section-7.2-2">
+          <li pn="section-7.2-2.1">
+            <t indent="0" pn="section-7.2-2.1.1">a binary fixture (.bin) containing the exact on-the-wire frame bytes (u32_be length + E1 envelope bytes);</t>
+          </li>
+          <li pn="section-7.2-2.2">
+            <t indent="0" pn="section-7.2-2.2.1">a JSON descriptor (.json) containing expected outcome (accept/reject), expected error codes, and assertions.</t>
+          </li>
+        </ul>
+        <t indent="0" pn="section-7.2-3">
+          Vectors include positive cases, negative cases exercising each rejection path, and boundary cases for
+          size limits and reserved/unknown behaviours. Profiles MUST provide vectors for required invariants and
+          error handling.
+        </t>
+        <t indent="0" pn="section-7.2-4">
+          A spec-vector runner executes vectors and emits a reproducible JSON summary. The runner supports a
+          strict "no-fallback" mode that fails any vector requiring fallback evaluation. This enables a clear
+          distinction between (a) specification-level validation and (b) implementation-only conformance runs.
+        </t>
+        <t indent="0" pn="section-7.2-5">
+          The SWP spec kit includes runner output schema documentation and artefact bundle guidance. Implementations
+          SHOULD publish artefact bundles (stdout logs and JSON summaries) when making public conformance claims.
+        </t>
+        <figure anchor="fig-vector-example" align="left" suppress-title="false" pn="figure-1">
+          <name slugifiedName="name-example-conformance-vector-">Example Conformance Vector (Illustrative)</name>
+          <artwork type="ascii-art" align="left" pn="section-7.2-6.1">
+Wire fixture (.bin):
+  [u32_be N] [E1 envelope bytes]
+
+E1 layout (field order):
+  version(uvarint)=1
+  profile_id(uvarint)=1
+  msg_type(uvarint)=1
+  flags(uvarint)=0
+  ts_unix_ms(uvarint)=0
+  msg_id(bytes)=len 16 + 16 octets
+  extensions(bytes)=len 0
+  payload(bytes)=len 0
+
+Expected (.json):
+  {
+    "vector_id": "e1_0001_valid_min_envelope",
+    "expected": {
+      "outcome": "accept",
+      "assert": {
+        "version": 1,
+        "profile_id": 1,
+        "msg_type": 1,
+        "payload_len": 0
+      }
+    }
+  }
+</artwork>
+        </figure>
+      </section>
+    </section>
+    <section anchor="sec-security" numbered="true" toc="include" removeInRFC="false" pn="section-8">
+      <name slugifiedName="name-security-considerations">Security Considerations</name>
+      <t indent="0" pn="section-8-1">
+        SWP Core is intended for federated deployments and therefore specifies a security binding (S1) that
+        constrains channel properties required before frames are processed.
+      </t>
+      <section anchor="sec-s1" numbered="true" toc="include" removeInRFC="false" pn="section-8.1">
+        <name slugifiedName="name-s1-security-binding">S1 Security Binding</name>
+        <t indent="0" pn="section-8.1-1">
+          S1 requires that SWP frames be carried over an authenticated confidential channel providing:
+          confidentiality, integrity, peer authentication, replay resistance, and downgrade resistance.
+        </t>
+        <t indent="0" pn="section-8.1-2">
+          A concrete and widely deployed instantiation is TLS 1.3 (RFC 8446,
+          <eref target="https://datatracker.ietf.org/doc/html/rfc8446" brackets="none">https://datatracker.ietf.org/doc/html/rfc8446</eref>).
+          When TLS is used, implementations SHOULD use deployment-appropriate authentication (e.g., mutual TLS)
+          and MUST fail closed on authentication or integrity failures.
+        </t>
+        <t indent="0" pn="section-8.1-3">
+          SWP Core includes a sender timestamp (ts_unix_ms) that MAY be used for freshness enforcement. If
+          freshness enforcement is enabled, receivers MUST reject frames outside a configured acceptance window.
+          If freshness enforcement is disabled, this MUST be documented by the implementation and deployment.
+        </t>
+      </section>
+      <section anchor="sec-cred-policy" numbered="true" toc="include" removeInRFC="false" pn="section-8.2">
+        <name slugifiedName="name-credential-delegation-and-p">Credential/Delegation and Policy Hints</name>
+        <t indent="0" pn="section-8.2-1">
+          Federated agent/tool systems often require delegation ("act on behalf of") and constraint propagation.
+          SWP profiles may carry credential and delegation artefacts as opaque tokens with explicit expiry and
+          chain-length limits, and may carry policy hints (e.g., residency restrictions, cost budgets, network
+          restrictions) with defined conflict and violation signalling.
+        </t>
+        <t indent="0" pn="section-8.2-2">
+          These profiles are intentionally minimal and do not define a full IAM system or policy language.
+          They provide a portable signalling surface suitable for relays and cross-organisation governance.
+        </t>
+      </section>
+      <section anchor="sec-obs" numbered="true" toc="include" removeInRFC="false" pn="section-8.3">
+        <name slugifiedName="name-observability-context-propa">Observability Context Propagation</name>
+        <t indent="0" pn="section-8.3-1">
+          Distributed tracing propagation is standardised by W3C Trace Context
+          (<eref target="https://www.w3.org/TR/trace-context/" brackets="none">https://www.w3.org/TR/trace-context/</eref>).
+          OpenTelemetry adopts W3C Trace Context as the default propagation format and documents context
+          propagation behaviour at
+          <eref target="https://opentelemetry.io/docs/concepts/context-propagation/" brackets="none">https://opentelemetry.io/docs/concepts/context-propagation/</eref>.
+          SWP observability profiles align with these standards to enable cross-hop trace correlation without
+          proprietary propagation conventions.
+        </t>
+        <t indent="0" pn="section-8.3-2">
+          Implementations SHOULD avoid propagating sensitive identifiers across organisational boundaries and
+          SHOULD apply data minimisation to propagated context.
+        </t>
+      </section>
+    </section>
+    <section anchor="sec-impl-status" numbered="true" toc="include" removeInRFC="false" pn="section-9">
+      <name slugifiedName="name-implementation-status">Implementation Status</name>
+      <t indent="0" pn="section-9-1">
+        The SWP spec kit is accompanied by an executable proof-of-concept (PoC) implementation used to
+        generate and validate conformance vectors via the spec-vector runner. The PoC is a reference artefact
+        rather than a production deployment, intended to exercise framing, envelope decoding/encoding, profile
+        dispatch, and conformance evaluation end-to-end.
+      </t>
+      <t indent="0" pn="section-9-2">
+        Earlier iterations used JSON payload parsing for some profile handlers while specifying P1 protobuf
+        payload binding as normative. This mismatch has been resolved: P1 protobuf payload binding is now both
+        normative for applicable profiles and implemented in the PoC for spec-vector execution. MCP mapping
+        remains byte-preserving and carries JSON-RPC bytes opaquely to avoid semantic drift.
+      </t>
+    </section>
+    <section anchor="sec-evaluation" numbered="true" toc="include" removeInRFC="false" pn="section-10">
+      <name slugifiedName="name-evaluation-and-reproducibil">Evaluation and Reproducibility</name>
+      <t indent="0" pn="section-10-1">
+        SWP evaluation is grounded in machine-verifiable conformance artefacts. The spec-vector runner executes
+        golden vectors and emits a JSON summary with a versioned schema, run provenance, per-vector results, and
+        explicit indication of fallback usage. Strict mode (no-fallback) provides an implementation-only signal.
+      </t>
+      <t indent="0" pn="section-10-2">
+        The SWP spec kit recommends publishing a conformance artefact bundle consisting of:
+        (1) runner command lines, (2) runner stdout logs, (3) JSON summaries, and (4) the runner output schema
+        documentation.
+      </t>
+      <figure anchor="fig-artifact-commands" align="left" suppress-title="false" pn="figure-2">
+        <name slugifiedName="name-illustrative-artefact-bundl">Illustrative Artefact Bundle Commands</name>
+        <artwork type="bash" align="left" pn="section-10-3.1">
+# Default run (fallback permitted)
+make vectors SPEC_VECTOR_ARGS="-pattern 'conformance/vectors/core_*.json' -json-out artifacts/conformance/core.default.json"
+
+# Strict run (implementation-only; fallback disallowed)
+make vectors-strict SPEC_VECTOR_ARGS="-pattern 'conformance/vectors/core_*.json' -json-out artifacts/conformance/core.strict.json"
+
+# Optional convenience targets (if provided by the repository)
+make conformance-core
+make conformance-all
+</artwork>
+      </figure>
+    </section>
+    <section anchor="sec-deployment" numbered="true" toc="include" removeInRFC="false" pn="section-11">
+      <name slugifiedName="name-deployment-and-interoperabi">Deployment and Interoperability Scenarios</name>
+      <t indent="0" pn="section-11-1">
+        SWP is designed for incremental adoption. Representative scenarios include:
+      </t>
+      <ul bare="false" empty="false" indent="3" spacing="normal" pn="section-11-2">
+        <li pn="section-11-2.1">
+          <t indent="0" pn="section-11-2.1.1">
+            <em>MCP bridging (C1)</em>: deploy SWP Core + MCP mapping behind a gateway that translates between
+            MCP transports and SWP framing. MCP payload bytes remain opaque and can be forwarded byte-preservingly.
+          </t>
+        </li>
+        <li pn="section-11-2.2">
+          <t indent="0" pn="section-11-2.2.1">
+            <em>Federated delegation (C2)</em>: two organisations exchange agent tasks using SWP Core + A2A profile
+            over an S1-compliant channel, with stable peer identity surfacing for authorisation and audit.
+          </t>
+        </li>
+        <li pn="section-11-2.3">
+          <t indent="0" pn="section-11-2.3.1">
+            <em>Unified RPC/events/artefacts (C3/C4/C5)</em>: a deployment uses SWP profiles for RPC, events,
+            observability, and artifact transfer to carry task execution, progress, trace correlation, and
+            artefact references on a single secured connection.
+          </t>
+        </li>
+      </ul>
+    </section>
+    <section anchor="sec-limitations" numbered="true" toc="include" removeInRFC="false" pn="section-12">
+      <name slugifiedName="name-limitations-and-non-goals">Limitations and Non-Goals</name>
+      <t indent="0" pn="section-12-1">
+        SWP Core is intentionally narrow. The following are explicit non-goals for this document:
+      </t>
+      <ul bare="false" empty="false" indent="3" spacing="normal" pn="section-12-2">
+        <li pn="section-12-2.1">
+          <t indent="0" pn="section-12-2.1.1">Replacing MCP or A2A; SWP is intended to carry and bridge them as profiles.</t>
+        </li>
+        <li pn="section-12-2.2">
+          <t indent="0" pn="section-12-2.2.1">Defining a new IAM system or full policy language; credential and policy profiles are propagation/signalling surfaces.</t>
+        </li>
+        <li pn="section-12-2.3">
+          <t indent="0" pn="section-12-2.3.1">Mandating a single transport; SWP runs over any channel meeting S1.</t>
+        </li>
+        <li pn="section-12-2.4">
+          <t indent="0" pn="section-12-2.4.1">Specifying message-level end-to-end cryptography across relays; S1 is a channel security binding.</t>
+        </li>
+        <li pn="section-12-2.5">
+          <t indent="0" pn="section-12-2.5.1">Providing Core-level multiplexing; multiplexing is transport- or profile-level.</t>
+        </li>
+      </ul>
+      <t indent="0" pn="section-12-3">
+        This document is a Core substrate specification. Profile specifications define additional semantics and
+        may impose further requirements for particular deployment environments.
+      </t>
+    </section>
+    <section anchor="sec-conclusion" numbered="true" toc="include" removeInRFC="false" pn="section-13">
+      <name slugifiedName="name-conclusion">Conclusion</name>
+      <t indent="0" pn="section-13-1">
+        SWP Core provides a minimal, independently implementable substrate for federated agent/tool communication:
+        a rigorous record layer, a compact envelope with mandatory E1 encoding, explicit profile dispatch, and a
+        conformance model based on classes, golden vectors, and reproducible artefact bundles. By separating a
+        stable substrate from evolving application semantics (profiles), SWP aims to reduce bespoke gateway logic
+        and make interoperability claims verifiable.
+      </t>
+    </section>
+    <section anchor="sec-iana" numbered="true" toc="include" removeInRFC="false" pn="section-14">
+      <name slugifiedName="name-iana-considerations">IANA Considerations</name>
+      <t indent="0" pn="section-14-1">
+        This document makes no requests of IANA.
+      </t>
+    </section>
+  </middle>
+  <back>
+    <references pn="section-15">
+      <name slugifiedName="name-references">References</name>
+      <references pn="section-15.1">
+        <name slugifiedName="name-normative-references">Normative References</name>
+        <reference anchor="RFC2119" target="https://www.rfc-editor.org/rfc/rfc2119" quoteTitle="true" derivedAnchor="RFC2119">
+          <front>
+            <title>Key words for use in RFCs to Indicate Requirement Levels</title>
+            <author fullname="S. Bradner"/>
+            <date year="1997" month="March"/>
+          </front>
+          <seriesInfo name="BCP" value="14"/>
+          <seriesInfo name="RFC" value="2119"/>
+        </reference>
+        <reference anchor="RFC8174" target="https://www.rfc-editor.org/rfc/rfc8174" quoteTitle="true" derivedAnchor="RFC8174">
+          <front>
+            <title>Ambiguity of Uppercase vs Lowercase in RFC 2119 Key Words</title>
+            <author fullname="B. Leiba"/>
+            <date year="2017" month="May"/>
+          </front>
+          <seriesInfo name="BCP" value="14"/>
+          <seriesInfo name="RFC" value="8174"/>
+        </reference>
+      </references>
+      <references pn="section-15.2">
+        <name slugifiedName="name-informative-references">Informative References</name>
+        <reference anchor="A2A" target="https://a2a-protocol.org/" quoteTitle="true" derivedAnchor="A2A">
+          <front>
+            <title>Agent2Agent (A2A) Protocol</title>
+            <author fullname="A2A Project and contributors"/>
+            <date year="2025"/>
+          </front>
+        </reference>
+        <reference anchor="A2A-BLOG" target="https://developers.googleblog.com/en/a2a-a-new-era-of-agent-interoperability/" quoteTitle="true" derivedAnchor="A2A-BLOG">
+          <front>
+            <title>A2A: A New Era of Agent Interoperability</title>
+            <author fullname="Google Developers Blog"/>
+            <date year="2025"/>
+          </front>
+        </reference>
+        <reference anchor="FIPA-ACL" target="https://www.fipa.org/specs/fipa00071/XC00071B.pdf" quoteTitle="true" derivedAnchor="FIPA-ACL">
+          <front>
+            <title>FIPA ACL Message Structure Specification</title>
+            <author fullname="FIPA"/>
+            <date year="2002"/>
+          </front>
+        </reference>
+        <reference anchor="GRPC" target="https://grpc.io/" quoteTitle="true" derivedAnchor="GRPC">
+          <front>
+            <title>gRPC</title>
+            <author fullname="gRPC Authors"/>
+            <date year="2025"/>
+          </front>
+        </reference>
+        <reference anchor="GRPC-H2" target="https://github.com/grpc/grpc/blob/master/doc/PROTOCOL-HTTP2.md" quoteTitle="true" derivedAnchor="GRPC-H2">
+          <front>
+            <title>gRPC over HTTP/2 Protocol</title>
+            <author fullname="gRPC Project"/>
+            <date year="2025"/>
+          </front>
+        </reference>
+        <reference anchor="KQML" target="https://www.cs.umbc.edu/research/kqml/" quoteTitle="true" derivedAnchor="KQML">
+          <front>
+            <title>Knowledge Query and Manipulation Language (KQML)</title>
+            <author fullname="UMBC"/>
+            <date year="1997"/>
+          </front>
+        </reference>
+        <reference anchor="MCP" target="https://modelcontextprotocol.io/specification/" quoteTitle="true" derivedAnchor="MCP">
+          <front>
+            <title>Model Context Protocol (MCP) Specification</title>
+            <author fullname="Anthropic and contributors"/>
+            <date year="2025"/>
+          </front>
+        </reference>
+        <reference anchor="OTEL-PROP" target="https://opentelemetry.io/docs/concepts/context-propagation/" quoteTitle="true" derivedAnchor="OTEL-PROP">
+          <front>
+            <title>OpenTelemetry Context Propagation</title>
+            <author fullname="OpenTelemetry Authors"/>
+            <date year="2025"/>
+          </front>
+        </reference>
+        <reference anchor="PROTOBUF" target="https://protobuf.dev/programming-guides/proto3/" quoteTitle="true" derivedAnchor="PROTOBUF">
+          <front>
+            <title>Protocol Buffers: Proto3 Language Guide</title>
+            <author fullname="Google"/>
+            <date year="2025"/>
+          </front>
+        </reference>
+        <reference anchor="RFC8446" target="https://datatracker.ietf.org/doc/html/rfc8446" quoteTitle="true" derivedAnchor="RFC8446">
+          <front>
+            <title>The Transport Layer Security (TLS) Protocol Version 1.3</title>
+            <author fullname="E. Rescorla"/>
+            <date year="2018" month="August"/>
+          </front>
+          <seriesInfo name="RFC" value="8446"/>
+        </reference>
+        <reference anchor="RFC9113" target="https://datatracker.ietf.org/doc/html/rfc9113" quoteTitle="true" derivedAnchor="RFC9113">
+          <front>
+            <title>HTTP/2</title>
+            <author fullname="M. Thomson"/>
+            <author fullname="C. Benfield"/>
+            <date year="2022" month="June"/>
+          </front>
+          <seriesInfo name="RFC" value="9113"/>
+        </reference>
+        <reference anchor="W3C-TRACE" target="https://www.w3.org/TR/trace-context/" quoteTitle="true" derivedAnchor="W3C-TRACE">
+          <front>
+            <title>Trace Context</title>
+            <author fullname="W3C"/>
+            <date year="2021"/>
+          </front>
+        </reference>
+      </references>
+    </references>
+    <section anchor="app-checklist" numbered="false" toc="include" removeInRFC="false" pn="section-appendix.a">
+      <name slugifiedName="name-appendix-implementation-and">Appendix: Implementation and Conformance Notes (Informative)</name>
+      <t indent="0" pn="section-appendix.a-1">
+        Implementations that claim SWP conformance should publish: (1) supported conformance classes, (2) artefact
+        bundle outputs from default and strict runs, and (3) any deployment-specific policy parameters (size limits,
+        timestamp freshness policy, peer authentication mode). The SWP spec kit includes runner output schema
+        documentation and conformance claim checklists.
+      </t>
+    </section>
+    <section anchor="authors-addresses" numbered="false" removeInRFC="false" toc="include" pn="section-appendix.b">
+      <name slugifiedName="name-authors-address">Author's Address</name>
+      <author fullname="Jericko Tejido" initials="J." surname="Tejido">
+        <address>
+          <email>jtbibliomania@gmail.com</email>
+        </address>
+      </author>
+    </section>
+  </back>
+</rfc>

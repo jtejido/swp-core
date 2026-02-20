@@ -1,0 +1,38 @@
+services:
+  swp-server:
+    build:
+      context: .
+      dockerfile: poc/Dockerfile
+      target: swp-server
+    ports:
+      - "7777:7777"
+
+  mcp-json-gateway:
+    build:
+      context: .
+      dockerfile: poc/Dockerfile
+      target: mcp-json-gateway
+    depends_on:
+      - swp-server
+    ports:
+      - "8080:8080"
+
+  swp-client:
+    build:
+      context: .
+      dockerfile: poc/Dockerfile
+      target: swp-client
+    depends_on:
+      - swp-server
+
+  swp-vectors:
+    build:
+      context: .
+      dockerfile: poc/Dockerfile
+      target: swp-vectors
+
+  swp-spec-vectors:
+    build:
+      context: .
+      dockerfile: poc/Dockerfile
+      target: swp-spec-vectors

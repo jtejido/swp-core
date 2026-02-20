@@ -1,0 +1,22 @@
+{
+  "vector_id": "agdisc_0002_not_found",
+  "group": "SWP-AGDISC vectors",
+  "category": "agdisc",
+  "description": "unknown agent yields deterministic not-found behavior",
+  "expected": {
+    "assertions": {
+      "msg_type": 4,
+      "profile": "AGDISC",
+      "profile_id": 10,
+      "semantic_case": "deterministic-rejection"
+    },
+    "code": "NOT_FOUND",
+    "evidence_type": "runtime",
+    "fixture": {
+      "bin_file": "agdisc_0002_not_found.bin"
+    },
+    "outcome": "reject",
+    "rejection_reason": "deterministic not-found behavior",
+    "expected_error_code": "ERR_NOT_FOUND"
+  }
+}

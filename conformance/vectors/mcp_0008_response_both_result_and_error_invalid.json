@@ -1,0 +1,20 @@
+{
+  "vector_id": "mcp_0008_response_both_result_and_error_invalid",
+  "group": "MCP mapping vectors",
+  "category": "mcp",
+  "description": "response containing both `result` and `error` is rejected",
+  "expected": {
+    "assertions": {
+      "msg_type": 2,
+      "profile": "MCPMAP"
+    },
+    "code": "INVALID_MCP_PAYLOAD",
+    "evidence_type": "runtime",
+    "fixture": {
+      "bin_file": "mcp_0008_response_both_result_and_error_invalid.bin"
+    },
+    "outcome": "reject",
+    "rejection_reason": "response contains both result and error",
+    "expected_error_code": "ERR_INVALID_MCP_PAYLOAD"
+  }
+}

@@ -1,0 +1,9 @@
+@startuml
+title TOOLDISC: list and get tools
+participant "Client" as C
+participant "Tool Registry" as R
+C -> R : TOOLDISC_LIST_REQ
+R --> C : TOOLDISC_LIST_RESP
+C -> R : TOOLDISC_GET_REQ
+R --> C : TOOLDISC_GET_RESP
+@enduml

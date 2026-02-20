@@ -1,0 +1,24 @@
+{
+  "vector_id": "core_0003_invalid_zero_length",
+  "group": "Core vectors",
+  "category": "core",
+  "description": "length prefix is zero",
+  "expected": {
+    "assertions": {
+      "envelope": {
+        "min_msg_id_bytes": 8,
+        "msg_type": 1,
+        "profile_id": 1,
+        "version": 1
+      }
+    },
+    "code": "INVALID_FRAME",
+    "evidence_type": "runtime",
+    "fixture": {
+      "bin_file": "core_0003_invalid_zero_length.bin"
+    },
+    "outcome": "reject",
+    "rejection_reason": "zero-length frame prefix",
+    "expected_error_code": "ERR_INVALID_FRAME"
+  }
+}

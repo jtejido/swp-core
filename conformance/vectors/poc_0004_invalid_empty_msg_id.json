@@ -1,0 +1,8 @@
+{
+  "name": "poc_0004_invalid_empty_msg_id",
+  "bin": "poc_0004_invalid_empty_msg_id.bin",
+  "expect": {
+    "ok": false,
+    "code": "INVALID_ENVELOPE"
+  }
+}
