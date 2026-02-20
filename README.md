@@ -1,5 +1,6 @@
 
 # SWP Spec Kit
+[![DOI](https://zenodo.org/badge/1162329148.svg)](https://doi.org/10.5281/zenodo.18708208)
 
 This repository contains the SWP (SlimWire Protocol) specifications, conformance artifacts, and a Go reference implementation for a slim binary wire substrate that can carry:
 
