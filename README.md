@@ -43,7 +43,6 @@ A Go reference implementation exists under `poc/`.
 - `docs/swp-*.md`: Extended SWP profile family specs.
 - `docs/decisions.md`: Architecture and scope decisions.
 - `docs/glossary.md`: Canonical protocol terms.
-- `docs/poc-roadmap.md`: 2-3 week POC execution plan.
 - `puml/`: Component and sequence diagrams.
 - `proto/`: Mixed schema set (non-normative examples + normative P1 annexes for A2A/SWP).
 - `conformance/vectors/`: Golden vectors (runtime fixtures are concrete; process vectors use `.evidence.md` artifacts).
