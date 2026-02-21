@@ -2,12 +2,11 @@ package server
 
 import (
 	"context"
-	"encoding/json"
 	"fmt"
-	"time"
 
 	"swp-spec-kit/poc/internal/core"
 	"swp-spec-kit/poc/internal/p1rpc"
+	runtimeclock "swp-spec-kit/poc/internal/runtime/clock"
 )
 
 const (
@@ -18,21 +17,40 @@ const (
 	rpcMsgTypeCancel     = 5
 )
 
-func handleSWPRPC(_ context.Context, env core.Envelope) ([]core.Envelope, error) {
-	now := uint64(time.Now().UnixMilli())
+func handleSWPRPC(ctx context.Context, env core.Envelope) ([]core.Envelope, error) {
+	return handleSWPRPCWithBackend(ctx, env, defaultBackends.rpc, nil)
+}
+
+func (s *Server) handleSWPRPC(ctx context.Context, env core.Envelope) ([]core.Envelope, error) {
+	return handleSWPRPCWithBackend(ctx, env, s.runtime.rpc, func(eventType, severity string, body map[string]any, rpcID []byte) {
+		s.emitProfileEvent(ctx, env, eventType, severity, body, nil, rpcID)
+	})
+}
+
+func handleSWPRPCWithBackend(
+	_ context.Context,
+	env core.Envelope,
+	backend RPCBackend,
+	emit func(eventType, severity string, body map[string]any, rpcID []byte),
+) ([]core.Envelope, error) {
+	now := runtimeclock.UnixMilli(nil)
 
 	switch env.MsgType {
 	case rpcMsgTypeCancel:
-		resp, err := p1rpc.EncodePayloadErr(p1rpc.RpcErr{
-			RPCID:        []byte{},
-			ErrorCode:    "cancelled",
-			Retryable:    false,
-			ErrorMessage: "cancel received",
-		})
+		cerr, err := backend.HandleCancel()
+		if err != nil {
+			return nil, core.Wrap(core.CodeInternalError, fmt.Errorf("backend RPC cancel: %w", err))
+		}
+		if emit != nil {
+			emit("swp.rpc.cancel", "info", map[string]any{
+				"code": cerr.ErrorCode,
+			}, cerr.RPCID)
+		}
+		payload, err := p1rpc.EncodePayloadErr(cerr)
 		if err != nil {
 			return nil, core.Wrap(core.CodeInternalError, fmt.Errorf("encode RPC error payload: %w", err))
 		}
-		return []core.Envelope{newRPCEnvelope(env.MsgID, rpcMsgTypeErr, now, resp)}, nil
+		return []core.Envelope{newRPCEnvelope(env.MsgID, rpcMsgTypeErr, now, payload)}, nil
 	case rpcMsgTypeReq:
 	default:
 		return nil, core.Wrap(core.CodeInvalidEnvelope, fmt.Errorf("invalid SWP-RPC msg_type %d", env.MsgType))
@@ -45,81 +63,67 @@ func handleSWPRPC(_ context.Context, env core.Envelope) ([]core.Envelope, error)
 	if req.Method == "" {
 		return nil, core.Wrap(core.CodeInvalidEnvelope, fmt.Errorf("missing method"))
 	}
+	if emit != nil {
+		emit("swp.rpc.request", "info", map[string]any{
+			"method": req.Method,
+		}, req.RPCID)
+	}
 
-	switch req.Method {
-	case "demo.echo":
-		resp, err := p1rpc.EncodePayloadResp(p1rpc.RpcResp{
-			RPCID:  req.RPCID,
-			Result: req.Params,
-		})
-		if err != nil {
-			return nil, core.Wrap(core.CodeInternalError, fmt.Errorf("encode RPC response payload: %w", err))
+	msgs, err := backend.HandleRequest(req)
+	if err != nil {
+		if emit != nil {
+			emit("swp.rpc.error", "error", map[string]any{
+				"method": req.Method,
+				"code":   "INTERNAL_ERROR",
+			}, req.RPCID)
 		}
-		return []core.Envelope{newRPCEnvelope(env.MsgID, rpcMsgTypeResp, now, resp)}, nil
+		return nil, core.Wrap(core.CodeInternalError, fmt.Errorf("backend RPC request: %w", err))
+	}
 
-	case "demo.stream.count":
-		count := 5
-		var p struct {
-			Count int `json:"count"`
-		}
-		if len(req.Params) > 0 {
-			_ = json.Unmarshal(req.Params, &p)
-			if p.Count > 0 {
-				count = p.Count
+	out := make([]core.Envelope, 0, len(msgs))
+	for _, msg := range msgs {
+		switch msg.MsgType {
+		case rpcMsgTypeResp:
+			payload, err := p1rpc.EncodePayloadResp(msg.Resp)
+			if err != nil {
+				return nil, core.Wrap(core.CodeInternalError, fmt.Errorf("encode RPC response payload: %w", err))
 			}
-		}
-		if count > 100 {
-			count = 100
-		}
-
-		out := make([]core.Envelope, 0, count+1)
-		for i := 1; i <= count; i++ {
-			item, err := p1rpc.EncodePayloadStreamItem(p1rpc.RpcStreamItem{
-				RPCID:      req.RPCID,
-				SeqNo:      uint64(i),
-				Item:       []byte(fmt.Sprintf("%d", i)),
-				IsTerminal: false,
-			})
+			if emit != nil {
+				emit("swp.rpc.response", "info", map[string]any{
+					"method": req.Method,
+				}, msg.Resp.RPCID)
+			}
+			out = append(out, newRPCEnvelope(env.MsgID, rpcMsgTypeResp, now, payload))
+		case rpcMsgTypeErr:
+			payload, err := p1rpc.EncodePayloadErr(msg.Err)
+			if err != nil {
+				return nil, core.Wrap(core.CodeInternalError, fmt.Errorf("encode RPC error payload: %w", err))
+			}
+			if emit != nil {
+				emit("swp.rpc.response", "warn", map[string]any{
+					"method": req.Method,
+					"code":   msg.Err.ErrorCode,
+				}, msg.Err.RPCID)
+			}
+			out = append(out, newRPCEnvelope(env.MsgID, rpcMsgTypeErr, now, payload))
+		case rpcMsgTypeStreamItem:
+			payload, err := p1rpc.EncodePayloadStreamItem(msg.StreamItem)
 			if err != nil {
 				return nil, core.Wrap(core.CodeInternalError, fmt.Errorf("encode RPC stream item payload: %w", err))
 			}
-			out = append(out, newRPCEnvelope(env.MsgID, rpcMsgTypeStreamItem, now, item))
+			if emit != nil {
+				emit("swp.rpc.stream", "debug", map[string]any{
+					"method": req.Method,
+					"seq_no": msg.StreamItem.SeqNo,
+				}, msg.StreamItem.RPCID)
+			}
+			out = append(out, newRPCEnvelope(env.MsgID, rpcMsgTypeStreamItem, now, payload))
+		default:
+			return nil, core.Wrap(core.CodeInternalError, fmt.Errorf("backend returned unsupported RPC message type %d", msg.MsgType))
 		}
-		terminalResult, _ := json.Marshal(map[string]any{"count": count, "done": true})
-		terminal, err := p1rpc.EncodePayloadResp(p1rpc.RpcResp{
-			RPCID:  req.RPCID,
-			Result: terminalResult,
-		})
-		if err != nil {
-			return nil, core.Wrap(core.CodeInternalError, fmt.Errorf("encode RPC terminal response payload: %w", err))
-		}
-		out = append(out, newRPCEnvelope(env.MsgID, rpcMsgTypeResp, now, terminal))
-		return out, nil
-
-	case "demo.fail":
-		errPayload, err := p1rpc.EncodePayloadErr(p1rpc.RpcErr{
-			RPCID:        req.RPCID,
-			ErrorCode:    "internal",
-			Retryable:    false,
-			ErrorMessage: "forced failure",
-		})
-		if err != nil {
-			return nil, core.Wrap(core.CodeInternalError, fmt.Errorf("encode RPC error payload: %w", err))
-		}
-		return []core.Envelope{newRPCEnvelope(env.MsgID, rpcMsgTypeErr, now, errPayload)}, nil
-
-	default:
-		errPayload, err := p1rpc.EncodePayloadErr(p1rpc.RpcErr{
-			RPCID:        req.RPCID,
-			ErrorCode:    "unknown_method",
-			Retryable:    false,
-			ErrorMessage: "unknown method",
-		})
-		if err != nil {
-			return nil, core.Wrap(core.CodeInternalError, fmt.Errorf("encode RPC unknown-method payload: %w", err))
-		}
-		return []core.Envelope{newRPCEnvelope(env.MsgID, rpcMsgTypeErr, now, errPayload)}, nil
 	}
+
+	return out, nil
 }
 
 func newRPCEnvelope(msgID []byte, msgType, ts uint64, payload []byte) core.Envelope {

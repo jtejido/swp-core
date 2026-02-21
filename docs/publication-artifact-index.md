@@ -63,10 +63,14 @@ Use this index when preparing a standards submission package.
 
 - Versioning and compatibility rules: `docs/versioning-compatibility.md`
 - Governance and registry operations: `docs/governance.md`
+- Release and DOI checklist: `docs/release-checklist.md`
 - POC delivery sequencing and phase plan: `docs/poc-roadmap.md`
+- Profile implementation execution order: `docs/profile-implementation-roadmap.md`
+- Runtime wiring note (context/OBS/EVENTS): `docs/runtime-architecture.md`
 
 ## 6. Diagram package
 
 - SWP family architecture: `puml/architecture_family.puml`
 - SWP family end-to-end flow: `puml/flow_end_to_end.puml`
+- Go runtime architecture (context + telemetry): `puml/runtime_architecture.puml`
 - SWP sequence diagrams: `puml/*_sequence.puml`

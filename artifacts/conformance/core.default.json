@@ -3,13 +3,13 @@
   "run": {
     "pattern": "conformance/vectors/core_*.json",
     "no_fallback": false,
-    "timestamp_utc": "2026-02-19T19:54:54Z",
-    "runner_git_sha": "nogit"
+    "timestamp_utc": "2026-02-21T14:46:09Z",
+    "runner_git_sha": "c5266aa4f09ce276bd81443b9b11a8a143603d1b"
   },
   "total": 33,
   "passed": 33,
   "failed": 0,
-  "fallback_count": 2,
+  "fallback_count": 0,
   "results": [
     {
       "vector_id": "core_0001_valid_min_frame",
@@ -210,7 +210,7 @@
       "observed_code": "RATE_LIMIT_EXCEEDED",
       "expected_error_code": "ERR_RATE_LIMIT_EXCEEDED",
       "observed_error_code": "ERR_RATE_LIMIT_EXCEEDED",
-      "used_fallback": true,
+      "used_fallback": false,
       "fallback_mode": "allowed"
     },
     {
@@ -347,7 +347,7 @@
       "observed_code": "DUPLICATE_MSG_ID",
       "expected_error_code": "ERR_DUPLICATE_MSG_ID",
       "observed_error_code": "ERR_DUPLICATE_MSG_ID",
-      "used_fallback": true,
+      "used_fallback": false,
       "fallback_mode": "allowed"
     },
     {

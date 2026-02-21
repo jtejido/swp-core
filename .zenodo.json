@@ -1,6 +1,6 @@
 {
-  "title": "SWP Spec Kit (SlimWire Protocol): Core Spec, Conformance Vectors, and Go PoC",
-  "description": "SWP Spec Kit contains the SlimWire Protocol (SWP) core framing and envelope specification, encoding and security bindings, profile documents, conformance vectors, and a Go reference implementation with a spec-vector runner.",
+  "title": "SWP (SlimWire Protocol): Core Spec, Conformance Vectors, and Go PoC",
+  "description": "SWP contains the SlimWire Protocol core framing and envelope specification, encoding and security bindings, profile documents, conformance vectors, and a Go reference implementation with a spec-vector runner.",
   "upload_type": "software",
   "creators": [
     {

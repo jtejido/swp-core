@@ -13,7 +13,16 @@ ALL_DEFAULT_JSON ?= $(CONFORMANCE_DIR)/all.default.json
 ALL_STRICT_JSON ?= $(CONFORMANCE_DIR)/all.strict.json
 CONFORMANCE_BUNDLE ?= $(CONFORMANCE_DIR)/swp-conformance-bundle.tar.gz
 
-.PHONY: build test gen-vectors gen-c1-vectors gen-remaining-vectors vectors vectors-strict conformance-core conformance-all conformance-summary conformance-pack poc-vectors spec-vectors run-server run-client run-gateway demo clean clean-artifacts podman-up podman-down podman-logs podman-demo podman-poc-vectors podman-spec-vectors podman-vectors mcp-curl
+.PHONY: build test test-race ci gen-vectors gen-c1-vectors gen-remaining-vectors \
+	vectors vectors-strict \
+	vectors-core vectors-core-strict vectors-e1 vectors-e1-strict vectors-s1 vectors-s1-strict \
+	vectors-mcp vectors-mcp-strict vectors-rpc vectors-rpc-strict vectors-events vectors-events-strict \
+	vectors-obs vectors-obs-strict vectors-a2a vectors-a2a-strict vectors-agdisc vectors-agdisc-strict \
+	vectors-tooldisc vectors-tooldisc-strict vectors-artifact vectors-artifact-strict vectors-state vectors-state-strict \
+	vectors-relay vectors-relay-strict vectors-policyhint vectors-policyhint-strict vectors-cred vectors-cred-strict \
+	conformance-core conformance-all conformance-summary conformance-pack \
+	poc-vectors spec-vectors run-server run-client run-gateway demo \
+	clean clean-artifacts podman-up podman-down podman-logs podman-demo podman-poc-vectors podman-spec-vectors podman-vectors mcp-curl
 
 build:
 	mkdir -p $(GOCACHE) $(GOMODCACHE)
@@ -22,6 +31,13 @@ build:
 test:
 	mkdir -p $(GOCACHE) $(GOMODCACHE)
 	$(GOENV) $(GO) test ./poc/...
+
+test-race:
+	mkdir -p $(GOCACHE) $(GOMODCACHE)
+	$(GOENV) $(GO) test -race ./poc/...
+
+ci: test test-race conformance-core
+	@$(MAKE) --no-print-directory vectors-core-strict
 
 gen-vectors:
 	mkdir -p $(GOCACHE) $(GOMODCACHE)
@@ -44,6 +60,16 @@ vectors: spec-vectors
 vectors-strict:
 	mkdir -p $(GOCACHE) $(GOMODCACHE)
 	$(GOENV) $(GO) run ./poc/cmd/spec-vector-runner -no-fallback $(SPEC_VECTOR_ARGS)
+
+define profile_vectors_target
+vectors-$(1):
+	@$(MAKE) --no-print-directory vectors SPEC_VECTOR_ARGS="-pattern 'conformance/vectors/$(1)_*.json'"
+
+vectors-$(1)-strict:
+	@$(MAKE) --no-print-directory vectors-strict SPEC_VECTOR_ARGS="-pattern 'conformance/vectors/$(1)_*.json'"
+endef
+
+$(foreach ns,core e1 s1 mcp rpc events obs a2a agdisc tooldisc artifact state relay policyhint cred,$(eval $(call profile_vectors_target,$(ns))))
 
 conformance-core:
 	@mkdir -p $(GOCACHE) $(GOMODCACHE) $(CONFORMANCE_DIR)

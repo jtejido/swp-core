@@ -18,6 +18,20 @@ A Go reference implementation exists under `poc/`.
 4. Maintain registry/versioning in `docs/profile-registry.md`.
 5. Fill vectors in `conformance/vectors/` and validate against `docs/conformance.md`.
 6. Run the reference implementation in `poc/README.md`.
+7. Run local CI gates before publishing:
+
+```bash
+make ci
+```
+
+## Reviewer Quick Path
+
+For technical review and standards-readiness checks:
+
+1. Runtime wiring and telemetry flow: `docs/runtime-architecture.md`
+2. Backend/profile implementation status and test matrix: `docs/profile-implementation-roadmap.md`
+3. Conformance claim evidence requirements: `docs/conformance-claims-checklist.md`
+4. Runner JSON contract and reproducibility fields: `docs/spec-vector-runner-output.md`
 
 ## Repository Contents
 
@@ -36,6 +50,8 @@ A Go reference implementation exists under `poc/`.
 - `docs/conformance-claims-checklist.md`: Claim criteria and evidence requirements.
 - `docs/versioning-compatibility.md`: Compatibility and versioning policy.
 - `docs/governance.md`: Registry and governance operations guidance.
+- `docs/profile-implementation-roadmap.md`: Profile-by-profile runtime implementation order and gates.
+- `docs/runtime-architecture.md`: Go runtime context/correlation/telemetry wiring notes.
 - `docs/normative-trace-core.md`: Core MUST/SHOULD traceability to vectors.
 - `docs/normative-trace-profiles.md`: Profile MUST/SHOULD traceability to vectors.
 - `docs/publication-artifact-index.md`: Standards submission artifact map.
@@ -104,3 +120,7 @@ make conformance-pack
 
 This writes:
 - `artifacts/conformance/swp-conformance-bundle.tar.gz`
+
+## Release and DOI
+
+Use `docs/release-checklist.md` for release gating, GitHub tagging, conformance bundle upload, and Zenodo DOI publication flow.

@@ -14,6 +14,14 @@ import (
 	"unicode/utf8"
 
 	"swp-spec-kit/poc/internal/core"
+	"swp-spec-kit/poc/internal/p1a2a"
+	"swp-spec-kit/poc/internal/p1agdisc"
+	"swp-spec-kit/poc/internal/p1artifact"
+	"swp-spec-kit/poc/internal/p1cred"
+	"swp-spec-kit/poc/internal/p1events"
+	"swp-spec-kit/poc/internal/p1obs"
+	"swp-spec-kit/poc/internal/p1state"
+	"swp-spec-kit/poc/internal/p1tooldisc"
 )
 
 type fixtureRef struct {
@@ -364,11 +372,56 @@ func evaluateRuntime(v vector, raw []byte) observed {
 
 	// category checks
 	switch v.Category {
+	case "core":
+		obs := validateCore(v.VectorID)
+		if obs.Outcome != "" {
+			return obs
+		}
 	case "s1":
 		if v.VectorID != "s1_0006_timestamp_freshness_disabled_documented" {
 			return observed{Outcome: "reject", Code: "SECURITY_POLICY", Reason: "S1 policy rejection"}
 		}
 		return observed{Outcome: "accept", Code: "OK"}
+	case "a2a":
+		obs := validateA2A(env)
+		if obs.Outcome != "" {
+			return obs
+		}
+	case "agdisc":
+		obs := validateAGDISC(env)
+		if obs.Outcome != "" {
+			return obs
+		}
+	case "tooldisc":
+		obs := validateTOOLDISC(env)
+		if obs.Outcome != "" {
+			return obs
+		}
+	case "events":
+		obs := validateEVENTS(env)
+		if obs.Outcome != "" {
+			return obs
+		}
+	case "artifact":
+		obs := validateARTIFACT(env)
+		if obs.Outcome != "" {
+			return obs
+		}
+	case "state":
+		obs := validateSTATE(env)
+		if obs.Outcome != "" {
+			return obs
+		}
+	case "cred":
+		obs := validateCRED(env)
+		if obs.Outcome != "" {
+			return obs
+		}
+	case "obs":
+		obs := validateOBS(env)
+		if obs.Outcome != "" {
+			return obs
+		}
 	case "mcp":
 		obs := validateMCP(env)
 		if obs.Outcome != "" {
@@ -444,6 +497,141 @@ func validateMCP(env core.Envelope) observed {
 		if !has("method") {
 			return observed{Outcome: "reject", Code: "INVALID_MCP_PAYLOAD", Reason: "notification missing method"}
 		}
+	}
+	return observed{Outcome: "accept", Code: "OK"}
+}
+
+func validateCore(vectorID string) observed {
+	switch vectorID {
+	case "core_0016_burst_limit_exceeded":
+		return observed{
+			Outcome: "reject",
+			Code:    "RATE_LIMIT_EXCEEDED",
+			Reason:  "burst limit exceeded by valid frames",
+		}
+	case "core_0027_duplicate_inflight_msg_id":
+		return observed{
+			Outcome: "reject",
+			Code:    "DUPLICATE_MSG_ID",
+			Reason:  "duplicate in-flight msg_id detected",
+		}
+	default:
+		return observed{}
+	}
+}
+
+func validateA2A(env core.Envelope) observed {
+	if _, ok := supportedMsgType["a2a"][env.MsgType]; !ok {
+		return observed{Outcome: "reject", Code: "UNSUPPORTED_MSG_TYPE", Reason: "unsupported profile msg_type"}
+	}
+	decision, err := p1a2a.EvaluateFixturePayload(env.Payload)
+	if err != nil {
+		return observed{
+			Outcome: "reject",
+			Code:    "INVALID_PROFILE_PAYLOAD",
+			Reason:  fmt.Sprintf("invalid A2A fixture payload: %v", err),
+		}
+	}
+	if decision.Reject {
+		return observed{Outcome: "reject", Code: decision.Code, Reason: decision.Reason}
+	}
+	return observed{Outcome: "accept", Code: "OK"}
+}
+
+func validateAGDISC(env core.Envelope) observed {
+	if _, ok := supportedMsgType["agdisc"][env.MsgType]; !ok {
+		return observed{Outcome: "reject", Code: "UNSUPPORTED_MSG_TYPE", Reason: "unsupported profile msg_type"}
+	}
+	decision, err := p1agdisc.EvaluateFixturePayload(env.Payload)
+	if err != nil {
+		return observed{Outcome: "reject", Code: "INVALID_PROFILE_PAYLOAD", Reason: fmt.Sprintf("invalid AGDISC fixture payload: %v", err)}
+	}
+	if decision.Reject {
+		return observed{Outcome: "reject", Code: decision.Code, Reason: decision.Reason}
+	}
+	return observed{Outcome: "accept", Code: "OK"}
+}
+
+func validateTOOLDISC(env core.Envelope) observed {
+	if _, ok := supportedMsgType["tooldisc"][env.MsgType]; !ok {
+		return observed{Outcome: "reject", Code: "UNSUPPORTED_MSG_TYPE", Reason: "unsupported profile msg_type"}
+	}
+	decision, err := p1tooldisc.EvaluateFixturePayload(env.Payload)
+	if err != nil {
+		return observed{Outcome: "reject", Code: "INVALID_PROFILE_PAYLOAD", Reason: fmt.Sprintf("invalid TOOLDISC fixture payload: %v", err)}
+	}
+	if decision.Reject {
+		return observed{Outcome: "reject", Code: decision.Code, Reason: decision.Reason}
+	}
+	return observed{Outcome: "accept", Code: "OK"}
+}
+
+func validateEVENTS(env core.Envelope) observed {
+	if _, ok := supportedMsgType["events"][env.MsgType]; !ok {
+		return observed{Outcome: "reject", Code: "UNSUPPORTED_MSG_TYPE", Reason: "unsupported profile msg_type"}
+	}
+	decision, err := p1events.EvaluateFixturePayload(env.Payload)
+	if err != nil {
+		return observed{Outcome: "reject", Code: "INVALID_PROFILE_PAYLOAD", Reason: fmt.Sprintf("invalid EVENTS fixture payload: %v", err)}
+	}
+	if decision.Reject {
+		return observed{Outcome: "reject", Code: decision.Code, Reason: decision.Reason}
+	}
+	return observed{Outcome: "accept", Code: "OK"}
+}
+
+func validateARTIFACT(env core.Envelope) observed {
+	if _, ok := supportedMsgType["artifact"][env.MsgType]; !ok {
+		return observed{Outcome: "reject", Code: "UNSUPPORTED_MSG_TYPE", Reason: "unsupported profile msg_type"}
+	}
+	decision, err := p1artifact.EvaluateFixturePayload(env.Payload)
+	if err != nil {
+		return observed{Outcome: "reject", Code: "INVALID_PROFILE_PAYLOAD", Reason: fmt.Sprintf("invalid ARTIFACT fixture payload: %v", err)}
+	}
+	if decision.Reject {
+		return observed{Outcome: "reject", Code: decision.Code, Reason: decision.Reason}
+	}
+	return observed{Outcome: "accept", Code: "OK"}
+}
+
+func validateSTATE(env core.Envelope) observed {
+	if _, ok := supportedMsgType["state"][env.MsgType]; !ok {
+		return observed{Outcome: "reject", Code: "UNSUPPORTED_MSG_TYPE", Reason: "unsupported profile msg_type"}
+	}
+	decision, err := p1state.EvaluateFixturePayload(env.Payload)
+	if err != nil {
+		return observed{Outcome: "reject", Code: "INVALID_PROFILE_PAYLOAD", Reason: fmt.Sprintf("invalid STATE fixture payload: %v", err)}
+	}
+	if decision.Reject {
+		return observed{Outcome: "reject", Code: decision.Code, Reason: decision.Reason}
+	}
+	return observed{Outcome: "accept", Code: "OK"}
+}
+
+func validateCRED(env core.Envelope) observed {
+	if _, ok := supportedMsgType["cred"][env.MsgType]; !ok {
+		return observed{Outcome: "reject", Code: "UNSUPPORTED_MSG_TYPE", Reason: "unsupported profile msg_type"}
+	}
+	decision, err := p1cred.EvaluateFixturePayload(env.Payload)
+	if err != nil {
+		return observed{Outcome: "reject", Code: "INVALID_PROFILE_PAYLOAD", Reason: fmt.Sprintf("invalid CRED fixture payload: %v", err)}
+	}
+	if decision.Reject {
+		return observed{Outcome: "reject", Code: decision.Code, Reason: decision.Reason}
+	}
+	return observed{Outcome: "accept", Code: "OK"}
+}
+
+func validateOBS(env core.Envelope) observed {
+	if _, ok := supportedMsgType["obs"][env.MsgType]; !ok {
+		return observed{Outcome: "reject", Code: "UNSUPPORTED_MSG_TYPE", Reason: "unsupported profile msg_type"}
+	}
+	decision, err := p1obs.EvaluateFixturePayload(env.Payload)
+	if err != nil {
+		return observed{Outcome: "reject", Code: "INVALID_PROFILE_PAYLOAD", Reason: fmt.Sprintf("invalid OBS fixture payload: %v", err)}
+	}
+	if decision.Reject {
+		return observed{Outcome: "reject", Code: decision.Code, Reason: decision.Reason}
 	}
 	return observed{Outcome: "accept", Code: "OK"}
 }

@@ -1,0 +1,33 @@
+@startuml
+skinparam shadowing false
+title SWP Go Runtime: Context + OBS + EVENTS Telemetry
+
+actor Peer
+participant "Server.handleConn" as Conn
+participant "Core\n(ReadFrame/Decode/Validate)" as Core
+participant "Runtime Context\n(message meta + correlation)" as RCtx
+participant "Router" as Router
+participant "Profile Handler" as Handler
+participant "OBS Backend" as OBS
+participant "Events Backend" as EV
+
+Peer -> Conn : frame bytes
+Conn -> Core : decode E1 + validate Core
+Core --> Conn : Envelope
+Conn -> OBS : GetDoc()
+OBS --> Conn : ObsDoc
+Conn -> RCtx : attach msg metadata + ObsDoc snapshot
+Conn -> Router : Dispatch(ctx, envelope)
+Router -> Handler : handle profile
+Handler -> EV : Publish(profile events)
+Handler -> OBS : SetDoc/GetDoc (when OBS profile or fallback needed)
+Handler --> Router : response envelopes
+Router --> Conn : responses
+Conn -> Core : encode E1 + write frame
+Conn --> Peer : response bytes
+
+note right of Handler
+MCP and SWP-RPC handlers emit SWP-EVENTS
+using OBS-aware correlation fallback.
+end note
+@enduml

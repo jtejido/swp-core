@@ -3,13 +3,13 @@
   "run": {
     "pattern": "conformance/vectors/core_*.json",
     "no_fallback": true,
-    "timestamp_utc": "2026-02-19T19:54:54Z",
-    "runner_git_sha": "nogit"
+    "timestamp_utc": "2026-02-21T14:46:09Z",
+    "runner_git_sha": "c5266aa4f09ce276bd81443b9b11a8a143603d1b"
   },
   "total": 33,
-  "passed": 31,
-  "failed": 2,
-  "fallback_count": 2,
+  "passed": 33,
+  "failed": 0,
+  "fallback_count": 0,
   "results": [
     {
       "vector_id": "core_0001_valid_min_frame",
@@ -203,16 +203,15 @@
     {
       "vector_id": "core_0016_burst_limit_exceeded",
       "path": "conformance/vectors/core_0016_burst_limit_exceeded.json",
-      "pass": false,
+      "pass": true,
       "expected": "reject",
       "observed": "reject",
       "expected_code": "RATE_LIMIT_EXCEEDED",
       "observed_code": "RATE_LIMIT_EXCEEDED",
       "expected_error_code": "ERR_RATE_LIMIT_EXCEEDED",
       "observed_error_code": "ERR_RATE_LIMIT_EXCEEDED",
-      "used_fallback": true,
-      "fallback_mode": "disallowed",
-      "detail": "fallback evaluation was used but -no-fallback is set"
+      "used_fallback": false,
+      "fallback_mode": "allowed"
     },
     {
       "vector_id": "core_0017_unknown_profile_with_error_path",
@@ -341,16 +340,15 @@
     {
       "vector_id": "core_0027_duplicate_inflight_msg_id",
       "path": "conformance/vectors/core_0027_duplicate_inflight_msg_id.json",
-      "pass": false,
+      "pass": true,
       "expected": "reject",
       "observed": "reject",
       "expected_code": "DUPLICATE_MSG_ID",
       "observed_code": "DUPLICATE_MSG_ID",
       "expected_error_code": "ERR_DUPLICATE_MSG_ID",
       "observed_error_code": "ERR_DUPLICATE_MSG_ID",
-      "used_fallback": true,
-      "fallback_mode": "disallowed",
-      "detail": "fallback evaluation was used but -no-fallback is set"
+      "used_fallback": false,
+      "fallback_mode": "allowed"
     },
     {
       "vector_id": "core_0028_error_mapping_invalid_frame",
@@ -423,36 +421,6 @@
       "observed_code": "COMPATIBILITY_POLICY",
       "used_fallback": false,
       "fallback_mode": "allowed"
-    }
-  ],
-  "failures": [
-    {
-      "vector_id": "core_0016_burst_limit_exceeded",
-      "path": "conformance/vectors/core_0016_burst_limit_exceeded.json",
-      "pass": false,
-      "expected": "reject",
-      "observed": "reject",
-      "expected_code": "RATE_LIMIT_EXCEEDED",
-      "observed_code": "RATE_LIMIT_EXCEEDED",
-      "expected_error_code": "ERR_RATE_LIMIT_EXCEEDED",
-      "observed_error_code": "ERR_RATE_LIMIT_EXCEEDED",
-      "used_fallback": true,
-      "fallback_mode": "disallowed",
-      "detail": "fallback evaluation was used but -no-fallback is set"
-    },
-    {
-      "vector_id": "core_0027_duplicate_inflight_msg_id",
-      "path": "conformance/vectors/core_0027_duplicate_inflight_msg_id.json",
-      "pass": false,
-      "expected": "reject",
-      "observed": "reject",
-      "expected_code": "DUPLICATE_MSG_ID",
-      "observed_code": "DUPLICATE_MSG_ID",
-      "expected_error_code": "ERR_DUPLICATE_MSG_ID",
-      "observed_error_code": "ERR_DUPLICATE_MSG_ID",
-      "used_fallback": true,
-      "fallback_mode": "disallowed",
-      "detail": "fallback evaluation was used but -no-fallback is set"
     }
   ]
 }

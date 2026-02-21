@@ -22,6 +22,7 @@ Evidence to provide:
 
 Recommended artifact bundle for publication:
 - run:
+  - `make ci`
   - `make conformance-core`
   - `make conformance-pack`
 - generated artifacts:

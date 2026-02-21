@@ -3,13 +3,13 @@
   "run": {
     "pattern": "conformance/vectors/core_*.json,conformance/vectors/e1_*.json,conformance/vectors/s1_*.json,conformance/vectors/mcp_*.json,conformance/vectors/a2a_*.json,conformance/vectors/agdisc_*.json,conformance/vectors/tooldisc_*.json,conformance/vectors/rpc_*.json,conformance/vectors/events_*.json,conformance/vectors/artifact_*.json,conformance/vectors/cred_*.json,conformance/vectors/policyhint_*.json,conformance/vectors/state_*.json,conformance/vectors/obs_*.json,conformance/vectors/relay_*.json",
     "no_fallback": false,
-    "timestamp_utc": "2026-02-19T19:54:49Z",
-    "runner_git_sha": "nogit"
+    "timestamp_utc": "2026-02-21T14:45:55Z",
+    "runner_git_sha": "c5266aa4f09ce276bd81443b9b11a8a143603d1b"
   },
   "total": 138,
   "passed": 138,
   "failed": 0,
-  "fallback_count": 22,
+  "fallback_count": 0,
   "results": [
     {
       "vector_id": "a2a_0001_handshake_success",
@@ -54,7 +54,7 @@
       "observed_code": "INVALID_PROFILE_PAYLOAD",
       "expected_error_code": "ERR_INVALID_PROFILE_PAYLOAD",
       "observed_error_code": "ERR_INVALID_PROFILE_PAYLOAD",
-      "used_fallback": true,
+      "used_fallback": false,
       "fallback_mode": "allowed"
     },
     {
@@ -78,7 +78,7 @@
       "observed_code": "INVALID_PROFILE_PAYLOAD",
       "expected_error_code": "ERR_INVALID_PROFILE_PAYLOAD",
       "observed_error_code": "ERR_INVALID_PROFILE_PAYLOAD",
-      "used_fallback": true,
+      "used_fallback": false,
       "fallback_mode": "allowed"
     },
     {
@@ -91,7 +91,7 @@
       "observed_code": "INVALID_PROFILE_PAYLOAD",
       "expected_error_code": "ERR_INVALID_PROFILE_PAYLOAD",
       "observed_error_code": "ERR_INVALID_PROFILE_PAYLOAD",
-      "used_fallback": true,
+      "used_fallback": false,
       "fallback_mode": "allowed"
     },
     {
@@ -115,7 +115,7 @@
       "observed_code": "INVALID_PROFILE_PAYLOAD",
       "expected_error_code": "ERR_INVALID_PROFILE_PAYLOAD",
       "observed_error_code": "ERR_INVALID_PROFILE_PAYLOAD",
-      "used_fallback": true,
+      "used_fallback": false,
       "fallback_mode": "allowed"
     },
     {
@@ -128,7 +128,7 @@
       "observed_code": "INVALID_PROFILE_PAYLOAD",
       "expected_error_code": "ERR_INVALID_PROFILE_PAYLOAD",
       "observed_error_code": "ERR_INVALID_PROFILE_PAYLOAD",
-      "used_fallback": true,
+      "used_fallback": false,
       "fallback_mode": "allowed"
     },
     {
@@ -141,7 +141,7 @@
       "observed_code": "INVALID_PROFILE_PAYLOAD",
       "expected_error_code": "ERR_INVALID_PROFILE_PAYLOAD",
       "observed_error_code": "ERR_INVALID_PROFILE_PAYLOAD",
-      "used_fallback": true,
+      "used_fallback": false,
       "fallback_mode": "allowed"
     },
     {
@@ -211,7 +211,7 @@
       "observed_code": "NOT_FOUND",
       "expected_error_code": "ERR_NOT_FOUND",
       "observed_error_code": "ERR_NOT_FOUND",
-      "used_fallback": true,
+      "used_fallback": false,
       "fallback_mode": "allowed"
     },
     {
@@ -224,7 +224,7 @@
       "observed_code": "INVALID_PROFILE_PAYLOAD",
       "expected_error_code": "ERR_INVALID_PROFILE_PAYLOAD",
       "observed_error_code": "ERR_INVALID_PROFILE_PAYLOAD",
-      "used_fallback": true,
+      "used_fallback": false,
       "fallback_mode": "allowed"
     },
     {
@@ -294,7 +294,7 @@
       "observed_code": "INVALID_PROFILE_PAYLOAD",
       "expected_error_code": "ERR_INVALID_PROFILE_PAYLOAD",
       "observed_error_code": "ERR_INVALID_PROFILE_PAYLOAD",
-      "used_fallback": true,
+      "used_fallback": false,
       "fallback_mode": "allowed"
     },
     {
@@ -329,7 +329,7 @@
       "observed_code": "INVALID_PROFILE_PAYLOAD",
       "expected_error_code": "ERR_INVALID_PROFILE_PAYLOAD",
       "observed_error_code": "ERR_INVALID_PROFILE_PAYLOAD",
-      "used_fallback": true,
+      "used_fallback": false,
       "fallback_mode": "allowed"
     },
     {
@@ -544,7 +544,7 @@
       "observed_code": "RATE_LIMIT_EXCEEDED",
       "expected_error_code": "ERR_RATE_LIMIT_EXCEEDED",
       "observed_error_code": "ERR_RATE_LIMIT_EXCEEDED",
-      "used_fallback": true,
+      "used_fallback": false,
       "fallback_mode": "allowed"
     },
     {
@@ -681,7 +681,7 @@
       "observed_code": "DUPLICATE_MSG_ID",
       "expected_error_code": "ERR_DUPLICATE_MSG_ID",
       "observed_error_code": "ERR_DUPLICATE_MSG_ID",
-      "used_fallback": true,
+      "used_fallback": false,
       "fallback_mode": "allowed"
     },
     {
@@ -766,7 +766,7 @@
       "observed_code": "INVALID_PROFILE_PAYLOAD",
       "expected_error_code": "ERR_INVALID_PROFILE_PAYLOAD",
       "observed_error_code": "ERR_INVALID_PROFILE_PAYLOAD",
-      "used_fallback": true,
+      "used_fallback": false,
       "fallback_mode": "allowed"
     },
     {
@@ -790,7 +790,7 @@
       "observed_code": "INVALID_PROFILE_PAYLOAD",
       "expected_error_code": "ERR_INVALID_PROFILE_PAYLOAD",
       "observed_error_code": "ERR_INVALID_PROFILE_PAYLOAD",
-      "used_fallback": true,
+      "used_fallback": false,
       "fallback_mode": "allowed"
     },
     {
@@ -938,7 +938,7 @@
       "observed_code": "INVALID_PROFILE_PAYLOAD",
       "expected_error_code": "ERR_INVALID_PROFILE_PAYLOAD",
       "observed_error_code": "ERR_INVALID_PROFILE_PAYLOAD",
-      "used_fallback": true,
+      "used_fallback": false,
       "fallback_mode": "allowed"
     },
     {
@@ -984,7 +984,7 @@
       "observed_code": "INVALID_PROFILE_PAYLOAD",
       "expected_error_code": "ERR_INVALID_PROFILE_PAYLOAD",
       "observed_error_code": "ERR_INVALID_PROFILE_PAYLOAD",
-      "used_fallback": true,
+      "used_fallback": false,
       "fallback_mode": "allowed"
     },
     {
@@ -1185,7 +1185,7 @@
       "observed_code": "INVALID_PROFILE_PAYLOAD",
       "expected_error_code": "ERR_INVALID_PROFILE_PAYLOAD",
       "observed_error_code": "ERR_INVALID_PROFILE_PAYLOAD",
-      "used_fallback": true,
+      "used_fallback": false,
       "fallback_mode": "allowed"
     },
     {
@@ -1546,7 +1546,7 @@
       "observed_code": "INVALID_PROFILE_PAYLOAD",
       "expected_error_code": "ERR_INVALID_PROFILE_PAYLOAD",
       "observed_error_code": "ERR_INVALID_PROFILE_PAYLOAD",
-      "used_fallback": true,
+      "used_fallback": false,
       "fallback_mode": "allowed"
     },
     {
@@ -1559,7 +1559,7 @@
       "observed_code": "INVALID_PROFILE_PAYLOAD",
       "expected_error_code": "ERR_INVALID_PROFILE_PAYLOAD",
       "observed_error_code": "ERR_INVALID_PROFILE_PAYLOAD",
-      "used_fallback": true,
+      "used_fallback": false,
       "fallback_mode": "allowed"
     },
     {
@@ -1629,7 +1629,7 @@
       "observed_code": "NOT_FOUND",
       "expected_error_code": "ERR_NOT_FOUND",
       "observed_error_code": "ERR_NOT_FOUND",
-      "used_fallback": true,
+      "used_fallback": false,
       "fallback_mode": "allowed"
     },
     {
@@ -1642,7 +1642,7 @@
       "observed_code": "INVALID_PROFILE_PAYLOAD",
       "expected_error_code": "ERR_INVALID_PROFILE_PAYLOAD",
       "observed_error_code": "ERR_INVALID_PROFILE_PAYLOAD",
-      "used_fallback": true,
+      "used_fallback": false,
       "fallback_mode": "allowed"
     },
     {
@@ -1655,7 +1655,7 @@
       "observed_code": "INVALID_PROFILE_PAYLOAD",
       "expected_error_code": "ERR_INVALID_PROFILE_PAYLOAD",
       "observed_error_code": "ERR_INVALID_PROFILE_PAYLOAD",
-      "used_fallback": true,
+      "used_fallback": false,
       "fallback_mode": "allowed"
     },
     {

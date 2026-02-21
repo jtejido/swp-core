@@ -4,9 +4,9 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
-	"time"
 
 	"swp-spec-kit/poc/internal/core"
+	runtimeclock "swp-spec-kit/poc/internal/runtime/clock"
 )
 
 const (
@@ -29,7 +29,17 @@ type mcpResponse struct {
 	Error   any    `json:"error,omitempty"`
 }
 
-func handleMCP(_ context.Context, env core.Envelope) ([]core.Envelope, error) {
+func handleMCP(ctx context.Context, env core.Envelope) ([]core.Envelope, error) {
+	return handleMCPWithEmitter(ctx, env, nil)
+}
+
+func (s *Server) handleMCP(ctx context.Context, env core.Envelope) ([]core.Envelope, error) {
+	return handleMCPWithEmitter(ctx, env, func(eventType, severity string, body map[string]any) {
+		s.emitProfileEvent(ctx, env, eventType, severity, body, nil, nil)
+	})
+}
+
+func handleMCPWithEmitter(_ context.Context, env core.Envelope, emit func(eventType, severity string, body map[string]any)) ([]core.Envelope, error) {
 	if env.MsgType != mcpMsgTypeRequest && env.MsgType != mcpMsgTypeNotification {
 		return nil, core.Wrap(core.CodeInvalidEnvelope, fmt.Errorf("invalid MCP msg_type %d", env.MsgType))
 	}
@@ -39,7 +49,19 @@ func handleMCP(_ context.Context, env core.Envelope) ([]core.Envelope, error) {
 		return nil, core.Wrap(core.CodeInvalidEnvelope, fmt.Errorf("invalid JSON-RPC payload: %w", err))
 	}
 
+	if emit != nil {
+		emit("swp.mcp.request", "info", map[string]any{
+			"method":   req.Method,
+			"msg_type": env.MsgType,
+		})
+	}
+
 	if env.MsgType == mcpMsgTypeNotification {
+		if emit != nil {
+			emit("swp.mcp.notification", "info", map[string]any{
+				"method": req.Method,
+			})
+		}
 		return nil, nil
 	}
 
@@ -86,12 +108,25 @@ func handleMCP(_ context.Context, env core.Envelope) ([]core.Envelope, error) {
 		return nil, core.Wrap(core.CodeInternalError, fmt.Errorf("marshal response: %w", err))
 	}
 
+	if emit != nil {
+		if resp.Error != nil {
+			emit("swp.mcp.response", "warn", map[string]any{
+				"method": req.Method,
+				"code":   "INVALID_MCP_PAYLOAD",
+			})
+		} else {
+			emit("swp.mcp.response", "info", map[string]any{
+				"method": req.Method,
+			})
+		}
+	}
+
 	return []core.Envelope{{
 		Version:   core.CoreVersion,
 		ProfileID: ProfileMCPMap,
 		MsgType:   mcpMsgTypeResponse,
 		MsgID:     append([]byte(nil), env.MsgID...),
-		TsUnixMs:  uint64(time.Now().UnixMilli()),
+		TsUnixMs:  runtimeclock.UnixMilli(nil),
 		Payload:   payload,
 	}}, nil
 }

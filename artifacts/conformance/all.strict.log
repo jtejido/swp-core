@@ -1,30 +1,30 @@
 PASS a2a_0001_handshake_success
 PASS a2a_0002_task_event_result_success
 PASS a2a_0003_task_result_failure
-FAIL a2a_0004_event_after_terminal_result: fallback evaluation was used but -no-fallback is set
+PASS a2a_0004_event_after_terminal_result
 PASS a2a_0005_duplicate_terminal_result
-FAIL a2a_0006_event_before_task_invalid: fallback evaluation was used but -no-fallback is set
-FAIL a2a_0007_result_before_task_invalid: fallback evaluation was used but -no-fallback is set
+PASS a2a_0006_event_before_task_invalid
+PASS a2a_0007_result_before_task_invalid
 PASS a2a_0008_duplicate_task_same_payload_idempotent
-FAIL a2a_0009_duplicate_task_conflicting_payload_rejected: fallback evaluation was used but -no-fallback is set
-FAIL a2a_0010_post_terminal_event_rejected: fallback evaluation was used but -no-fallback is set
-FAIL a2a_0011_post_terminal_result_rejected: fallback evaluation was used but -no-fallback is set
+PASS a2a_0009_duplicate_task_conflicting_payload_rejected
+PASS a2a_0010_post_terminal_event_rejected
+PASS a2a_0011_post_terminal_result_rejected
 PASS a2a_0012_task_malformed_input_failure
 PASS a2a_0013_unsupported_capability_failure
 PASS a2a_0014_unsupported_msg_type
 PASS a2a_0015_multi_task_interleaving_valid
 PASS agdisc_0001_get_doc_success
-FAIL agdisc_0002_not_found: fallback evaluation was used but -no-fallback is set
-FAIL agdisc_0003_invalid_doc_rejected: fallback evaluation was used but -no-fallback is set
+PASS agdisc_0002_not_found
+PASS agdisc_0003_invalid_doc_rejected
 PASS agdisc_0004_etag_not_modified
 PASS agdisc_0005_cache_expiry_refresh
 PASS agdisc_0006_unsupported_msg_type
 PASS artifact_0001_offer_get_success
 PASS artifact_0002_chunk_ordering
-FAIL artifact_0003_integrity_mismatch: fallback evaluation was used but -no-fallback is set
+PASS artifact_0003_integrity_mismatch
 PASS artifact_0004_resume_token
 PASS artifact_0005_range_request
-FAIL artifact_0006_corruption_rejected: fallback evaluation was used but -no-fallback is set
+PASS artifact_0006_corruption_rejected
 PASS artifact_0007_unsupported_msg_type
 PASS core_0001_valid_min_frame
 PASS core_0002_valid_typical_frame
@@ -41,7 +41,7 @@ PASS core_0012_invalid_payload_oversize
 PASS core_0013_unknown_flags_set
 PASS core_0014_stale_timestamp
 PASS core_0015_future_timestamp
-FAIL core_0016_burst_limit_exceeded: fallback evaluation was used but -no-fallback is set
+PASS core_0016_burst_limit_exceeded
 PASS core_0017_unknown_profile_with_error_path
 PASS core_0018_unknown_profile_no_error_path
 PASS core_0019_boundary_max_frame_exact
@@ -52,16 +52,16 @@ PASS core_0023_missing_required_field_msg_type
 PASS core_0024_missing_required_field_msg_id
 PASS core_0025_missing_required_field_ts_unix_ms
 PASS core_0026_unknown_flags_no_reinterpretation
-FAIL core_0027_duplicate_inflight_msg_id: fallback evaluation was used but -no-fallback is set
+PASS core_0027_duplicate_inflight_msg_id
 PASS core_0028_error_mapping_invalid_frame
 PASS core_0029_error_mapping_unsupported_version
 PASS core_0030_error_mapping_invalid_envelope
 PASS core_0031_optional_fields_no_semantic_override
 PASS core_0032_profile_dispatch_known_profile
 PASS core_0033_extensibility_backward_compatibility
-FAIL cred_0001_expiry_enforced: fallback evaluation was used but -no-fallback is set
+PASS cred_0001_expiry_enforced
 PASS cred_0002_chain_length_enforced
-FAIL cred_0003_invalid_credential: fallback evaluation was used but -no-fallback is set
+PASS cred_0003_invalid_credential
 PASS cred_0004_delegation_propagation
 PASS cred_0005_revoke_behavior
 PASS cred_0006_unsupported_msg_type
@@ -73,11 +73,11 @@ PASS e1_0005_empty_msg_id_invalid
 PASS e1_0006_unknown_extension_ignored
 PASS e1_0007_extensions_too_large
 PASS e1_0008_truncated_bytes_field
-FAIL events_0001_required_fields: fallback evaluation was used but -no-fallback is set
+PASS events_0001_required_fields
 PASS events_0002_ordering
 PASS events_0003_correlation_propagation
 PASS events_0004_batch_order
-FAIL events_0005_invalid_severity: fallback evaluation was used but -no-fallback is set
+PASS events_0005_invalid_severity
 PASS events_0006_unsupported_msg_type
 PASS mcp_0001_request_roundtrip
 PASS mcp_0002_response_roundtrip
@@ -94,7 +94,7 @@ PASS mcp_0012_unsupported_msg_type
 PASS mcp_0013_stream_partial_then_terminal_success
 PASS mcp_0014_stream_partial_then_terminal_error
 PASS mcp_0015_payload_preservation_whitespace
-FAIL obs_0001_traceparent_validity: fallback evaluation was used but -no-fallback is set
+PASS obs_0001_traceparent_validity
 PASS obs_0002_propagation
 PASS obs_0003_tracestate_preservation
 PASS obs_0004_correlation_linkage
@@ -125,16 +125,15 @@ PASS s1_0004_integrity_failure_terminates
 PASS s1_0005_timestamp_freshness_enforced
 PASS s1_0006_timestamp_freshness_disabled_documented
 PASS state_0001_put_get_success
-FAIL state_0002_hash_mismatch: fallback evaluation was used but -no-fallback is set
-FAIL state_0003_parent_missing: fallback evaluation was used but -no-fallback is set
+PASS state_0002_hash_mismatch
+PASS state_0003_parent_missing
 PASS state_0004_dag_valid
 PASS state_0005_delta_opaque
 PASS state_0006_unsupported_msg_type
 PASS tooldisc_0001_list_paging_filter
 PASS tooldisc_0002_get_success
-FAIL tooldisc_0003_missing_tool_not_found: fallback evaluation was used but -no-fallback is set
-FAIL tooldisc_0004_schema_ref_invalid: fallback evaluation was used but -no-fallback is set
-FAIL tooldisc_0005_descriptor_missing_required: fallback evaluation was used but -no-fallback is set
+PASS tooldisc_0003_missing_tool_not_found
+PASS tooldisc_0004_schema_ref_invalid
+PASS tooldisc_0005_descriptor_missing_required
 PASS tooldisc_0006_unsupported_msg_type
-summary: passed=116 failed=22 total=138 fallback=22
-exit status 1
+summary: passed=138 failed=0 total=138 fallback=0

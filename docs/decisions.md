@@ -67,3 +67,14 @@ Reason:
 
 Implication:
 - conformance, publication, and traceability artifacts must include the SWP family alongside MCP/A2A.
+
+## D-007: Conformance Artifacts Are Versioned
+
+Decision:
+- keep generated conformance artifacts under `artifacts/conformance/` as versioned project artifacts.
+
+Reason:
+- publication and reviewer workflows need reproducible JSON/log outputs tied to tagged releases.
+
+Implication:
+- CI and release packaging (`make conformance-pack`) are first-class, and artifact changes are expected when vector behavior changes.

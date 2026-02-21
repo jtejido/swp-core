@@ -3,13 +3,13 @@
   "run": {
     "pattern": "conformance/vectors/core_*.json,conformance/vectors/e1_*.json,conformance/vectors/s1_*.json,conformance/vectors/mcp_*.json,conformance/vectors/a2a_*.json,conformance/vectors/agdisc_*.json,conformance/vectors/tooldisc_*.json,conformance/vectors/rpc_*.json,conformance/vectors/events_*.json,conformance/vectors/artifact_*.json,conformance/vectors/cred_*.json,conformance/vectors/policyhint_*.json,conformance/vectors/state_*.json,conformance/vectors/obs_*.json,conformance/vectors/relay_*.json",
     "no_fallback": true,
-    "timestamp_utc": "2026-02-19T19:54:49Z",
-    "runner_git_sha": "nogit"
+    "timestamp_utc": "2026-02-21T14:45:55Z",
+    "runner_git_sha": "c5266aa4f09ce276bd81443b9b11a8a143603d1b"
   },
   "total": 138,
-  "passed": 116,
-  "failed": 22,
-  "fallback_count": 22,
+  "passed": 138,
+  "failed": 0,
+  "fallback_count": 0,
   "results": [
     {
       "vector_id": "a2a_0001_handshake_success",
@@ -47,16 +47,15 @@
     {
       "vector_id": "a2a_0004_event_after_terminal_result",
       "path": "conformance/vectors/a2a_0004_event_after_terminal_result.json",
-      "pass": false,
+      "pass": true,
       "expected": "reject",
       "observed": "reject",
       "expected_code": "INVALID_PROFILE_PAYLOAD",
       "observed_code": "INVALID_PROFILE_PAYLOAD",
       "expected_error_code": "ERR_INVALID_PROFILE_PAYLOAD",
       "observed_error_code": "ERR_INVALID_PROFILE_PAYLOAD",
-      "used_fallback": true,
-      "fallback_mode": "disallowed",
-      "detail": "fallback evaluation was used but -no-fallback is set"
+      "used_fallback": false,
+      "fallback_mode": "allowed"
     },
     {
       "vector_id": "a2a_0005_duplicate_terminal_result",
@@ -72,30 +71,28 @@
     {
       "vector_id": "a2a_0006_event_before_task_invalid",
       "path": "conformance/vectors/a2a_0006_event_before_task_invalid.json",
-      "pass": false,
+      "pass": true,
       "expected": "reject",
       "observed": "reject",
       "expected_code": "INVALID_PROFILE_PAYLOAD",
       "observed_code": "INVALID_PROFILE_PAYLOAD",
       "expected_error_code": "ERR_INVALID_PROFILE_PAYLOAD",
       "observed_error_code": "ERR_INVALID_PROFILE_PAYLOAD",
-      "used_fallback": true,
-      "fallback_mode": "disallowed",
-      "detail": "fallback evaluation was used but -no-fallback is set"
+      "used_fallback": false,
+      "fallback_mode": "allowed"
     },
     {
       "vector_id": "a2a_0007_result_before_task_invalid",
       "path": "conformance/vectors/a2a_0007_result_before_task_invalid.json",
-      "pass": false,
+      "pass": true,
       "expected": "reject",
       "observed": "reject",
       "expected_code": "INVALID_PROFILE_PAYLOAD",
       "observed_code": "INVALID_PROFILE_PAYLOAD",
       "expected_error_code": "ERR_INVALID_PROFILE_PAYLOAD",
       "observed_error_code": "ERR_INVALID_PROFILE_PAYLOAD",
-      "used_fallback": true,
-      "fallback_mode": "disallowed",
-      "detail": "fallback evaluation was used but -no-fallback is set"
+      "used_fallback": false,
+      "fallback_mode": "allowed"
     },
     {
       "vector_id": "a2a_0008_duplicate_task_same_payload_idempotent",
@@ -111,44 +108,41 @@
     {
       "vector_id": "a2a_0009_duplicate_task_conflicting_payload_rejected",
       "path": "conformance/vectors/a2a_0009_duplicate_task_conflicting_payload_rejected.json",
-      "pass": false,
+      "pass": true,
       "expected": "reject",
       "observed": "reject",
       "expected_code": "INVALID_PROFILE_PAYLOAD",
       "observed_code": "INVALID_PROFILE_PAYLOAD",
       "expected_error_code": "ERR_INVALID_PROFILE_PAYLOAD",
       "observed_error_code": "ERR_INVALID_PROFILE_PAYLOAD",
-      "used_fallback": true,
-      "fallback_mode": "disallowed",
-      "detail": "fallback evaluation was used but -no-fallback is set"
+      "used_fallback": false,
+      "fallback_mode": "allowed"
     },
     {
       "vector_id": "a2a_0010_post_terminal_event_rejected",
       "path": "conformance/vectors/a2a_0010_post_terminal_event_rejected.json",
-      "pass": false,
+      "pass": true,
       "expected": "reject",
       "observed": "reject",
       "expected_code": "INVALID_PROFILE_PAYLOAD",
       "observed_code": "INVALID_PROFILE_PAYLOAD",
       "expected_error_code": "ERR_INVALID_PROFILE_PAYLOAD",
       "observed_error_code": "ERR_INVALID_PROFILE_PAYLOAD",
-      "used_fallback": true,
-      "fallback_mode": "disallowed",
-      "detail": "fallback evaluation was used but -no-fallback is set"
+      "used_fallback": false,
+      "fallback_mode": "allowed"
     },
     {
       "vector_id": "a2a_0011_post_terminal_result_rejected",
       "path": "conformance/vectors/a2a_0011_post_terminal_result_rejected.json",
-      "pass": false,
+      "pass": true,
       "expected": "reject",
       "observed": "reject",
       "expected_code": "INVALID_PROFILE_PAYLOAD",
       "observed_code": "INVALID_PROFILE_PAYLOAD",
       "expected_error_code": "ERR_INVALID_PROFILE_PAYLOAD",
       "observed_error_code": "ERR_INVALID_PROFILE_PAYLOAD",
-      "used_fallback": true,
-      "fallback_mode": "disallowed",
-      "detail": "fallback evaluation was used but -no-fallback is set"
+      "used_fallback": false,
+      "fallback_mode": "allowed"
     },
     {
       "vector_id": "a2a_0012_task_malformed_input_failure",
@@ -210,30 +204,28 @@
     {
       "vector_id": "agdisc_0002_not_found",
       "path": "conformance/vectors/agdisc_0002_not_found.json",
-      "pass": false,
+      "pass": true,
       "expected": "reject",
       "observed": "reject",
       "expected_code": "NOT_FOUND",
       "observed_code": "NOT_FOUND",
       "expected_error_code": "ERR_NOT_FOUND",
       "observed_error_code": "ERR_NOT_FOUND",
-      "used_fallback": true,
-      "fallback_mode": "disallowed",
-      "detail": "fallback evaluation was used but -no-fallback is set"
+      "used_fallback": false,
+      "fallback_mode": "allowed"
     },
     {
       "vector_id": "agdisc_0003_invalid_doc_rejected",
       "path": "conformance/vectors/agdisc_0003_invalid_doc_rejected.json",
-      "pass": false,
+      "pass": true,
       "expected": "reject",
       "observed": "reject",
       "expected_code": "INVALID_PROFILE_PAYLOAD",
       "observed_code": "INVALID_PROFILE_PAYLOAD",
       "expected_error_code": "ERR_INVALID_PROFILE_PAYLOAD",
       "observed_error_code": "ERR_INVALID_PROFILE_PAYLOAD",
-      "used_fallback": true,
-      "fallback_mode": "disallowed",
-      "detail": "fallback evaluation was used but -no-fallback is set"
+      "used_fallback": false,
+      "fallback_mode": "allowed"
     },
     {
       "vector_id": "agdisc_0004_etag_not_modified",
@@ -295,16 +287,15 @@
     {
       "vector_id": "artifact_0003_integrity_mismatch",
       "path": "conformance/vectors/artifact_0003_integrity_mismatch.json",
-      "pass": false,
+      "pass": true,
       "expected": "reject",
       "observed": "reject",
       "expected_code": "INVALID_PROFILE_PAYLOAD",
       "observed_code": "INVALID_PROFILE_PAYLOAD",
       "expected_error_code": "ERR_INVALID_PROFILE_PAYLOAD",
       "observed_error_code": "ERR_INVALID_PROFILE_PAYLOAD",
-      "used_fallback": true,
-      "fallback_mode": "disallowed",
-      "detail": "fallback evaluation was used but -no-fallback is set"
+      "used_fallback": false,
+      "fallback_mode": "allowed"
     },
     {
       "vector_id": "artifact_0004_resume_token",
@@ -331,16 +322,15 @@
     {
       "vector_id": "artifact_0006_corruption_rejected",
       "path": "conformance/vectors/artifact_0006_corruption_rejected.json",
-      "pass": false,
+      "pass": true,
       "expected": "reject",
       "observed": "reject",
       "expected_code": "INVALID_PROFILE_PAYLOAD",
       "observed_code": "INVALID_PROFILE_PAYLOAD",
       "expected_error_code": "ERR_INVALID_PROFILE_PAYLOAD",
       "observed_error_code": "ERR_INVALID_PROFILE_PAYLOAD",
-      "used_fallback": true,
-      "fallback_mode": "disallowed",
-      "detail": "fallback evaluation was used but -no-fallback is set"
+      "used_fallback": false,
+      "fallback_mode": "allowed"
     },
     {
       "vector_id": "artifact_0007_unsupported_msg_type",
@@ -547,16 +537,15 @@
     {
       "vector_id": "core_0016_burst_limit_exceeded",
       "path": "conformance/vectors/core_0016_burst_limit_exceeded.json",
-      "pass": false,
+      "pass": true,
       "expected": "reject",
       "observed": "reject",
       "expected_code": "RATE_LIMIT_EXCEEDED",
       "observed_code": "RATE_LIMIT_EXCEEDED",
       "expected_error_code": "ERR_RATE_LIMIT_EXCEEDED",
       "observed_error_code": "ERR_RATE_LIMIT_EXCEEDED",
-      "used_fallback": true,
-      "fallback_mode": "disallowed",
-      "detail": "fallback evaluation was used but -no-fallback is set"
+      "used_fallback": false,
+      "fallback_mode": "allowed"
     },
     {
       "vector_id": "core_0017_unknown_profile_with_error_path",
@@ -685,16 +674,15 @@
     {
       "vector_id": "core_0027_duplicate_inflight_msg_id",
       "path": "conformance/vectors/core_0027_duplicate_inflight_msg_id.json",
-      "pass": false,
+      "pass": true,
       "expected": "reject",
       "observed": "reject",
       "expected_code": "DUPLICATE_MSG_ID",
       "observed_code": "DUPLICATE_MSG_ID",
       "expected_error_code": "ERR_DUPLICATE_MSG_ID",
       "observed_error_code": "ERR_DUPLICATE_MSG_ID",
-      "used_fallback": true,
-      "fallback_mode": "disallowed",
-      "detail": "fallback evaluation was used but -no-fallback is set"
+      "used_fallback": false,
+      "fallback_mode": "allowed"
     },
     {
       "vector_id": "core_0028_error_mapping_invalid_frame",
@@ -771,16 +759,15 @@
     {
       "vector_id": "cred_0001_expiry_enforced",
       "path": "conformance/vectors/cred_0001_expiry_enforced.json",
-      "pass": false,
+      "pass": true,
       "expected": "reject",
       "observed": "reject",
       "expected_code": "INVALID_PROFILE_PAYLOAD",
       "observed_code": "INVALID_PROFILE_PAYLOAD",
       "expected_error_code": "ERR_INVALID_PROFILE_PAYLOAD",
       "observed_error_code": "ERR_INVALID_PROFILE_PAYLOAD",
-      "used_fallback": true,
-      "fallback_mode": "disallowed",
-      "detail": "fallback evaluation was used but -no-fallback is set"
+      "used_fallback": false,
+      "fallback_mode": "allowed"
     },
     {
       "vector_id": "cred_0002_chain_length_enforced",
@@ -796,16 +783,15 @@
     {
       "vector_id": "cred_0003_invalid_credential",
       "path": "conformance/vectors/cred_0003_invalid_credential.json",
-      "pass": false,
+      "pass": true,
       "expected": "reject",
       "observed": "reject",
       "expected_code": "INVALID_PROFILE_PAYLOAD",
       "observed_code": "INVALID_PROFILE_PAYLOAD",
       "expected_error_code": "ERR_INVALID_PROFILE_PAYLOAD",
       "observed_error_code": "ERR_INVALID_PROFILE_PAYLOAD",
-      "used_fallback": true,
-      "fallback_mode": "disallowed",
-      "detail": "fallback evaluation was used but -no-fallback is set"
+      "used_fallback": false,
+      "fallback_mode": "allowed"
     },
     {
       "vector_id": "cred_0004_delegation_propagation",
@@ -945,16 +931,15 @@
     {
       "vector_id": "events_0001_required_fields",
       "path": "conformance/vectors/events_0001_required_fields.json",
-      "pass": false,
+      "pass": true,
       "expected": "reject",
       "observed": "reject",
       "expected_code": "INVALID_PROFILE_PAYLOAD",
       "observed_code": "INVALID_PROFILE_PAYLOAD",
       "expected_error_code": "ERR_INVALID_PROFILE_PAYLOAD",
       "observed_error_code": "ERR_INVALID_PROFILE_PAYLOAD",
-      "used_fallback": true,
-      "fallback_mode": "disallowed",
-      "detail": "fallback evaluation was used but -no-fallback is set"
+      "used_fallback": false,
+      "fallback_mode": "allowed"
     },
     {
       "vector_id": "events_0002_ordering",
@@ -992,16 +977,15 @@
     {
       "vector_id": "events_0005_invalid_severity",
       "path": "conformance/vectors/events_0005_invalid_severity.json",
-      "pass": false,
+      "pass": true,
       "expected": "reject",
       "observed": "reject",
       "expected_code": "INVALID_PROFILE_PAYLOAD",
       "observed_code": "INVALID_PROFILE_PAYLOAD",
       "expected_error_code": "ERR_INVALID_PROFILE_PAYLOAD",
       "observed_error_code": "ERR_INVALID_PROFILE_PAYLOAD",
-      "used_fallback": true,
-      "fallback_mode": "disallowed",
-      "detail": "fallback evaluation was used but -no-fallback is set"
+      "used_fallback": false,
+      "fallback_mode": "allowed"
     },
     {
       "vector_id": "events_0006_unsupported_msg_type",
@@ -1194,16 +1178,15 @@
     {
       "vector_id": "obs_0001_traceparent_validity",
       "path": "conformance/vectors/obs_0001_traceparent_validity.json",
-      "pass": false,
+      "pass": true,
       "expected": "reject",
       "observed": "reject",
       "expected_code": "INVALID_PROFILE_PAYLOAD",
       "observed_code": "INVALID_PROFILE_PAYLOAD",
       "expected_error_code": "ERR_INVALID_PROFILE_PAYLOAD",
       "observed_error_code": "ERR_INVALID_PROFILE_PAYLOAD",
-      "used_fallback": true,
-      "fallback_mode": "disallowed",
-      "detail": "fallback evaluation was used but -no-fallback is set"
+      "used_fallback": false,
+      "fallback_mode": "allowed"
     },
     {
       "vector_id": "obs_0002_propagation",
@@ -1556,30 +1539,28 @@
     {
       "vector_id": "state_0002_hash_mismatch",
       "path": "conformance/vectors/state_0002_hash_mismatch.json",
-      "pass": false,
+      "pass": true,
       "expected": "reject",
       "observed": "reject",
       "expected_code": "INVALID_PROFILE_PAYLOAD",
       "observed_code": "INVALID_PROFILE_PAYLOAD",
       "expected_error_code": "ERR_INVALID_PROFILE_PAYLOAD",
       "observed_error_code": "ERR_INVALID_PROFILE_PAYLOAD",
-      "used_fallback": true,
-      "fallback_mode": "disallowed",
-      "detail": "fallback evaluation was used but -no-fallback is set"
+      "used_fallback": false,
+      "fallback_mode": "allowed"
     },
     {
       "vector_id": "state_0003_parent_missing",
       "path": "conformance/vectors/state_0003_parent_missing.json",
-      "pass": false,
+      "pass": true,
       "expected": "reject",
       "observed": "reject",
       "expected_code": "INVALID_PROFILE_PAYLOAD",
       "observed_code": "INVALID_PROFILE_PAYLOAD",
       "expected_error_code": "ERR_INVALID_PROFILE_PAYLOAD",
       "observed_error_code": "ERR_INVALID_PROFILE_PAYLOAD",
-      "used_fallback": true,
-      "fallback_mode": "disallowed",
-      "detail": "fallback evaluation was used but -no-fallback is set"
+      "used_fallback": false,
+      "fallback_mode": "allowed"
     },
     {
       "vector_id": "state_0004_dag_valid",
@@ -1641,44 +1622,41 @@
     {
       "vector_id": "tooldisc_0003_missing_tool_not_found",
       "path": "conformance/vectors/tooldisc_0003_missing_tool_not_found.json",
-      "pass": false,
+      "pass": true,
       "expected": "reject",
       "observed": "reject",
       "expected_code": "NOT_FOUND",
       "observed_code": "NOT_FOUND",
       "expected_error_code": "ERR_NOT_FOUND",
       "observed_error_code": "ERR_NOT_FOUND",
-      "used_fallback": true,
-      "fallback_mode": "disallowed",
-      "detail": "fallback evaluation was used but -no-fallback is set"
+      "used_fallback": false,
+      "fallback_mode": "allowed"
     },
     {
       "vector_id": "tooldisc_0004_schema_ref_invalid",
       "path": "conformance/vectors/tooldisc_0004_schema_ref_invalid.json",
-      "pass": false,
+      "pass": true,
       "expected": "reject",
       "observed": "reject",
       "expected_code": "INVALID_PROFILE_PAYLOAD",
       "observed_code": "INVALID_PROFILE_PAYLOAD",
       "expected_error_code": "ERR_INVALID_PROFILE_PAYLOAD",
       "observed_error_code": "ERR_INVALID_PROFILE_PAYLOAD",
-      "used_fallback": true,
-      "fallback_mode": "disallowed",
-      "detail": "fallback evaluation was used but -no-fallback is set"
+      "used_fallback": false,
+      "fallback_mode": "allowed"
     },
     {
       "vector_id": "tooldisc_0005_descriptor_missing_required",
       "path": "conformance/vectors/tooldisc_0005_descriptor_missing_required.json",
-      "pass": false,
+      "pass": true,
       "expected": "reject",
       "observed": "reject",
       "expected_code": "INVALID_PROFILE_PAYLOAD",
       "observed_code": "INVALID_PROFILE_PAYLOAD",
       "expected_error_code": "ERR_INVALID_PROFILE_PAYLOAD",
       "observed_error_code": "ERR_INVALID_PROFILE_PAYLOAD",
-      "used_fallback": true,
-      "fallback_mode": "disallowed",
-      "detail": "fallback evaluation was used but -no-fallback is set"
+      "used_fallback": false,
+      "fallback_mode": "allowed"
     },
     {
       "vector_id": "tooldisc_0006_unsupported_msg_type",
@@ -1692,316 +1670,6 @@
       "observed_error_code": "ERR_UNSUPPORTED_MSG_TYPE",
       "used_fallback": false,
       "fallback_mode": "allowed"
-    }
-  ],
-  "failures": [
-    {
-      "vector_id": "a2a_0004_event_after_terminal_result",
-      "path": "conformance/vectors/a2a_0004_event_after_terminal_result.json",
-      "pass": false,
-      "expected": "reject",
-      "observed": "reject",
-      "expected_code": "INVALID_PROFILE_PAYLOAD",
-      "observed_code": "INVALID_PROFILE_PAYLOAD",
-      "expected_error_code": "ERR_INVALID_PROFILE_PAYLOAD",
-      "observed_error_code": "ERR_INVALID_PROFILE_PAYLOAD",
-      "used_fallback": true,
-      "fallback_mode": "disallowed",
-      "detail": "fallback evaluation was used but -no-fallback is set"
-    },
-    {
-      "vector_id": "a2a_0006_event_before_task_invalid",
-      "path": "conformance/vectors/a2a_0006_event_before_task_invalid.json",
-      "pass": false,
-      "expected": "reject",
-      "observed": "reject",
-      "expected_code": "INVALID_PROFILE_PAYLOAD",
-      "observed_code": "INVALID_PROFILE_PAYLOAD",
-      "expected_error_code": "ERR_INVALID_PROFILE_PAYLOAD",
-      "observed_error_code": "ERR_INVALID_PROFILE_PAYLOAD",
-      "used_fallback": true,
-      "fallback_mode": "disallowed",
-      "detail": "fallback evaluation was used but -no-fallback is set"
-    },
-    {
-      "vector_id": "a2a_0007_result_before_task_invalid",
-      "path": "conformance/vectors/a2a_0007_result_before_task_invalid.json",
-      "pass": false,
-      "expected": "reject",
-      "observed": "reject",
-      "expected_code": "INVALID_PROFILE_PAYLOAD",
-      "observed_code": "INVALID_PROFILE_PAYLOAD",
-      "expected_error_code": "ERR_INVALID_PROFILE_PAYLOAD",
-      "observed_error_code": "ERR_INVALID_PROFILE_PAYLOAD",
-      "used_fallback": true,
-      "fallback_mode": "disallowed",
-      "detail": "fallback evaluation was used but -no-fallback is set"
-    },
-    {
-      "vector_id": "a2a_0009_duplicate_task_conflicting_payload_rejected",
-      "path": "conformance/vectors/a2a_0009_duplicate_task_conflicting_payload_rejected.json",
-      "pass": false,
-      "expected": "reject",
-      "observed": "reject",
-      "expected_code": "INVALID_PROFILE_PAYLOAD",
-      "observed_code": "INVALID_PROFILE_PAYLOAD",
-      "expected_error_code": "ERR_INVALID_PROFILE_PAYLOAD",
-      "observed_error_code": "ERR_INVALID_PROFILE_PAYLOAD",
-      "used_fallback": true,
-      "fallback_mode": "disallowed",
-      "detail": "fallback evaluation was used but -no-fallback is set"
-    },
-    {
-      "vector_id": "a2a_0010_post_terminal_event_rejected",
-      "path": "conformance/vectors/a2a_0010_post_terminal_event_rejected.json",
-      "pass": false,
-      "expected": "reject",
-      "observed": "reject",
-      "expected_code": "INVALID_PROFILE_PAYLOAD",
-      "observed_code": "INVALID_PROFILE_PAYLOAD",
-      "expected_error_code": "ERR_INVALID_PROFILE_PAYLOAD",
-      "observed_error_code": "ERR_INVALID_PROFILE_PAYLOAD",
-      "used_fallback": true,
-      "fallback_mode": "disallowed",
-      "detail": "fallback evaluation was used but -no-fallback is set"
-    },
-    {
-      "vector_id": "a2a_0011_post_terminal_result_rejected",
-      "path": "conformance/vectors/a2a_0011_post_terminal_result_rejected.json",
-      "pass": false,
-      "expected": "reject",
-      "observed": "reject",
-      "expected_code": "INVALID_PROFILE_PAYLOAD",
-      "observed_code": "INVALID_PROFILE_PAYLOAD",
-      "expected_error_code": "ERR_INVALID_PROFILE_PAYLOAD",
-      "observed_error_code": "ERR_INVALID_PROFILE_PAYLOAD",
-      "used_fallback": true,
-      "fallback_mode": "disallowed",
-      "detail": "fallback evaluation was used but -no-fallback is set"
-    },
-    {
-      "vector_id": "agdisc_0002_not_found",
-      "path": "conformance/vectors/agdisc_0002_not_found.json",
-      "pass": false,
-      "expected": "reject",
-      "observed": "reject",
-      "expected_code": "NOT_FOUND",
-      "observed_code": "NOT_FOUND",
-      "expected_error_code": "ERR_NOT_FOUND",
-      "observed_error_code": "ERR_NOT_FOUND",
-      "used_fallback": true,
-      "fallback_mode": "disallowed",
-      "detail": "fallback evaluation was used but -no-fallback is set"
-    },
-    {
-      "vector_id": "agdisc_0003_invalid_doc_rejected",
-      "path": "conformance/vectors/agdisc_0003_invalid_doc_rejected.json",
-      "pass": false,
-      "expected": "reject",
-      "observed": "reject",
-      "expected_code": "INVALID_PROFILE_PAYLOAD",
-      "observed_code": "INVALID_PROFILE_PAYLOAD",
-      "expected_error_code": "ERR_INVALID_PROFILE_PAYLOAD",
-      "observed_error_code": "ERR_INVALID_PROFILE_PAYLOAD",
-      "used_fallback": true,
-      "fallback_mode": "disallowed",
-      "detail": "fallback evaluation was used but -no-fallback is set"
-    },
-    {
-      "vector_id": "artifact_0003_integrity_mismatch",
-      "path": "conformance/vectors/artifact_0003_integrity_mismatch.json",
-      "pass": false,
-      "expected": "reject",
-      "observed": "reject",
-      "expected_code": "INVALID_PROFILE_PAYLOAD",
-      "observed_code": "INVALID_PROFILE_PAYLOAD",
-      "expected_error_code": "ERR_INVALID_PROFILE_PAYLOAD",
-      "observed_error_code": "ERR_INVALID_PROFILE_PAYLOAD",
-      "used_fallback": true,
-      "fallback_mode": "disallowed",
-      "detail": "fallback evaluation was used but -no-fallback is set"
-    },
-    {
-      "vector_id": "artifact_0006_corruption_rejected",
-      "path": "conformance/vectors/artifact_0006_corruption_rejected.json",
-      "pass": false,
-      "expected": "reject",
-      "observed": "reject",
-      "expected_code": "INVALID_PROFILE_PAYLOAD",
-      "observed_code": "INVALID_PROFILE_PAYLOAD",
-      "expected_error_code": "ERR_INVALID_PROFILE_PAYLOAD",
-      "observed_error_code": "ERR_INVALID_PROFILE_PAYLOAD",
-      "used_fallback": true,
-      "fallback_mode": "disallowed",
-      "detail": "fallback evaluation was used but -no-fallback is set"
-    },
-    {
-      "vector_id": "core_0016_burst_limit_exceeded",
-      "path": "conformance/vectors/core_0016_burst_limit_exceeded.json",
-      "pass": false,
-      "expected": "reject",
-      "observed": "reject",
-      "expected_code": "RATE_LIMIT_EXCEEDED",
-      "observed_code": "RATE_LIMIT_EXCEEDED",
-      "expected_error_code": "ERR_RATE_LIMIT_EXCEEDED",
-      "observed_error_code": "ERR_RATE_LIMIT_EXCEEDED",
-      "used_fallback": true,
-      "fallback_mode": "disallowed",
-      "detail": "fallback evaluation was used but -no-fallback is set"
-    },
-    {
-      "vector_id": "core_0027_duplicate_inflight_msg_id",
-      "path": "conformance/vectors/core_0027_duplicate_inflight_msg_id.json",
-      "pass": false,
-      "expected": "reject",
-      "observed": "reject",
-      "expected_code": "DUPLICATE_MSG_ID",
-      "observed_code": "DUPLICATE_MSG_ID",
-      "expected_error_code": "ERR_DUPLICATE_MSG_ID",
-      "observed_error_code": "ERR_DUPLICATE_MSG_ID",
-      "used_fallback": true,
-      "fallback_mode": "disallowed",
-      "detail": "fallback evaluation was used but -no-fallback is set"
-    },
-    {
-      "vector_id": "cred_0001_expiry_enforced",
-      "path": "conformance/vectors/cred_0001_expiry_enforced.json",
-      "pass": false,
-      "expected": "reject",
-      "observed": "reject",
-      "expected_code": "INVALID_PROFILE_PAYLOAD",
-      "observed_code": "INVALID_PROFILE_PAYLOAD",
-      "expected_error_code": "ERR_INVALID_PROFILE_PAYLOAD",
-      "observed_error_code": "ERR_INVALID_PROFILE_PAYLOAD",
-      "used_fallback": true,
-      "fallback_mode": "disallowed",
-      "detail": "fallback evaluation was used but -no-fallback is set"
-    },
-    {
-      "vector_id": "cred_0003_invalid_credential",
-      "path": "conformance/vectors/cred_0003_invalid_credential.json",
-      "pass": false,
-      "expected": "reject",
-      "observed": "reject",
-      "expected_code": "INVALID_PROFILE_PAYLOAD",
-      "observed_code": "INVALID_PROFILE_PAYLOAD",
-      "expected_error_code": "ERR_INVALID_PROFILE_PAYLOAD",
-      "observed_error_code": "ERR_INVALID_PROFILE_PAYLOAD",
-      "used_fallback": true,
-      "fallback_mode": "disallowed",
-      "detail": "fallback evaluation was used but -no-fallback is set"
-    },
-    {
-      "vector_id": "events_0001_required_fields",
-      "path": "conformance/vectors/events_0001_required_fields.json",
-      "pass": false,
-      "expected": "reject",
-      "observed": "reject",
-      "expected_code": "INVALID_PROFILE_PAYLOAD",
-      "observed_code": "INVALID_PROFILE_PAYLOAD",
-      "expected_error_code": "ERR_INVALID_PROFILE_PAYLOAD",
-      "observed_error_code": "ERR_INVALID_PROFILE_PAYLOAD",
-      "used_fallback": true,
-      "fallback_mode": "disallowed",
-      "detail": "fallback evaluation was used but -no-fallback is set"
-    },
-    {
-      "vector_id": "events_0005_invalid_severity",
-      "path": "conformance/vectors/events_0005_invalid_severity.json",
-      "pass": false,
-      "expected": "reject",
-      "observed": "reject",
-      "expected_code": "INVALID_PROFILE_PAYLOAD",
-      "observed_code": "INVALID_PROFILE_PAYLOAD",
-      "expected_error_code": "ERR_INVALID_PROFILE_PAYLOAD",
-      "observed_error_code": "ERR_INVALID_PROFILE_PAYLOAD",
-      "used_fallback": true,
-      "fallback_mode": "disallowed",
-      "detail": "fallback evaluation was used but -no-fallback is set"
-    },
-    {
-      "vector_id": "obs_0001_traceparent_validity",
-      "path": "conformance/vectors/obs_0001_traceparent_validity.json",
-      "pass": false,
-      "expected": "reject",
-      "observed": "reject",
-      "expected_code": "INVALID_PROFILE_PAYLOAD",
-      "observed_code": "INVALID_PROFILE_PAYLOAD",
-      "expected_error_code": "ERR_INVALID_PROFILE_PAYLOAD",
-      "observed_error_code": "ERR_INVALID_PROFILE_PAYLOAD",
-      "used_fallback": true,
-      "fallback_mode": "disallowed",
-      "detail": "fallback evaluation was used but -no-fallback is set"
-    },
-    {
-      "vector_id": "state_0002_hash_mismatch",
-      "path": "conformance/vectors/state_0002_hash_mismatch.json",
-      "pass": false,
-      "expected": "reject",
-      "observed": "reject",
-      "expected_code": "INVALID_PROFILE_PAYLOAD",
-      "observed_code": "INVALID_PROFILE_PAYLOAD",
-      "expected_error_code": "ERR_INVALID_PROFILE_PAYLOAD",
-      "observed_error_code": "ERR_INVALID_PROFILE_PAYLOAD",
-      "used_fallback": true,
-      "fallback_mode": "disallowed",
-      "detail": "fallback evaluation was used but -no-fallback is set"
-    },
-    {
-      "vector_id": "state_0003_parent_missing",
-      "path": "conformance/vectors/state_0003_parent_missing.json",
-      "pass": false,
-      "expected": "reject",
-      "observed": "reject",
-      "expected_code": "INVALID_PROFILE_PAYLOAD",
-      "observed_code": "INVALID_PROFILE_PAYLOAD",
-      "expected_error_code": "ERR_INVALID_PROFILE_PAYLOAD",
-      "observed_error_code": "ERR_INVALID_PROFILE_PAYLOAD",
-      "used_fallback": true,
-      "fallback_mode": "disallowed",
-      "detail": "fallback evaluation was used but -no-fallback is set"
-    },
-    {
-      "vector_id": "tooldisc_0003_missing_tool_not_found",
-      "path": "conformance/vectors/tooldisc_0003_missing_tool_not_found.json",
-      "pass": false,
-      "expected": "reject",
-      "observed": "reject",
-      "expected_code": "NOT_FOUND",
-      "observed_code": "NOT_FOUND",
-      "expected_error_code": "ERR_NOT_FOUND",
-      "observed_error_code": "ERR_NOT_FOUND",
-      "used_fallback": true,
-      "fallback_mode": "disallowed",
-      "detail": "fallback evaluation was used but -no-fallback is set"
-    },
-    {
-      "vector_id": "tooldisc_0004_schema_ref_invalid",
-      "path": "conformance/vectors/tooldisc_0004_schema_ref_invalid.json",
-      "pass": false,
-      "expected": "reject",
-      "observed": "reject",
-      "expected_code": "INVALID_PROFILE_PAYLOAD",
-      "observed_code": "INVALID_PROFILE_PAYLOAD",
-      "expected_error_code": "ERR_INVALID_PROFILE_PAYLOAD",
-      "observed_error_code": "ERR_INVALID_PROFILE_PAYLOAD",
-      "used_fallback": true,
-      "fallback_mode": "disallowed",
-      "detail": "fallback evaluation was used but -no-fallback is set"
-    },
-    {
-      "vector_id": "tooldisc_0005_descriptor_missing_required",
-      "path": "conformance/vectors/tooldisc_0005_descriptor_missing_required.json",
-      "pass": false,
-      "expected": "reject",
-      "observed": "reject",
-      "expected_code": "INVALID_PROFILE_PAYLOAD",
-      "observed_code": "INVALID_PROFILE_PAYLOAD",
-      "expected_error_code": "ERR_INVALID_PROFILE_PAYLOAD",
-      "observed_error_code": "ERR_INVALID_PROFILE_PAYLOAD",
-      "used_fallback": true,
-      "fallback_mode": "disallowed",
-      "detail": "fallback evaluation was used but -no-fallback is set"
     }
   ]
 }

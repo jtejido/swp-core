@@ -3,7 +3,7 @@
 This POC implements the minimal recommended scope:
 
 - Core only first: framing + E1 envelope decode/encode + validation + profile dispatch.
-- Profiles: MCP Mapping (profile `1`) and SWP-RPC (profile `12`).
+- Profiles: MCP Mapping (`1`), A2A (`2`), and SWP family (`10`-`19`).
 - Demo flows: one request/response (MCP `tools/list`) and one streaming flow (SWP-RPC `demo.stream.count`).
 - Vector tooling: `*.json` + real `*.bin` fixtures for a starter POC vector set.
 
@@ -40,6 +40,7 @@ make gen-remaining-vectors
 
 ```bash
 make test
+make test-race
 ```
 
 3. Validate POC vectors:
@@ -137,6 +138,48 @@ Shutdown:
 make podman-down
 ```
 
-## A2A note
+## Runtime backend injection
 
-A2A profile behavior is still spec-only in this repo. This POC uses SWP-RPC streaming as the second executable profile while preserving the same Core transport/validation path.
+Server runtime state is now pluggable via `server.New(logger, ...options)`:
+
+- `server.WithA2ABackend(...)`
+- `server.WithAGDISCBackend(...)`
+- `server.WithToolDiscBackend(...)`
+- `server.WithRPCBackend(...)`
+- `server.WithEventsBackend(...)`
+- `server.WithArtifactBackend(...)`
+- `server.WithStateBackend(...)`
+- `server.WithCredBackend(...)`
+- `server.WithPolicyHintBackend(...)`
+- `server.WithRelayBackend(...)`
+- `server.WithOBSBackend(...)`
+
+If no options are provided, the server uses built-in in-memory backends.
+
+Runtime cross-cutting helpers live in `poc/internal/runtime/`:
+
+- `clock`: reusable clock abstraction helpers
+- `context`: request metadata + correlation propagation helpers
+- `errors`: alias/runtime code to canonical `ERR_*` mapping helper
+- `validate`: shared field/severity/trace validation helpers
+
+MCP and SWP-RPC server paths emit SWP-EVENTS through the injected `EventsBackend`, using OBS context as correlation fallback when `task_id`/`rpc_id` are absent on emitted events.
+
+### Backend contract matrix
+
+These profile handlers use backend interfaces in `poc/internal/server/runtime_backends.go`.
+Reject paths should map to canonical `ERR_*` taxonomy in `docs/error-codes.md`.
+
+| Profile | Handler | Option | Backend interface | Typical canonical reject codes |
+| --- | --- | --- | --- | --- |
+| A2A (`2`) | `handleA2A` | `WithA2ABackend` | `A2ABackend` | `ERR_INVALID_PROFILE_PAYLOAD`, `ERR_INVALID_FRAME`, `ERR_UNSUPPORTED_MSG_TYPE` |
+| SWP-AGDISC (`10`) | `handleSWPAGDISC` | `WithAGDISCBackend` | `AGDISCBackend` | `ERR_NOT_FOUND`, `ERR_INVALID_PROFILE_PAYLOAD`, `ERR_UNSUPPORTED_MSG_TYPE` |
+| SWP-TOOLDISC (`11`) | `handleSWPToolDisc` | `WithToolDiscBackend` | `ToolDiscBackend` | `ERR_NOT_FOUND`, `ERR_INVALID_PROFILE_PAYLOAD`, `ERR_UNSUPPORTED_MSG_TYPE` |
+| SWP-RPC (`12`) | `handleSWPRPC` | `WithRPCBackend` | `RPCBackend` | `ERR_INVALID_PROFILE_PAYLOAD`, `ERR_UNSUPPORTED_MSG_TYPE`, `ERR_COMPATIBILITY_POLICY` |
+| SWP-EVENTS (`13`) | `handleSWPEvents` | `WithEventsBackend` | `EventsBackend` | `ERR_INVALID_PROFILE_PAYLOAD`, `ERR_UNSUPPORTED_MSG_TYPE`, `ERR_NOT_FOUND` |
+| SWP-ARTIFACT (`14`) | `handleSWPArtifact` | `WithArtifactBackend` | `ArtifactBackend` | `ERR_NOT_FOUND`, `ERR_INVALID_PROFILE_PAYLOAD`, `ERR_COMPATIBILITY_POLICY` |
+| SWP-CRED (`15`) | `handleSWPCred` | `WithCredBackend` | `CredBackend` | `ERR_INVALID_PROFILE_PAYLOAD`, `ERR_SECURITY_POLICY`, `ERR_COMPATIBILITY_POLICY` |
+| SWP-POLICYHINT (`16`) | `handleSWPPolicyHint` | `WithPolicyHintBackend` | `PolicyHintBackend` | `ERR_INVALID_PROFILE_PAYLOAD`, `ERR_COMPATIBILITY_POLICY` |
+| SWP-STATE (`17`) | `handleSWPState` | `WithStateBackend` | `StateBackend` | `ERR_NOT_FOUND`, `ERR_INVALID_PROFILE_PAYLOAD`, `ERR_COMPATIBILITY_POLICY` |
+| SWP-OBS (`18`) | `handleSWPOBS` | `WithOBSBackend` | `OBSBackend` | `ERR_INVALID_PROFILE_PAYLOAD`, `ERR_COMPATIBILITY_POLICY` |
+| SWP-RELAY (`19`) | `handleSWPRelay` | `WithRelayBackend` | `RelayBackend` | `ERR_NOT_FOUND`, `ERR_INVALID_PROFILE_PAYLOAD`, `ERR_RATE_LIMIT_EXCEEDED` |

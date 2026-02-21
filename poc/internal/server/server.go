@@ -7,13 +7,25 @@ import (
 	"io"
 	"log"
 	"net"
+	"time"
 
 	"swp-spec-kit/poc/internal/core"
+	runtimecontext "swp-spec-kit/poc/internal/runtime/context"
 )
 
 const (
-	ProfileMCPMap uint64 = 1
-	ProfileSWPRPC uint64 = 12
+	ProfileMCPMap        uint64 = 1
+	ProfileA2A           uint64 = 2
+	ProfileSWPAGDISC     uint64 = 10
+	ProfileSWPToolDisc   uint64 = 11
+	ProfileSWPRPC        uint64 = 12
+	ProfileSWPEvents     uint64 = 13
+	ProfileSWPArtifact   uint64 = 14
+	ProfileSWPCred       uint64 = 15
+	ProfileSWPPolicyHint uint64 = 16
+	ProfileSWPState      uint64 = 17
+	ProfileSWPOBS        uint64 = 18
+	ProfileSWPRelay      uint64 = 19
 )
 
 type Server struct {
@@ -21,30 +33,108 @@ type Server struct {
 	limits    core.Limits
 	validator core.Validator
 	router    *core.Router
+	runtime   runtimeBackends
 }
 
-func New(logger *log.Logger) *Server {
+const (
+	defaultConnRateWindow         = time.Second
+	defaultConnMaxFramesPerWindow = 128
+	defaultDuplicateMsgIDWindow   = 5 * time.Second
+)
+
+var (
+	errRateLimitExceeded = errors.New("rate limit exceeded")
+	errDuplicateMsgID    = errors.New("duplicate in-flight msg_id")
+)
+
+type connPolicy struct {
+	windowStart time.Time
+	frameCount  int
+	rateWindow  time.Duration
+	maxFrames   int
+	msgIDWindow time.Duration
+	seenMsgID   map[string]time.Time
+}
+
+func newConnPolicy(now time.Time) *connPolicy {
+	return &connPolicy{
+		windowStart: now,
+		rateWindow:  defaultConnRateWindow,
+		maxFrames:   defaultConnMaxFramesPerWindow,
+		msgIDWindow: defaultDuplicateMsgIDWindow,
+		seenMsgID:   make(map[string]time.Time),
+	}
+}
+
+func (p *connPolicy) check(now time.Time, msgID []byte) error {
+	if now.Sub(p.windowStart) >= p.rateWindow {
+		p.windowStart = now
+		p.frameCount = 0
+	}
+	p.frameCount++
+	if p.frameCount > p.maxFrames {
+		return errRateLimitExceeded
+	}
+
+	threshold := now.Add(-p.msgIDWindow)
+	for k, ts := range p.seenMsgID {
+		if ts.Before(threshold) {
+			delete(p.seenMsgID, k)
+		}
+	}
+
+	key := string(msgID)
+	if last, ok := p.seenMsgID[key]; ok && now.Sub(last) < p.msgIDWindow {
+		return errDuplicateMsgID
+	}
+	p.seenMsgID[key] = now
+	return nil
+}
+
+func New(logger *log.Logger, opts ...Option) *Server {
 	if logger == nil {
 		logger = log.Default()
 	}
+	runtime := newRuntimeBackends(opts...)
 	limits := core.DefaultLimits()
 	validator := core.DefaultValidator()
 	validator.Limits = limits
 	validator.KnownProfiles = map[uint64]struct{}{
-		ProfileMCPMap: {},
-		ProfileSWPRPC: {},
+		ProfileMCPMap:        {},
+		ProfileA2A:           {},
+		ProfileSWPAGDISC:     {},
+		ProfileSWPToolDisc:   {},
+		ProfileSWPRPC:        {},
+		ProfileSWPEvents:     {},
+		ProfileSWPArtifact:   {},
+		ProfileSWPCred:       {},
+		ProfileSWPPolicyHint: {},
+		ProfileSWPState:      {},
+		ProfileSWPOBS:        {},
+		ProfileSWPRelay:      {},
 	}
 
-	router := core.NewRouter()
-	router.Register(ProfileMCPMap, handleMCP)
-	router.Register(ProfileSWPRPC, handleSWPRPC)
-
-	return &Server{
+	s := &Server{
 		logger:    logger,
 		limits:    limits,
 		validator: validator,
-		router:    router,
+		runtime:   runtime,
 	}
+	router := core.NewRouter()
+	router.Register(ProfileMCPMap, s.handleMCP)
+	router.Register(ProfileA2A, s.handleA2A)
+	router.Register(ProfileSWPAGDISC, s.handleSWPAGDISC)
+	router.Register(ProfileSWPToolDisc, s.handleSWPToolDisc)
+	router.Register(ProfileSWPRPC, s.handleSWPRPC)
+	router.Register(ProfileSWPEvents, s.handleSWPEvents)
+	router.Register(ProfileSWPArtifact, s.handleSWPArtifact)
+	router.Register(ProfileSWPCred, s.handleSWPCred)
+	router.Register(ProfileSWPPolicyHint, s.handleSWPPolicyHint)
+	router.Register(ProfileSWPState, s.handleSWPState)
+	router.Register(ProfileSWPOBS, s.handleSWPOBS)
+	router.Register(ProfileSWPRelay, s.handleSWPRelay)
+	s.router = router
+	return s
 }
 
 func (s *Server) Serve(ctx context.Context, ln net.Listener) error {
@@ -67,6 +157,7 @@ func (s *Server) Serve(ctx context.Context, ln net.Listener) error {
 
 func (s *Server) handleConn(ctx context.Context, conn net.Conn) {
 	defer conn.Close()
+	policy := newConnPolicy(time.Now())
 	for {
 		select {
 		case <-ctx.Done():
@@ -93,8 +184,29 @@ func (s *Server) handleConn(ctx context.Context, conn net.Conn) {
 			s.logger.Printf("validate envelope error: %v", err)
 			return
 		}
+		if err := policy.check(time.Now(), env.MsgID); err != nil {
+			if errors.Is(err, errRateLimitExceeded) || errors.Is(err, errDuplicateMsgID) {
+				s.logger.Printf("connection policy violation: %v", err)
+			} else {
+				s.logger.Printf("connection policy error: %v", err)
+			}
+			return
+		}
 
-		responses, err := s.router.Dispatch(ctx, env)
+		reqCtx := runtimecontext.WithMessageMeta(ctx, runtimecontext.MessageMeta{
+			ProfileID: env.ProfileID,
+			MsgID:     env.MsgID,
+		})
+		obsDoc := s.runtime.obs.GetDoc()
+		reqCtx = runtimecontext.WithCorrelation(reqCtx, runtimecontext.Correlation{
+			Traceparent: obsDoc.Traceparent,
+			Tracestate:  obsDoc.Tracestate,
+			MsgID:       obsDoc.MsgID,
+			TaskID:      obsDoc.TaskID,
+			RPCID:       obsDoc.RPCID,
+		})
+
+		responses, err := s.router.Dispatch(reqCtx, env)
 		if err != nil {
 			s.logger.Printf("dispatch error: %v", err)
 			return
